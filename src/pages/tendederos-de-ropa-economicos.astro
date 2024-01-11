@@ -1,0 +1,74 @@
+---
+
+// components
+import MainLayout from '../layouts/MainLayout.astro';
+import AsideMenuComponent from '../app/html-aside-menu-component/AsideMenuComponent.astro';
+import AsideInterestComponent from '../app/html-aside-interest-component/AsideInterestComponent.astro';
+import ZigZagProductsComponent from '../app/html-zig-zag-products-component/ZigZagProductsComponent.astro';
+import BodyMenuComponent from '../app/html-body-menu-component/BodyMenuComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnInitApp } from '../app/InitApp';
+import CommonModule from '../app/server-common-module/Common.module';
+
+// init app
+await fnInitApp();
+
+const fnGetManyProductsById = CommonModule().fnGetManyProductsById;
+const fnHttpCall = CommonModule().fnHttpCall;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+const productList = await fnGetManyProductsById([2,7,6,35,1,3],configApp)(fnHttpCall);
+const productSummaryList = fnGetProductsSummary(productList)(configApp);
+
+---
+
+<MainLayout page="tendederos-de-ropa-economicos">
+  <main class="pt-20 lg:pt-0">
+    <div class="flex flex-col lg:flex-row">
+      <AsideMenuComponent />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <br>
+        <br>
+        <h1 class="font-sans font-bold text-zinc-900 text-center text-4xl mt-5 lg:mt-0 lg:text-5xl">
+          Tendederos de  
+          <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-yellow-300 relative inline-block -z-10 p-1">
+            <span class="relative text-zinc-900">ropa</span>
+          </span>
+          económicos
+        </h1>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          En nuestro mundo, la moda y la economía se encuentran en armonía. Presentamos una 
+          selección exclusiva de tendederos de ropa económicos, diseñados para aquellos que 
+          buscan la combinación perfecta de funcionalidad y asequibilidad. Desde el clásico 
+          tendedero economico hasta el versátil tendedero plegable barato, cada opción está 
+          cuidadosamente seleccionada para satisfacer tus necesidades de secado sin afectar 
+          tu bolsillo.
+        </p>
+        <br>
+        <br>
+        <ZigZagProductsComponent list={productSummaryList}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

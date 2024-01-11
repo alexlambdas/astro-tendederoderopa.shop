@@ -1,0 +1,107 @@
+---
+
+// components
+import MainLayout from '../layouts/MainLayout.astro';
+import IntroImageComponent from '../app/html-intro-image-component/IntroImageComponent.astro';
+import ProductsClusterComponent from '../app/html-products-cluster-component/ProductsClusterComponent.astro';
+import AsideMenuComponent from '../app/html-aside-menu-component/AsideMenuComponent.astro';
+import AsideInterestComponent from '../app/html-aside-interest-component/AsideInterestComponent.astro';
+import BodyMenuComponent from '../app/html-body-menu-component/BodyMenuComponent.astro';
+
+// logig and common module
+import CommonModule from '../app/server-common-module/Common.module';
+import { fnInitApp, fnGetConfigAppObj, fnGetStateAppObj } from '../app/InitApp';
+
+// init app
+await fnInitApp();
+
+// data
+const fnFilterProductByTag = CommonModule().fnFilterProductByTag;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const stateAppObj = fnGetStateAppObj();
+const productObj = stateAppObj.products;
+const filteredByModern = fnFilterProductByTag('modern')(productObj);
+const filteredByEconomic = fnFilterProductByTag('economic')(productObj);
+const filteredByBest = fnFilterProductByTag('best')(productObj);
+const modernProductsSummaryObj = fnGetProductsSummary(filteredByModern)(configApp);
+const economicProductsSummaryObj = fnGetProductsSummary(filteredByEconomic)(configApp);
+const bestProductsSummaryObj = fnGetProductsSummary(filteredByBest)(configApp);
+
+---
+
+<MainLayout page="index">
+	<main class="pt-20 lg:pt-0">
+		<IntroImageComponent page="index"/>
+		<br>
+		<br>
+		<div class="flex flex-col lg:flex-row">
+			<AsideMenuComponent />
+			<section class="w-11/12 m-auto lg:w-2/3">
+				<h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					La magia de los Extendedores de Ropa
+				</h3>
+				<br>
+				<br>
+				<p class="text-zinc-800 text-lg font-mono font-thin">
+					Sumérgete en el mundo del secado de ropa con productos de vanguardia para tendederos de ropa. 
+					Desde el clásico tender de ropa hasta los versátiles estendederos de ropa, te ofrecemos opciones 
+					diseñadas para maximizar la eficiencia y preservar la frescura de tus prendas.
+				</p>
+				<br>
+				<br>
+				<ProductsClusterComponent products={modernProductsSummaryObj}/>
+				<br>
+				<br>
+				<h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Descubre innovadores Tendederos de Ropa
+				</h3>
+				<br>
+				<br>
+				<p class="text-zinc-800 text-lg font-mono font-thin">
+					Explora la innovación con los ingeniosos extendedores de ropa. No solo son herramientas 
+					prácticas para extender ropa, sino también piezas duraderas que transformarán tu rutina de 
+					lavandería. Descubre cómo la calidad y el diseño se unen para brindarte la mejor experiencia.
+				</p>
+				<br>
+				<br>
+				<ProductsClusterComponent products={economicProductsSummaryObj}/>
+				<br>
+				<br>
+				<h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Estilo y Eficiencia: Colgadores de Ropa para Secar.
+				</h3>
+				<br>
+				<br>
+				<p class="text-zinc-800 text-lg font-mono font-thin">
+					Desde el funcional colgador de ropa para secar hasta el elegante tendal ropa, redefine el arte 
+					de colgar y secar. Experimenta la simplicidad y la elegancia mientras descubres nuevas formas 
+					de colgar ropa para secar. ¡Haz del secado una experiencia única y estilizada!
+				</p>
+				<br>
+				<br>
+				<ProductsClusterComponent products={bestProductsSummaryObj}/>
+				<br>
+				<br>
+				<h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Conoce mas sobre tendederos para colgar ropa
+				</h3>
+				<br>
+				<br>
+				<p class="text-zinc-800 text-lg font-mono font-thin">
+					Explora todas las categorías y todos los tipos de extendedor de ropa, de seguro entre todas 
+					nuestras opciones y clasificación encontrarás el producto que mejor se adapte a tus necesidades.
+				</p>
+				<br>
+				<br>
+				<BodyMenuComponent />
+				<br>
+				<br>
+			</section>
+			<AsideInterestComponent />
+		</div>
+	</main>
+</MainLayout>
+
+<style>
+</style>

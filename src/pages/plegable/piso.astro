@@ -1,0 +1,104 @@
+---
+
+// components
+import MainLayout from '../../layouts/MainLayout.astro';
+import IntroImageComponent from '../../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
+import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
+import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import CommonModule from '../../app/server-common-module/Common.module';
+
+// init app
+await fnInitApp();
+
+const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const stateAppObj = fnGetStateAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+const resultFiltered = fnFilterProductByCategoryAndSubcategory('Plegable')('Para piso')(stateAppObj.products);
+const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
+
+// total of products
+const productsSummaryFirst = productsSummaryObj.slice(0,6);
+const productsSummarySecond = productsSummaryObj.slice(6,12);
+const productsSummaryThird = productsSummaryObj.slice(12,18);
+
+---
+
+<MainLayout page="plegable-piso">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="plegable-piso"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideSubMenuComponent category="Plegable" subCategoryName="Para piso" />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Tendederos de Ropa Plegables de Piso
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Descubre la fusión perfecta de practicidad y elegancia con los tendederos de ropa plegables 
+          de piso. Cada detalle, desde el diseño portátil hasta la facilidad de uso, redefine tu 
+          experiencia de secado.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFirst}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Secado en Movimiento: Tendederos de Ropa Portátiles para tu Estilo de Vida Activo
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Haz del secado una experiencia sin restricciones con los versátiles tendederos de ropa 
+          portátiles. Diseñados para adaptarse a tu estilo de vida móvil, estos innovadores dispositivos 
+          ofrecen la libertad de secar tu ropa donde quieras, cuando quieras.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummarySecond}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Maximiza tu Espacio con Elegancia: Tendederos Plegables de Piso y Colgadores Portátiles
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Optimiza cada rincón de tu hogar con los eficientes tendederos plegables de piso y estilosos 
+          colgadores de ropa plegables portátiles. Desde el práctico tender plegable de pie hasta el 
+          funcional tendedero piso plegable, cada opción está diseñada para adaptarse a tus necesidades.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryThird}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

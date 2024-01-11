@@ -1,0 +1,58 @@
+---
+
+import MainLayout from '../layouts/MainLayout.astro';
+import IntroImageComponent from '../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideMenuComponent from '../app/html-aside-menu-component/AsideMenuComponent.astro';
+import { fnGetConfigAppObj, fnInitApp } from '../app/InitApp';
+
+// init app
+await fnInitApp();
+
+const configApp = fnGetConfigAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+
+---
+
+<MainLayout page="construction">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="construction"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideMenuComponent />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3"></section>
+      <aside class="hidden lg:flex lg:flex-col lg:w-1/6">
+        <div class="sticky top-2 w-11/12 ml-3">
+          <h3 class="text-gray-500 text-center text-lg font-sans font-bold mb-4">
+            Te puede Interesar
+          </h3>
+          <ul>
+            <li class="flex flex-col text-sm font-semibold text-black">
+              <a href={domainName+'/promociones'} class="bg-indigo-100 p-2 mb-2 transition duration-100 hover:text-yellow-600">
+                Promociones
+              </a>
+            </li>
+            <li class="flex flex-col text-sm font-semibold text-black">
+              <a href={domainName+'/economicos'} class="bg-cyan-100 p-2 mb-2 transition duration-100 hover:text-yellow-600">
+                Los mas económicos
+              </a>
+              
+            </li>
+            <li class="flex flex-col text-sm font-semibold text-black">
+              <a href={domainName+'/mejores'} class="bg-orange-100 p-2 mb-2 transition duration-100 hover:text-yellow-600">
+                Mejores calificados
+              </a>
+              
+            </li>
+            <li class="flex flex-col text-sm font-semibold text-black">
+              <a href={domainName+'/modernos'} class="bg-pink-100 p-2 mb-2 transition duration-100 hover:text-yellow-600">
+                Modernos
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+</MainLayout>
+

@@ -1,0 +1,86 @@
+---
+
+// components
+import MainLayout from '../../layouts/MainLayout.astro';
+import IntroImageComponent from '../../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
+import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
+import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
+import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import CommonModule from '../../app/server-common-module/Common.module';
+
+// init app
+await fnInitApp();
+
+const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const stateAppObj = fnGetStateAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+const resultFiltered = fnFilterProductByCategoryAndSubcategory('Plegable')('En madera')(stateAppObj.products);
+const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
+const productsSummaryFirst = productsSummaryObj.slice(0,3);
+const productsSummarySecond = productsSummaryObj.slice(3);
+
+---
+
+<MainLayout page="plegable-madera">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="plegable-madera"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideSubMenuComponent category="Plegable" subCategoryName="En madera" />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Estilo Sostenible: Descubre la Belleza de los Tendederos Plegables de Madera
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Sumérgete en la calidez y la sostenibilidad con los exclusivos tendederos plegables de madera. 
+          Desde el clásico tendedero de ropa plegable de madera hasta el elegante tendal plegable de 
+          madera, cada pieza está diseñada para añadir un toque natural y funcional a tu espacio de secado.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFirst}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Tendederos de Madera Plegables para un Estilo Único
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Transforma tu rutina de secado con los innovadores tendederos de madera plegables. 
+          Descubre la versatilidad y la durabilidad de opciones como el tendedero plegable madera, 
+          diseñado para ofrecer un secado eficiente.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFirst}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

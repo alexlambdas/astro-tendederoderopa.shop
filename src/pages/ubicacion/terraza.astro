@@ -1,0 +1,102 @@
+---
+
+// components
+import MainLayout from '../../layouts/MainLayout.astro';
+import IntroImageComponent from '../../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
+import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
+import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import CommonModule from '../../app/server-common-module/Common.module';
+import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+
+// init app
+await fnInitApp();
+
+const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const stateAppObj = fnGetStateAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+const resultFiltered = fnFilterProductByCategoryAndSubcategory('Ubicación')('Para terraza')(stateAppObj.products);
+const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
+const productsSummaryFirst = productsSummaryObj.slice(0,6);
+const productsSummarySecond = productsSummaryObj.slice(6,12);
+const productsSummaryThird = productsSummaryObj.slice(12);
+
+---
+
+<MainLayout page="ubicacion-terraza">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="ubicacion-terraza"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideSubMenuComponent category="Ubicación" subCategoryName="Para terraza" />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Optimizando el Espacio: Tendederos para Terrazas Pequeñas
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          En la búsqueda de soluciones ingeniosas, los tendederos para terrazas pequeñas se destacan 
+          como la elección inteligente. La versatilidad de un tendal para terraza ofrece funcionalidad.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFirst}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Eleva tu Estilo al Aire Libre con Tendederos de Ropa para Terrazas
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Descubre la fusión perfecta entre moda y practicidad los nuestros exclusivos tendederos de 
+          ropa para terrazas. Desde el clásico tendedero de terraza hasta el moderno colgador de 
+          ropa para terraza, cada opción está diseñada para realzar la estética de tu espacio al aire 
+          libre.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummarySecond}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Convierte tu Terraza en una zona de Frescura con Tendederos en Terraza
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Imagina disfrutar de la brisa fresca mientras tu ropa se seca suavemente en un tendedero 
+          en terraza. Nuestros innovadores diseños de tendederos para terrazas permiten aprovechar 
+          al máximo cada rincón de tu espacio al aire libre.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryThird}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

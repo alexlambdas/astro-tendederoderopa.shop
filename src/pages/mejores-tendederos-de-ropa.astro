@@ -1,0 +1,78 @@
+---
+
+// components
+import MainLayout from '../layouts/MainLayout.astro';
+import AsideMenuComponent from '../app/html-aside-menu-component/AsideMenuComponent.astro';
+import AsideInterestComponent from '../app/html-aside-interest-component/AsideInterestComponent.astro';
+import ZigZagProductsComponent from '../app/html-zig-zag-products-component/ZigZagProductsComponent.astro';
+import BodyMenuComponent from '../app/html-body-menu-component/BodyMenuComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnInitApp } from '../app/InitApp';
+import CommonModule from '../app/server-common-module/Common.module';
+
+
+// init app
+await fnInitApp();
+
+const fnGetManyProductsById = CommonModule().fnGetManyProductsById;
+const fnHttpCall = CommonModule().fnHttpCall;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const productList = await fnGetManyProductsById([33,35,15,41,4],configApp)(fnHttpCall);
+const productSummaryList = fnGetProductsSummary(productList)(configApp);
+
+---
+
+<MainLayout page="mejores-tendederos-de-ropa">
+  <main class="pt-20 lg:pt-0">
+    <div class="flex flex-col lg:flex-row">
+      <AsideMenuComponent />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <br>
+        <br>
+        <h1 class="font-sans font-bold text-zinc-900 text-center text-4xl mt-5 lg:mt-0 lg:text-5xl">
+          Los mejores  
+          <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-yellow-300 relative inline-block -z-10 p-1">
+            <span class="relative text-zinc-900">tendederos</span>
+          </span>
+          de ropa
+        </h1>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          En el mundo del cuidado de la ropa, la calidad se convierte en la clave, y los mejores 
+          tendederos de ropa están diseñados para elevar tu experiencia de secado a nuevas alturas. 
+          Desde la practicidad del mejor tendedero plegable hasta la eficiencia de los mejores 
+          tendederos de pared, cada opción fusiona funcionalidad y estilo. 
+        </p>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          ¿Buscas optimizar el espacio? Sumérgete en la conveniencia vertical con nuestro mejor 
+          tendedero vertical.
+        </p>
+        <br>
+        <br>
+        <ZigZagProductsComponent list={productSummaryList}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

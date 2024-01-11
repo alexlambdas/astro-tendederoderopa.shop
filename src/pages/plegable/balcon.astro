@@ -1,0 +1,101 @@
+---
+
+// components
+import MainLayout from '../../layouts/MainLayout.astro';
+import IntroImageComponent from '../../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
+import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
+import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
+import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import CommonModule from '../../app/server-common-module/Common.module';
+
+// init app
+await fnInitApp();
+
+const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const stateAppObj = fnGetStateAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+const resultFiltered = fnFilterProductByCategoryAndSubcategory('Plegable')('Para balcon')(stateAppObj.products);
+const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
+const productsSummaryFirst = productsSummaryObj.slice(0,8);
+const productsSummarySecond = productsSummaryObj.slice(8,16);
+const productsSummaryThird = productsSummaryObj.slice(16);
+
+
+---
+
+<MainLayout page="plegable-balcon">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="plegable-balcon"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideSubMenuComponent category="Plegable" subCategoryName="Para balcon" />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Experiencia al Aire Libre: Tendederos Plegables para Balcones
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Transforma tu balcón en un oasis de frescura y practicidad con nuestros exclusivos tendederos 
+          plegables para balcones. Desde el clásico tendedero plegable balcon hasta el versátil 
+          tendedero extensible balcon.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFirst}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Tendederos Extensibles para Balcones
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Optimiza cada centímetro de tu balcón con los tendederos extensibles para balcones. Descubre 
+          la funcionalidad y el estilo con opciones como el tendedero de balcon extensible, diseñado 
+          para adaptarse a espacios reducidos
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummarySecond}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Tendederos Extensibles y Plegables en tu Balcón
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Tendedero plegable para balcon hasta la versatilidad del tendedero extensible para balcon
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryThird}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

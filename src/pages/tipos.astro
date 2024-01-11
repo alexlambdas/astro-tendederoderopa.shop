@@ -1,0 +1,47 @@
+---
+
+// components
+import MainLayout from '../layouts/MainLayout.astro';
+import IntroImageComponent from '../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideInterestComponent from '../app/html-aside-interest-component/AsideInterestComponent.astro';
+import AsideSubMenuComponent from '../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
+import BodySubMenuComponent from '../app/html-body-sub-menu-component/BodySubMenuComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnInitApp } from '../app/InitApp';
+
+// init app
+await fnInitApp();
+
+const configApp = fnGetConfigAppObj();
+
+---
+
+<MainLayout page="tipos">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="tipos"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideSubMenuComponent category="Tipos" />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ Que tipos de tendederos de ropa hay ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+					Dependiendo la funcionalidad, la posición adentro de tu hogar, la forma, si tienen movimiento
+          o inclusive si son eléctricos, puedes clasificar un colgador de ropa. Como siempre, aca te
+          entregamos una selección y clasificación de esos tendederos que son muy específicos, pero muy
+          utilizados.
+				</p>
+        <br>
+        <br>
+        <BodySubMenuComponent category="Tipos"/>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

@@ -1,0 +1,29 @@
+---
+
+import MainLayout from '../layouts/MainLayout.astro';
+import IntroImageComponent from '../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideMenuComponent from '../app/html-aside-menu-component/AsideMenuComponent.astro';
+import AsideInterestComponent from '../app/html-aside-interest-component/AsideInterestComponent.astro';
+import { fnGetConfigAppObj, fnInitApp } from '../app/InitApp';
+
+// init app
+await fnInitApp();
+
+const configApp = fnGetConfigAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+
+---
+
+<MainLayout page="construction">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="construction"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideMenuComponent />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3"></section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

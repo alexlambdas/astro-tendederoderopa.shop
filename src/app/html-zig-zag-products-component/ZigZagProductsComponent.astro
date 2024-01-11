@@ -1,0 +1,65 @@
+---
+
+import { fnGetConfigAppObj } from '../InitApp';
+import type { ProductSummaryDto } from '../server-common-module/domain/dtos/ProductSummary.dto';
+
+// props
+
+interface Props {
+  list: ProductSummaryDto[];
+}
+
+const { list } = Astro.props;
+
+// data
+const configAppObj = fnGetConfigAppObj();
+const domainName = configAppObj.SITE_DOMAIN_LINKS;
+
+
+---
+
+<div>
+  {
+    list.map((product, index) => (
+      <div class="flex flex-col mb-16 lg:flex-row lg:items-center">
+        <div class="flex flex-col w-full lg:w-2/4 lg:p-5">
+          <h2 class="font-sans font-bold text-3xl text-zinc-900 text-center mb-5">
+            {product.title}
+          </h2>
+          <p class="text-zinc-800 lg:text-center mb-5 lg:text-lg">
+            {product.text}
+          </p>
+          <a href={product.affiliateUrl} target="_blank" rel="sponsored" class="flex flex-row items-center mb-4 lg:mb-0 w-52 bg-yellow-300 text-zinc-900 text-lg text-center m-auto hover:bg-violet-500 transition duration-100">
+            <div class="p-5 border-r-2 border-white">
+              <img src={domainName+'/header/cart_shopping.svg'} width="24px" height="auto" alt="comprar mejores tendederos de ropa" class="m-auto">
+            </div>
+            <div class="p-5 font-semibold text-zinc-900 tracking-wide text-sm">
+              Ver oferta
+            </div>
+          </a>
+        </div>
+        <div class:list={[
+          "w-full border-yellow-300 lg:w-2/4 lg:p-5",
+          {
+            "border-b-4 border-l-4 lg:order-first hover:border-violet-500 transition duration-200": index % 2 === 0,
+          },
+          {
+            "border-b-4 border-r-4 lg:order-last hover:border-violet-500 transition duration-200": index % 2 !== 0,
+          }
+        ]}>
+          <a href={product.affiliateUrl} target="_blank" rel="sponsored">
+            <img 
+              srcset=`${product.imageSmall} 300w,
+                      ${product.imageMedium} 600w,
+                      ${product.imageLarge} 1000w,
+                      ${product.imageExtraLarge} 200w`
+              sizes="100vw"
+              src=`${product.src}` 
+              alt=`${product.alt}`/>
+          </a>
+        </div>
+      </div>
+    ))
+  }
+</div>
+

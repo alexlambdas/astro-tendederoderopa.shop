@@ -1,0 +1,29 @@
+---
+
+import HeaderComponent from "../app/html-header-component/HeaderComponent.astro";
+import FooterComponent from "../app/html-footer-component/FooterComponent.astro";
+import MetaTagsComponent from "../app/html-meta-tags-component/MetaTagsComponent.astro";
+
+// props
+const { page } = Astro.props;
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="sitemap" href="/sitemap-index.xml">
+		<MetaTagsComponent page={page}/>
+		<meta name="generator" content={Astro.generator} />
+	</head>
+	<body>
+		<HeaderComponent />
+		<slot />
+		<FooterComponent page={page} />
+	</body>
+</html>
+<style is:global>
+</style>

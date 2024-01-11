@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /*/*.css
+Allow: /*/*.js
+
+Sitemap: https://tendederoderopa.shop/sitemap-index.xml

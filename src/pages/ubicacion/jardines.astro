@@ -1,0 +1,86 @@
+---
+
+// components
+import MainLayout from '../../layouts/MainLayout.astro';
+import IntroImageComponent from '../../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
+import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
+import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
+import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import CommonModule from '../../app/server-common-module/Common.module';
+
+// init app
+await fnInitApp();
+
+const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const stateAppObj = fnGetStateAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+const resultFiltered = fnFilterProductByCategoryAndSubcategory('Ubicación')('Jardines')(stateAppObj.products);
+const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
+const productsSummaryFirst = productsSummaryObj.slice(0,6);
+const productsSummarySecond = productsSummaryObj.slice(6);
+
+---
+
+<MainLayout page="ubicacion-jardin">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="ubicacion-jardin"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideSubMenuComponent category="Ubicación" subCategoryName="Jardines" />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Eleva tu Espacio al Aire Libre con Tendederos para Jardín
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Descubre la magia del secado al sol con los exclusivos tendederos de jardín. Desde el 
+          clásico tendal para jardín hasta opciones innovadoras, encuentras la fusión perfecta de estilo 
+          y funcionalidad.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFirst}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Estilo al Aire Libre: Tendedero de Jardín para Ropa Impecable
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Transforma tu espacio verde con un elegante tendedero de jardín. Con nuestra gama de 
+          tendederos para jardín, cada prenda se seca con frescura y estilo. Descubre la practicidad 
+          de un tendedero para jardín y lleva tu experiencia de secado al siguiente nivel.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummarySecond}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

@@ -1,0 +1,124 @@
+---
+
+import CommonModule from '../server-common-module/Common.module';
+import SvgOpenInFull from '../html-svg-component/OpenInFull.astro';
+import SvgMenuClose from '../html-svg-component/MenuClose.astro';
+import SvgMenuBurguer from '../html-svg-component/MenuBurguer.astro';
+import { fnGetStateAppObj, fnGetConfigAppObj } from '../InitApp';
+
+// data
+const fnOrderById = CommonModule().fnOrderById;
+const stateAppObj = fnGetStateAppObj();
+const configAppObj = fnGetConfigAppObj();
+const domainName = configAppObj.SITE_DOMAIN_LINKS;
+const categoryObj = stateAppObj.categories;
+const categoryOrderedObj = {
+  data: categoryObj.data.sort(fnOrderById),
+  meta: categoryObj.meta,
+}
+
+---
+
+<header class="bg-white z-50 menu-shadow menu-fixed-nav">
+  <div class="flex w-full items-center justify-between p-5">
+    <a href={domainName} class="w-32">
+      <img 
+        src={domainName+'/header/brand.png'} 
+        width="100px" 
+        height="auto" 
+        alt="Página principal Tendederos de ropa"
+      >
+    </a>
+    <div class="hidden lg:flex font-sans font-semibold">
+      <nav>
+        <ul class="flex">
+          <li>
+            <a href={domainName} class="text-gray-700 mr-11 text-lg hover:text-yellow-600 hover:contrast-150">
+              Inicio
+            </a>
+          </li>
+          {
+            categoryOrderedObj.data.map(category => (
+              <li>
+                <a href={domainName+category.attributes.slug} class="text-gray-700 mr-11 text-lg hover:text-yellow-600 hover:contrast-150">
+                  {category.attributes.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+    <div class="w-14">
+      <span id="idOpenMenuMobile" class="flex justify-end cursor-pointer bg-yellow-300 rounded-lg hover:bg-yellow-400 transitio duration-200">
+        <div class="m-auto pt-1 pb-1">
+          <SvgMenuBurguer height='28' width='28' fill='#27272A'/>
+        </div>
+      </span>
+    </div>
+  </div>
+  <div id="idNavMenuMobile" class="bg-yellow-300 fixed top-0 right-0 h-screen z-50 overflow-auto transition menu-mobile">
+    <nav class="w-11/12 m-auto">
+      <div class="h-12 pt-6 mb-14 flex flex-row justify-between items-center">
+        <div class="mt-4 pr-6 pl-6 pt-1 pb-1 font-sans font-semibold text-yellow-400 bg-zinc-900 text-lg hover:bg-white hover:text-zinc-900 transition duration-300">
+          <a href="/">Inicio</a>
+        </div>
+        <span id="idCloseMenuMobile" class="cursor-pointer mt-4">
+          <SvgMenuClose height='28' width='28' fill='#27272A'/>
+        </span>
+      </div>
+      <ul>
+        {
+          categoryOrderedObj.data.map(category => {
+            return(
+              <li class="pb-8 mt-8 divide-y divide-white">
+                <a href={domainName+category.attributes.slug} class="text-zinc-900 hover:bg-white text-xl font-sans font-semibold flex items-center transition duration-100">    
+                  {category.attributes.name}     
+                  <span class="pl-3">
+                    <SvgOpenInFull width='14' height='14' fill='#000000'/>
+                  </span>    
+                </a>
+                <ul class="grid grid-cols-2 pt-5">
+                  {
+                    category.attributes.sub_categories.data.map(subCategory => (
+                      <li class="font-mono text-gray-900 text-lg mt-3">
+                        <a href={domainName+category.attributes.slug+subCategory.attributes.slug} class="hover:bg-white transition duration-100" >
+                          {subCategory.attributes.name}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </li>
+            )
+          })
+        }
+      </ul>
+      <div class="pb-52 mt-10 flex justify-center">
+        <a class="pr-6 pl-6 pt-4 pb-4 text-yellow-400 bg-zinc-900 text-lg font-medium hover:bg-white hover:text-zinc-900 transition duration-300" href="/contacto">
+          Contáctanos
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+<script src="./Header.script.ts"></script>
+
+<style>
+.menu-mobile{
+  width: 0;
+  transition: 0.5s;
+}
+.menu-shadow{
+  -webkit-box-shadow: 0px 2px 18px -14px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 2px 18px -14px rgba(0,0,0,0.75);
+  box-shadow: 0px 2px 18px -14px rgba(0,0,0,0.75);
+}
+
+@media (max-width: 640px) {
+  .menu-fixed-nav{
+    position: fixed;
+    width: 100%;
+  }
+}
+</style>

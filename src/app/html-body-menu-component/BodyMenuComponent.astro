@@ -1,0 +1,74 @@
+---
+
+// logic and common module
+import CommonModule from '../server-common-module/Common.module';
+import { fnGetStateAppObj, fnGetConfigAppObj } from '../InitApp';
+
+// data
+const fnOrderById = CommonModule().fnOrderById;
+const stateAppObj = fnGetStateAppObj();
+const configAppObj = fnGetConfigAppObj();
+const domainLinks = configAppObj.SITE_DOMAIN_LINKS;
+const domainName = configAppObj.SITE_DOMAIN;
+const categoryObj = stateAppObj.categories;
+const categoryOrderedObj = {
+  data: categoryObj.data.sort(fnOrderById),
+  meta: categoryObj.meta,
+}
+
+---
+
+<div class="flex flex-col">
+  {
+    categoryOrderedObj.data.map((category, index) => {
+      if(index % 2 === 0){
+        return (
+          <div class="flex flex-row items-center mb-10 lg:mb-0">
+            <a href={domainLinks+category.attributes.slug} class="w-1/2 lg:p-5">
+              <div class="flex flex-col justify-center items-center bg-yellow-300 h-44 hover:drop-shadow-lg hover:bg-yellow-400 transition duration-200">
+                <h2 class="text-2xl text-center mb-2 font-bold text-gray-800">
+                  {category.attributes.name}
+                </h2>
+                <div>
+                  <img 
+                    src={domainName+'/cms'+category.attributes.thumbnail.data[0].attributes.url} 
+                    width="52px" 
+                    height="auto" 
+                    alt={`Categoria ${category.attributes.name}`}
+                  />
+                </div>
+              </div>
+            </a>
+            <p class="w-1/2 text-center p-1 text-zinc-800 text-lg font-mono font-thin lg:p-5">
+              {category.attributes.description}
+            </p>
+          </div>
+        )
+      }
+      else{
+        return (
+          <div class="flex flex-row items-center mb-10 lg:mb-0">
+            <p class="w-1/2 text-center p-1 text-zinc-800 text-lg font-mono font-thin lg:p-5">
+              {category.attributes.description}
+            </p>
+            <a href={domainLinks+category.attributes.slug} class="w-1/2 lg:p-5">
+              <div class="flex flex-col justify-center items-center bg-yellow-300 h-44 hover:drop-shadow-lg hover:bg-yellow-400 transition duration-200">
+                <h2 class="text-2xl text-center mb-2 font-bold text-zinc-800">
+                  {category.attributes.name}
+                </h2>
+                <div>
+                  <img 
+                    src={domainName+'/cms'+category.attributes.thumbnail.data[0].attributes.url} 
+                    width="52px" 
+                    height="auto"
+                    alt={`Categoria ${category.attributes.name}`} 
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+        )
+      }
+    })
+  }
+</div>

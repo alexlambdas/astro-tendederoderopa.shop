@@ -1,0 +1,27 @@
+---
+
+import CommonModule from '../server-common-module/Common.module';
+import { fnGetStateAppObj } from '../InitApp';
+
+interface Props {
+  page: string,
+}
+
+const { page } = Astro.props;
+
+const fnFilterMetaTagByPage = CommonModule().fnFilterMetaTagByPage;
+const stateAppObj = fnGetStateAppObj();
+const metaTagObj = stateAppObj.metaTags;
+const metaTagFiltered = fnFilterMetaTagByPage(page)(metaTagObj);
+
+---
+
+<meta name="language" content={metaTagFiltered.data[0].attributes.language} />
+<meta name="copyright" content={metaTagFiltered.data[0].attributes.copyright} />
+<meta name="author" content={metaTagFiltered.data[0].attributes.author} />
+<meta name="audience" content={metaTagFiltered.data[0].attributes.audience} />
+<meta name="description" content={metaTagFiltered.data[0].attributes.description} />
+<meta name="keywords" content={metaTagFiltered.data[0].attributes.keywords} />
+<meta name="robots" content={metaTagFiltered.data[0].attributes.robots} />
+<meta name="category" content={metaTagFiltered.data[0].attributes.category} />
+<title>{metaTagFiltered.data[0].attributes.title}</title>

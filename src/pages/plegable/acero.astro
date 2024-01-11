@@ -1,0 +1,104 @@
+---
+
+// components
+import MainLayout from '../../layouts/MainLayout.astro';
+import IntroImageComponent from '../../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
+import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
+import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
+import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import CommonModule from '../../app/server-common-module/Common.module';
+
+// init app
+await fnInitApp();
+
+const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const stateAppObj = fnGetStateAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+const resultFiltered = fnFilterProductByCategoryAndSubcategory('Plegable')('En acero')(stateAppObj.products);
+const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
+const productsSummaryFirst = productsSummaryObj.slice(0,6);
+const productsSummarySecond = productsSummaryObj.slice(6,12);
+const productsSummaryThird = productsSummaryObj.slice(12);
+
+
+---
+
+<MainLayout page="plegable-acero">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="plegable-acero"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideSubMenuComponent category="Plegable" subCategoryName="En acero" />
+      <section class="font-mono w-11/12 m-auto lg:w-2/3">
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Elegancia Duradera: Descubre la Perfección en Tendederos Plegables de Acero Inoxidable
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Transforma tu experiencia de secado con los exclusivos tendederos plegables de acero inoxidable. 
+          Desde el versátil tendedero de ropa plegable acero inoxidable hasta el eficiente tendedero 
+          plegable de acero inoxidable, cada opción está diseñada para combinar durabilidad y estilo 
+          en tu hogar.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFirst}/>
+				<br>
+				<br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Tendederos Extensibles de Acero Inoxidable para un Secado Personalizado
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Explora nuevas posibilidades con los modernos tendederos extensibles de acero inoxidable.
+          Desde el práctico tendedero retráctil acero hasta el versátil tendedero extensible acero 
+          inoxidable.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummarySecond}/>
+				<br>
+				<br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Tendederos Retráctiles de Acero para Espacios Optimizados
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Optimiza tu espacio con nuestros resistentes tendederos retráctiles de acero. Desde el 
+          clásico tendedero retráctil de acero hasta las opciones versátiles como los tendederos 
+          retráctiles de acero, cada diseño está destinado a ofrecer un secado sin complicaciones con un toque de estilo duradero.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryThird}/>
+				<br>
+				<br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

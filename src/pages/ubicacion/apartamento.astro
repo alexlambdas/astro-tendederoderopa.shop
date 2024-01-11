@@ -1,0 +1,153 @@
+---
+
+// components
+import MainLayout from '../../layouts/MainLayout.astro';
+import IntroImageComponent from '../../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
+import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
+import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
+import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import CommonModule from '../../app/server-common-module/Common.module';
+
+
+// init app
+await fnInitApp();
+
+const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const stateAppObj = fnGetStateAppObj();
+const domainName = configApp.SITE_DOMAIN_LINKS;
+const resultFiltered = fnFilterProductByCategoryAndSubcategory('Ubicación')('Apartamento')(stateAppObj.products);
+const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
+const productsSummaryFirst = productsSummaryObj.slice(0,6);
+const productsSummarySecond = productsSummaryObj.slice(6,12);
+const productsSummaryThird = productsSummaryObj.slice(12,18);
+const productsSummaryFourth = productsSummaryObj.slice(18,24);
+const productsSummaryFive = productsSummaryObj.slice(24,30);
+const productsSummarySix = productsSummaryObj.slice(30,36);
+const productsSummarySeven = productsSummaryObj.slice(36);
+
+---
+
+<MainLayout page="ubicacion-apartamento">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="ubicacion-apartamento"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideSubMenuComponent category="Ubicación" subCategoryName="Apartamento" />
+      <section class="font-mono w-11/12 m-auto lg:w-2/3">
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Descubre la Versatilidad: Tendedero de Ropa para Apartamento
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Encuentra la solución perfecta para secar tu ropa en espacios reducidos.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFirst}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Eficiencia y Estilo: Tendederos para Apartamentos
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Explora nuestra colección de tendederos diseñados para complementar la estética de tu apartamento.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummarySecond}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Colgador de Ropa para Apartamento: Práctico y Funcional
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Conoce cómo un colgador de ropa puede ser la clave para organizar tu espacio de manera eficiente.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryThird}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Extendedores de Ropa para Apartamento: Espacios Amplios en Ambientes Pequeños
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Optimiza tu hogar con extendedores que se adaptan a las dimensiones de tu apartamento.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFourth}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Venta de Tendederos de Ropa para Apartamentos: Encuentra tu Solución
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Explora las opciones disponibles y elige el tendedero perfecto para tu estilo de vida.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFive}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Diseño Inteligente: Tendedero de Ropa para Departamentos
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Descubre cómo el diseño inteligente puede hacer que tu espacio sea funcional y atractivo.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummarySix}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Tendales para Departamentos: Elegancia y Utilidad
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Transforma tu departamento con tendales que ofrecen practicidad sin sacrificar el estilo.
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummarySeven}/>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+

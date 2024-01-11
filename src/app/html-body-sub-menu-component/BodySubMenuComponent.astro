@@ -1,0 +1,64 @@
+---
+
+import { fnGetStateAppObj, fnGetConfigAppObj } from '../InitApp';
+import type { CategoryType, DataObjectCategoryType } from '../server-common-module/domain/types/Category.types';
+
+// props
+const { category } = Astro.props;
+
+// data
+const stateAppObj = fnGetStateAppObj();
+const configAppObj = fnGetConfigAppObj();
+const domainName = configAppObj.SITE_DOMAIN;
+const domainLinks = configAppObj.SITE_DOMAIN_LINKS;
+const categoryObj = stateAppObj.categories;
+const categoryAndSubCategories = categoryObj.data.reduce((acc: CategoryType, current: DataObjectCategoryType) => {
+    if(current.attributes.name === category){
+      return {
+        ...acc,
+        data: [{...current}],
+
+      }
+    }
+    else return acc;
+  },
+  {
+    data: [], 
+    meta: categoryObj.meta
+  }
+);
+
+const categorySlug = categoryAndSubCategories.data[0].attributes.slug;
+
+const subCategoryObj = {
+  data: categoryAndSubCategories.data[0].attributes.sub_categories.data,
+  meta: categoryObj.meta,
+}
+
+---
+
+<div class="grid grid-cols-2 items-center justify-center gap-4 lg:grid-cols-3">
+  {
+    subCategoryObj.data.map(subCategory => {
+      return (
+          <div class="w-full h-36 bg-yellow-300 hover:drop-shadow-lg hover:bg-yellow-400 transition duration-200 lg:h-auto">
+            <a href={domainLinks+categorySlug+subCategory.attributes.slug} class="w-full">
+              <div class="flex flex-col items-center pt-2 pb-3">
+                <h2 class="text-lg text-center mb-2 font-bold text-zinc-800 p-1 lg:text-2xl ">
+                  {subCategory.attributes.name}
+                </h2>
+                <div>
+                  <img 
+                    src={domainName+'/cms'+subCategory.attributes.thumbnail.data[0].attributes.url} 
+                    width="48px" 
+                    height="auto" 
+                    alt={`Subcategoria ${subCategory.attributes.name}`}
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+        )
+    })
+  }
+</div>

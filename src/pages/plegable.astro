@@ -1,0 +1,106 @@
+---
+
+// components
+import MainLayout from '../layouts/MainLayout.astro';
+import IntroImageComponent from '../app/html-intro-image-component/IntroImageComponent.astro';
+import AsideSubMenuComponent from '../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
+import AsideInterestComponent from '../app/html-aside-interest-component/AsideInterestComponent.astro';
+import BodySubMenuComponent from '../app/html-body-sub-menu-component/BodySubMenuComponent.astro';
+import ProductsClusterComponent from '../app/html-products-cluster-component/ProductsClusterComponent.astro';
+
+// logic and common module
+import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../app/InitApp';
+import CommonModule from '../app/server-common-module/Common.module';
+
+// init app
+await fnInitApp();
+
+const fnFilterProductByCategory = CommonModule().fnFilterProductByCategory;
+const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const configApp = fnGetConfigAppObj();
+const stateAppObj = fnGetStateAppObj();
+const resultFiltered = fnFilterProductByCategory('Plegable')(stateAppObj.products);
+const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
+
+// total of products
+const productsSummaryFirst = productsSummaryObj.slice(0,6);
+const productsSummarySecond = productsSummaryObj.slice(6,12);
+const productsSummaryThird = productsSummaryObj.slice(12,18);
+
+
+---
+
+<MainLayout page="plegable">
+  <main class="pt-20 lg:pt-0">
+    <IntroImageComponent page="plegable"/>
+    <br>
+    <br>
+    <div class="flex flex-col lg:flex-row">
+      <AsideSubMenuComponent category="Plegable" />
+      <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Optimiza tu Espacio con Estilo: Tendederos de Ropa Plegables
+				</h3>
+        <br>
+				<br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Descubre la revolución en el secado de ropa con los innovadores tendederos de ropa plegables. 
+          Desde el elegante colgador de ropa plegable hasta el práctico tendedero retractil, fusionamos 
+          funcionalidad y diseño para transformar tu rutina de secado.
+				</p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryFirst}/>
+				<br>
+				<br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Flexibilidad y Elegancia: Tendederos Retráctiles para un Secado Eficiente
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Explora la versatilidad con los tendederos retráctiles. Ya sea el compacto tendedero de ropa 
+          retractil o el eficiente tendedero ropa plegable, cada opción ofrece una solución inteligente 
+          para maximizar el espacio y mantener tu ropa impecable.
+				</p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummarySecond}/>
+        <br>
+				<br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Despliega la Comodidad: Tendederos Extensibles para un Secado sin Complicaciones
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          Opta por la comodidad con los tendederos extensibles. Desde el eficaz colgador de ropa 
+          retractil hasta el versátil tendedero ropa plegable, cada uno está diseñado para adaptarse 
+          a tu espacio y hacer del secado de ropa una experiencia sin esfuerzo y estilizada.
+				</p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productsSummaryThird}/>
+				<br>
+				<br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+					Tipos de colgador de ropa retractil
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-lg font-mono font-thin">
+          En el área de tendederos removibles, existen una gran variedad de modelos, siempre dependiendo
+          de tus necesidades y el tipo de espacio donde estará instalado en tu hogar, aquí puedes 
+          encontrar una gran variedad de tendederos de ropa extensibles, retráctiles y plegables. 
+				</p>
+        <br>
+        <br>
+        <BodySubMenuComponent category="Plegable"/>
+        <br>
+        <br>
+      </section>
+      <AsideInterestComponent />
+    </div>
+  </main>
+</MainLayout>
+
