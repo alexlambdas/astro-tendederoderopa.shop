@@ -7,29 +7,97 @@ import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/Aside
 import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
 import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+import ProductPlusVideo from '../../app/html-product-plus-video/ProductPlusVideo.astro';
 
 // logic and common module
-import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
 import CommonModule from '../../app/server-common-module/Common.module';
-
+import type { ProductType } from '../../app/server-common-module/domain/types/Product.types';
 
 // init app
 await fnInitApp();
-
-const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
-const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
+const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
-const stateAppObj = fnGetStateAppObj();
-const domainName = configApp.SITE_DOMAIN_LINKS;
-const resultFiltered = fnFilterProductByCategoryAndSubcategory('Ubicación')('Apartamento')(stateAppObj.products);
-const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
-const productsSummaryFirst = productsSummaryObj.slice(0,6);
-const productsSummarySecond = productsSummaryObj.slice(6,12);
-const productsSummaryThird = productsSummaryObj.slice(12,18);
-const productsSummaryFourth = productsSummaryObj.slice(18,24);
-const productsSummaryFive = productsSummaryObj.slice(24,30);
-const productsSummarySix = productsSummaryObj.slice(30,36);
-const productsSummarySeven = productsSummaryObj.slice(36);
+
+// keywords
+
+/**
+ * 
+ * max: 140 characters
+ * 
+ * PRODUCT_ID - KEYWORDS
+ * 9, 40, 29    tendedero de ropa para apartamento
+ * 8, 16, 12    tendederos para apartamentos
+ * 50, 23, 37   colgador de ropa para apartamento
+ * 28, 31, 19   extendedores de ropa para apartamento
+ * 7, 19        tendedero de ropa apartamento
+ * 28, 1        tendedero apartamento
+ * 7, 1         tendedero ropa apartamento
+ * 18, 31       tendedero de ropa para departamentos
+ * venta de tendederos de ropa para apartamentos
+ * 
+ */
+
+const keywordsProductId9 = new Map([
+  [9,'Tendedero de ropa para apartamento, color blanco y brazos de madera estilo pulpo que sostiene 3 camisas y una toalla'],
+]);
+
+const keywordsProductId8 = new Map([
+  [8,'Tendederos para apartamentos, de color gris y de acero inoxidable con dos alas laterales, que sostiene varias prendas'],
+]);
+
+const keywordsProductId50 = new Map([
+  [50,'Colgador de ropa para apartamento, montaje en dos paredes, y entre pared y pared se estiran 4 cuerdas de acero que sostiene camisas'],
+]);
+
+const keywordsProductId10 = new Map([
+  [10,'Tendedero apartamento, de dos niveles y de piso, en forma de A mayúscula, en la parte superior y en el medio se extienden alas laterales'],
+]);
+
+const keywordsDescriptionForImages = new Map([
+  [7,'Tendedero de ropa apartamento, tendedero ropa apartamento, de color plateado, está de pie, sosteniendo un pantalón y dos toallas'],
+  [40,'Tendedero de ropa para apartamento, de madera, está de pie, sosteniendo tres toallas de colores azul claro, azul oscuro y marrón'],
+  [16,'Tendederos para apartamentos, de aluminio con 4 brazos superiores para sostener ropa, que son una camiseta roja y dos toallas blanca y café'],
+  [23,'Colgador de ropa para apartamento, montado en la pared, en forma de brazo con 3 partes que se pueden plegar, sostiendo varias camisas'],
+  [31,'Extendedores de ropa para apartamento, de acero, montado en la pared que sostiene una chaqueta de hombre y dos camisas de mujer'],
+  [31,'Tendedero de ropa para departamentos, de acero, montado en la pared que sostiene una chaqueta de hombre y dos camisas de mujer'],
+  [28,'Extendedores de ropa para apartamento, tendedero apartamento, montado en la pared, con 5 varillas para sostener ropa'],
+  [18,'Tendedero de ropa para departamentos, tendedero ropa apartamento, de piso en forma de T, sosteniendo varias camisas de hombre a cada lado'],
+  [29,'Tendedero de ropa para apartamento, de color plateado, en acero, montado en la pared con 8 varillas, que sostiene 4 toallas'],
+  [37,'Colgador de ropa para apartamento, de color negro, en metal, montado en la pared con 8 varillas, que sostiene 4 toallas y una camisa'],
+  [12,'Tendederos para apartamentos, de piso con varillas, en forma de mesa con dos alas laterales adicionales que sostiene mucha ropa'],
+  [19,'Extendedores de ropa para apartamento, tendedero de ropa apartamento, de madera bambu, de piso y sin prendas'],
+  [1,'Tendedero ropa apartamento, tendedero apartamento, de madera bambu, de piso con dos camisas'],
+]);
+
+
+// video products
+
+const productId8 = await fnGetProductListForEachId<ProductType>([8],configApp)(fnHttpCall);
+let productId8Summary = fnGetProductSummaryList(productId8)(configApp);
+productId8Summary = fnAddDescripcionToImages(productId8Summary, keywordsProductId8);
+
+const productId9 = await fnGetProductListForEachId<ProductType>([9],configApp)(fnHttpCall);
+let productId9Summary = fnGetProductSummaryList(productId9)(configApp);
+productId9Summary = fnAddDescripcionToImages(productId9Summary, keywordsProductId9);
+
+const productId10 = await fnGetProductListForEachId<ProductType>([10],configApp)(fnHttpCall);
+let productId10Summary = fnGetProductSummaryList(productId10)(configApp);
+productId10Summary = fnAddDescripcionToImages(productId10Summary, keywordsProductId10);
+
+const productId50 = await fnGetProductListForEachId<ProductType>([50],configApp)(fnHttpCall);
+let productId50Summary = fnGetProductSummaryList(productId50)(configApp);
+productId50Summary = fnAddDescripcionToImages(productId50Summary, keywordsProductId50);
+
+// rest of products
+
+const idListProduct = [7,40,16,23,31,28,18,29,37,12,39,1];
+const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
+let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
+similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, keywordsDescriptionForImages);
 
 ---
 
@@ -41,98 +109,27 @@ const productsSummarySeven = productsSummaryObj.slice(36);
     <div class="flex flex-col lg:flex-row">
       <AsideSubMenuComponent category="Ubicación" subCategoryName="Apartamento" />
       <section class="font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Descubre la Versatilidad: Tendedero de Ropa para Apartamento
-				</h3>
+        <div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideo products={productId9Summary}/>
+					<ProductPlusVideo products={productId8Summary}/>
+					<ProductPlusVideo products={productId50Summary}/>
+					<ProductPlusVideo products={productId10Summary}/>
+				</div>
+				<br>
+				<br>
         <br>
         <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Encuentra la solución perfecta para secar tu ropa en espacios reducidos.
-        </p>
+        <h2 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
+					Más productos relacionados con venta de tendederos de ropa para apartamentos
+				</h2>
         <br>
         <br>
-        <ProductsClusterComponent products={productsSummaryFirst}/>
         <br>
         <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Eficiencia y Estilo: Tendederos para Apartamentos
-				</h3>
+        <ProductsClusterComponent products={similarProductsSummaryList}/>
         <br>
         <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Explora nuestra colección de tendederos diseñados para complementar la estética de tu apartamento.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummarySecond}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Colgador de Ropa para Apartamento: Práctico y Funcional
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Conoce cómo un colgador de ropa puede ser la clave para organizar tu espacio de manera eficiente.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryThird}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Extendedores de Ropa para Apartamento: Espacios Amplios en Ambientes Pequeños
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Optimiza tu hogar con extendedores que se adaptan a las dimensiones de tu apartamento.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryFourth}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Venta de Tendederos de Ropa para Apartamentos: Encuentra tu Solución
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Explora las opciones disponibles y elige el tendedero perfecto para tu estilo de vida.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryFive}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Diseño Inteligente: Tendedero de Ropa para Departamentos
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Descubre cómo el diseño inteligente puede hacer que tu espacio sea funcional y atractivo.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummarySix}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendales para Departamentos: Elegancia y Utilidad
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Transforma tu departamento con tendales que ofrecen practicidad sin sacrificar el estilo.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummarySeven}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+        <h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
 					¿ No encuentras el modelo ideal ?
 				</h3>
         <br>

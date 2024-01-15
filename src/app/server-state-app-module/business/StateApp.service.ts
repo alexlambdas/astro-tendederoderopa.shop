@@ -1,7 +1,7 @@
 import type { ConfigAppDto } from "../../server-common-module/domain/dtos/ConfigApp.dto";
 import type { CategoryType } from "../../server-common-module/domain/types/Category.types";
 import type { StateAppDto } from "../../server-common-module/domain/dtos/StateApp.dto";
-import type { ProductType } from "../../server-common-module/domain/types/Product.types";
+import type { ProductListType } from "../../server-common-module/domain/types/Product.types";
 import type { IntroImageType } from "../../server-common-module/domain/types/IntroImage.type";
 import type { MetaTagType } from "../../server-common-module/domain/types/MetaTag.types";
 
@@ -14,7 +14,7 @@ function getCategoriesAndSubCategories(configAppDto: ConfigAppDto){
 }
 
 function getProducts(configAppDto: ConfigAppDto){
-  return async function(f: (url: string) => Promise<ProductType>): Promise<ProductType>{
+  return async function(f: (url: string) => Promise<ProductListType>): Promise<ProductListType>{
     const domain = configAppDto.SITE_DOMAIN;
     const path = configAppDto.PATH_API_PRODUCTS;
     let result = await f(domain+path);

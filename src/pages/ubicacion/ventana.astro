@@ -8,19 +8,21 @@ import AsideInterestComponent from '../../app/html-aside-interest-component/Asid
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
 
 // logic and common module
-import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
 import CommonModule from '../../app/server-common-module/Common.module';
+import type { ProductType } from '../../app/server-common-module/domain/types/Product.types';
 
 // init app
 await fnInitApp();
-
-const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
-const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
+const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
-const stateAppObj = fnGetStateAppObj();
-const domainName = configApp.SITE_DOMAIN_LINKS;
-const resultFiltered = fnFilterProductByCategoryAndSubcategory('Ubicación')('Para ventana')(stateAppObj.products);
-const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
+
+const idListProduct = [51];
+const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
+let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
 
 ---
 
@@ -34,7 +36,7 @@ const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
         <br>
         <br>
-        <ProductsClusterComponent products={productsSummaryObj}/>
+        <ProductsClusterComponent products={similarProductsSummaryList}/>
         <br>
         <br>
       </section>

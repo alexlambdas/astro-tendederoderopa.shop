@@ -7,25 +7,79 @@ import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/Aside
 import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
 import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+import ProductPlusVideoComponent from '../../app/html-product-plus-video/ProductPlusVideo.astro';
 
 // logic and common module
-import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
 import CommonModule from '../../app/server-common-module/Common.module';
+import type { ProductType } from '../../app/server-common-module/domain/types/Product.types';
 
 // init app
 await fnInitApp();
 
-const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
-const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+await fnInitApp();
+const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
+const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
-const stateAppObj = fnGetStateAppObj();
-const domainName = configApp.SITE_DOMAIN_LINKS;
-const resultFiltered = fnFilterProductByCategoryAndSubcategory('Ubicación')('Para balcon')(stateAppObj.products);
-const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
-const productsSummaryFirst = productsSummaryObj.slice(0,6);
-const productsSummarySecond = productsSummaryObj.slice(6,12);
-const productsSummaryThird = productsSummaryObj.slice(12,18);
-const productsSummaryFourth = productsSummaryObj.slice(18);
+
+// keywords
+
+/**
+ * 
+ * max: 140 characters
+ * 
+ * PRODUCT_ID - KEYWORDS
+ * 51, 28     tendedero de balcón
+ * 51, 28     tendedero para balcón
+ * 23, 37     tender balcón
+ * 23, 37     tender colgante para balcón
+ * 36, 24     colgador de ropa para balcón
+ * 36, 32     tendedero ropa balcón
+ * 31, 32     tendedero de ropa balcón
+ * 31, 27     colgador ropa balcón
+ * 29, 27, 49 tendederos de ropa para balcón
+ * 
+ */
+
+ // video products
+
+const keywordsProductId51 = new Map([
+  [51,'Tendedero de balcón, tendedero para balcón cogado de una barandilla y con rejillas para sostener ropa'],
+]);
+
+const keywordsProductId23 = new Map([
+  [23,'tender colgante para balcón, tender balcón con montaje de pared, en forma de brazo con tres partes plegables'],
+]);
+
+const productId51 = await fnGetProductListForEachId<ProductType>([51],configApp)(fnHttpCall);
+let productId51Summary = fnGetProductSummaryList(productId51)(configApp);
+productId51Summary = fnAddDescripcionToImages(productId51Summary, keywordsProductId51);
+
+const productId23 = await fnGetProductListForEachId<ProductType>([23],configApp)(fnHttpCall);
+let productId23Summary = fnGetProductSummaryList(productId23)(configApp);
+productId23Summary = fnAddDescripcionToImages(productId23Summary, keywordsProductId23);
+
+const keywordsDescriptionForImages = new Map([
+  [36,'Colgador de ropa para balcón, tendedero ropa balcón, montado en la pared, con 3 varillas sosteniendo una camisa gris, una blanca y una roja'],
+  [31,'Tendedero de ropa balcón, colgador ropa balcón, montado en la pared, con 8 varillas sosteniendo una tres camisas de mujer'],
+  [28,'Tendedero de balcón, tendedero para balcón, montado en la pared con 5 varillas, de color blanco sosteniendo varias prendas'],
+  [37,'Tender colgante para balcón, tender balcón, montado en la pared, con varillas y longitud que se expande jalando de la pared'],
+  [24,'Colgador de ropa para balcón, de montaje en pared, en forma de U cuadrada, y los brazos laterales se cierran y abren en la imágen'],
+  [32,'Tendedero de ropa balcón, tendedero ropa balcón, con montaje de pared, en forma de brazo con tres partes plegables'],
+  [29,'Tendederos de ropa para balcón, de color plateado, montado en la pared, con varillas y longitud que se expande jalando de la pared'],
+  [27,'Tendederos de ropa para balcón, colgador ropa balcón, montado en la pared, con 8 varillas sosteniendo 4 toallas de diferentes colores'],
+  [49,'Tendederos de ropa para balcón, de forma circular que contiene dos líneas para colgado de ropa que se halan hasta 15 metros para colgar ropa'],
+]);
+
+// images, rest of products, 
+
+const idListProduct = [36,31,28,37,24,32,29,27,49];
+const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
+let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
+similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, keywordsDescriptionForImages);
+
 
 ---
 
@@ -35,93 +89,25 @@ const productsSummaryFourth = productsSummaryObj.slice(18);
     <br>
     <br>
     <div class="flex flex-col lg:flex-row">
-      <AsideSubMenuComponent category="Ubicación" subCategoryName="Para balcon" />
+      <AsideSubMenuComponent category="Ubicación" subCategoryName="Para balcón" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Optimiza tu espacio al aire libre con un Tendedero de Balcón Funcional
-				</h3>
+        <div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideoComponent products={productId51Summary}/>
+					<ProductPlusVideoComponent products={productId23Summary}/>
+				</div>
+        <br>
+				<br>
         <br>
         <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          ¿Te preguntas cómo aprovechar al máximo tu balcón? Descubre la versatilidad del tendedero de 
-          balcón y transforma tu espacio exterior en un área organizada y práctica para el secado 
-          de ropa.
-        </p>
+        <h2 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
+					Encuentra más productos relacionados con tendedero para balcón
+				</h2>
+        <br>
+				<br>
         <br>
         <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Nuestros tendederos para balcones ofrecen soluciones ingeniosas para tender la 
-          ropa de manera eficiente, ¡haciendo que tu balcón sea tan funcional como elegante!
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryFirst}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Elegancia y Eficiencia: Tendederos Colgantes para Balcones con Estilo
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Imagina un balcón que no solo es un lugar para disfrutar del aire fresco, sino también 
-          un espacio donde la funcionalidad se encuentra con el diseño. Nuestros colgadores de 
-          ropa para balcones no solo son prácticos, sino que también añaden un toque de elegancia. 
-        </p>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Descubre cómo un tendedero colgante para balcón puede convertirse en la solución perfecta 
-          para tus necesidades de secado sin comprometer el estilo.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummarySecond}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendederos de Balcón Grandes: La Solución Espaciosa para Secar tu Ropa
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          ¿Necesitas un tendedero espacioso para tu balcón? Explora nuestra gama de tendederos 
-          de balcón grandes diseñados para adaptarse a tus necesidades.
-        </p>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Con opciones versátiles y colgadores de ropa específicamente diseñados para balcones, 
-          podrás disfrutar de la comodidad de secar tu ropa al aire libre sin sacrificar espacio. 
-          Transforma tu balcón en un área de secado eficiente y estilizada.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryThird}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Colgadores de Ropa para Balcones: Organización y Estilo al Aire Libre
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Descubre cómo los colgadores de ropa para balcones pueden ser la clave para mantener 
-          tu espacio ordenado y lleno de estilo.
-        </p>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Con opciones que van desde tendederos colgantes hasta colgadores de ropa para balcones 
-          más amplios, encontrarás la solución perfecta para secar tu ropa al sol mientras mantienes 
-          la elegancia de tu espacio al aire libre.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryFourth}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+        <ProductsClusterComponent products={similarProductsSummaryList}/>
+        <h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
 					¿ No encuentras el modelo ideal ?
 				</h3>
         <br>

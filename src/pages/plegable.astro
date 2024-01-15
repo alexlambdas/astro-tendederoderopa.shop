@@ -7,26 +7,98 @@ import AsideSubMenuComponent from '../app/html-aside-sub-menu-component/AsideSub
 import AsideInterestComponent from '../app/html-aside-interest-component/AsideInterestComponent.astro';
 import BodySubMenuComponent from '../app/html-body-sub-menu-component/BodySubMenuComponent.astro';
 import ProductsClusterComponent from '../app/html-products-cluster-component/ProductsClusterComponent.astro';
+import ProductPlusVideoComponent from '../app/html-product-plus-video/ProductPlusVideo.astro';
 
 // logic and common module
-import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../app/InitApp';
 import CommonModule from '../app/server-common-module/Common.module';
+import { fnGetConfigAppObj, fnInitApp } from '../app/InitApp';
+import type { ProductType } from '../app/server-common-module/domain/types/Product.types';
+
 
 // init app
 await fnInitApp();
-
-const fnFilterProductByCategory = CommonModule().fnFilterProductByCategory;
-const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
+const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
-const stateAppObj = fnGetStateAppObj();
-const resultFiltered = fnFilterProductByCategory('Plegable')(stateAppObj.products);
-const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
 
-// total of products
-const productsSummaryFirst = productsSummaryObj.slice(0,6);
-const productsSummarySecond = productsSummaryObj.slice(6,12);
-const productsSummaryThird = productsSummaryObj.slice(12,18);
+// keywords
 
+/**
+ * 
+ * max: 140 characters
+ * 
+ * PRODUCT_ID - KEYWORDS
+ * 7, 28, 8     tendedero de ropa plegable
+ * 7, 18, 9     colgador de ropa plegable
+ * 40, 29, 10   tendedero plegable
+ * 40, 29, 50   tendedero retractil
+ * 18, 37       tendederos retractiles
+ * 16, 12       tendedero de ropa retractil
+ * 23, 19       tendedero ropa plegable
+ * 31, 19       tendedero extensible
+ * 31, 1        tender plegable
+ * 28, 1        colgador de ropa retractil
+ * 
+ */
+
+const keywordsProductId9 = new Map([
+  [9,'Tendedero de ropa plegable, de piso con trípode, color blanco y brazos de madera estilo pulpo que sostiene 3 camisas y una toalla'],
+]);
+
+const keywordsProductId8 = new Map([
+  [8,'Colgador de ropa plegable de 4 niveles de piso, de color gris y de acero inoxidable con dos alas laterales, que sostiene varias prendas'],
+]);
+
+const keywordsProductId50 = new Map([
+  [50,'Tendedero plegable, para montaje en dos paredes, y entre pared y pared se estiran 4 cuerdas de acero, color blanco que sostiene camisas'],
+]);
+
+const keywordsProductId10 = new Map([
+  [10,'Tendedero retráctil, de dos niveles y de piso, en forma de A mayúscula, en la parte superior y en el medio se extienden alas laterales'],
+]);
+
+const keywordsDescriptionForImages = new Map([
+  [7,'Tendedero de ropa plegable, colgador de ropa plegable, de color plateado, está de pie, sosteniendo un pantalón y dos toallas'],
+  [40,'Tendedero plegable, tendedero retráctil, de madera, está de pie, sosteniendo tres toallas de colores azul claro, azul oscuro y marrón'],
+  [16,'Tendedero de ropa retráctil, de aluminio con 4 brazos superiores para sostener ropa, que son una camiseta roja y dos toallas blanca y café'],
+  [23,'Tendedero ropa plegable, montado en la pared, en forma de brazo con 3 partes que se pueden plegar y sostiendo varias camisas y camisetas'],
+  [31,'Tendedero extensible, tender plegable, de acero, montado en la pared que sostiene una chaqueta de hombre y dos camisas de mujer'],
+  [31,'Tendedero extensible, tender plegable, de acero, montado en la pared que sostiene una chaqueta de hombre y dos camisas de mujer'],
+  [28,'Colgador de ropa retráctil, tendedero de ropa plegable, montado en la pared, con 5 varillas para sostener ropa'],
+  [18,'Tendederos retráctiles, colgador de ropa plegable, de piso en forma de T, sosteniendo varias camisas de hombre a cada lado'],
+  [29,'Tendedero plegable, tendedero retráctil, de color plateado, en acero, montado en la pared con 8 varillas, que sostiene 4 toallas'],
+  [37,'Tendederos retráctiles, de color negro, en metal, montado en la pared con 8 varillas, que sostiene 4 toallas y una camisa'],
+  [12,'Tendedero de ropa retráctil, de piso con varillas, en forma de mesa con dos alas laterales adicionales que sostiene mucha ropa'],
+  [19,'Tendedero ropa plegable, tendedero extensible, de madera bambu, de piso y sin prendas'],
+  [1,'Tender plegable, cogador de ropa retráctil, de madera bambu, de piso con dos camisas'],
+]);
+
+// video products
+
+const productId8 = await fnGetProductListForEachId<ProductType>([8],configApp)(fnHttpCall);
+let productId8Summary = fnGetProductSummaryList(productId8)(configApp);
+productId8Summary = fnAddDescripcionToImages(productId8Summary, keywordsProductId8);
+
+const productId9 = await fnGetProductListForEachId<ProductType>([9],configApp)(fnHttpCall);
+let productId9Summary = fnGetProductSummaryList(productId9)(configApp);
+productId9Summary = fnAddDescripcionToImages(productId9Summary, keywordsProductId9);
+
+const productId10 = await fnGetProductListForEachId<ProductType>([10],configApp)(fnHttpCall);
+let productId10Summary = fnGetProductSummaryList(productId10)(configApp);
+productId10Summary = fnAddDescripcionToImages(productId10Summary, keywordsProductId10);
+
+const productId50 = await fnGetProductListForEachId<ProductType>([50],configApp)(fnHttpCall);
+let productId50Summary = fnGetProductSummaryList(productId50)(configApp);
+productId50Summary = fnAddDescripcionToImages(productId50Summary, keywordsProductId50);
+
+// images, rest of products, 
+
+const idListProduct = [7,40,16,23,31,28,18,29,37,12,39,1];
+const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
+let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
+similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, keywordsDescriptionForImages);
 
 ---
 
@@ -38,56 +110,29 @@ const productsSummaryThird = productsSummaryObj.slice(12,18);
     <div class="flex flex-col lg:flex-row">
       <AsideSubMenuComponent category="Plegable" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Optimiza tu Espacio con Estilo: Tendederos de Ropa Plegables
+        <div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideoComponent products={productId9Summary}/>
+					<ProductPlusVideoComponent products={productId8Summary}/>
+					<ProductPlusVideoComponent products={productId50Summary}/>
+					<ProductPlusVideoComponent products={productId10Summary}/>
+				</div>
+				<br>
+				<br>
+        <br>
+        <br>
+        <h2 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
+					Más productos relacionados con tendederos retráctiles
+				</h2>
+        <br>
+        <br>
+        <br>
+        <br>
+				<ProductsClusterComponent products={similarProductsSummaryList}/>
+        <h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
+					¿ No encuentras el modelo ideal ?
 				</h3>
-        <br>
-				<br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Descubre la revolución en el secado de ropa con los innovadores tendederos de ropa plegables. 
-          Desde el elegante colgador de ropa plegable hasta el práctico tendedero retractil, fusionamos 
-          funcionalidad y diseño para transformar tu rutina de secado.
-				</p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryFirst}/>
 				<br>
 				<br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Flexibilidad y Elegancia: Tendederos Retráctiles para un Secado Eficiente
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Explora la versatilidad con los tendederos retráctiles. Ya sea el compacto tendedero de ropa 
-          retractil o el eficiente tendedero ropa plegable, cada opción ofrece una solución inteligente 
-          para maximizar el espacio y mantener tu ropa impecable.
-				</p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummarySecond}/>
-        <br>
-				<br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Despliega la Comodidad: Tendederos Extensibles para un Secado sin Complicaciones
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Opta por la comodidad con los tendederos extensibles. Desde el eficaz colgador de ropa 
-          retractil hasta el versátil tendedero ropa plegable, cada uno está diseñado para adaptarse 
-          a tu espacio y hacer del secado de ropa una experiencia sin esfuerzo y estilizada.
-				</p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryThird}/>
-				<br>
-				<br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tipos de colgador de ropa retractil
-				</h3>
-        <br>
-        <br>
         <p class="text-zinc-800 text-lg font-mono font-thin">
           En el área de tendederos removibles, existen una gran variedad de modelos, siempre dependiendo
           de tus necesidades y el tipo de espacio donde estará instalado en tu hogar, aquí puedes 

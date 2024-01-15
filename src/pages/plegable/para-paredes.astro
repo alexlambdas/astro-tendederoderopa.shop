@@ -11,24 +11,20 @@ import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuCompon
 // logic and common module
 import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
 import CommonModule from '../../app/server-common-module/Common.module';
+import type { ProductType } from '../../app/server-common-module/domain/types/Product.types';
 
 
 // init app
 await fnInitApp();
-
-const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
-const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
+const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
-const stateAppObj = fnGetStateAppObj();
-const domainName = configApp.SITE_DOMAIN_LINKS;
-const resultFiltered = fnFilterProductByCategoryAndSubcategory('Plegable')('Para paredes')(stateAppObj.products);
-const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
-const productsSummaryFirst = productsSummaryObj.slice(0,3);
-const productsSummarySecond = productsSummaryObj.slice(3,6);
-const productsSummaryThird = productsSummaryObj.slice(6,9);
-const productsSummaryFourth = productsSummaryObj.slice(9,12);
-const productsSummaryFive = productsSummaryObj.slice(12,15);
-const productsSummarySix = productsSummaryObj.slice(15);
+
+const idListProduct = [50,23,36,31,28,35,37,30,14,24];
+const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
+let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
 
 ---
 
@@ -51,81 +47,7 @@ const productsSummarySix = productsSummaryObj.slice(15);
         </p>
         <br>
         <br>
-        <ProductsClusterComponent products={productsSummaryFirst}/>
-				<br>
-				<br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendedero Plegable de Pared: La Opción Inteligente para Espacios Compactos
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Optimiza cada rincón con los versátiles tendederos plegables de pared. Desde el clásico 
-          tendedero plegable pared hasta el innovador tender extensible retractil de pared, cada opción 
-          está diseñada para brindarte la máxima eficiencia sin sacrificar el estilo.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummarySecond}/>
-				<br>
-				<br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendal Plegable Pared: Comodidad en tu Espacio
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Añade un toque de elegancia con nuestro tendal plegable pared. Descubre cómo estos diseños 
-          ofrecen una solución práctica y estilizada para secar tu ropa.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryThird}/>
-				<br>
-				<br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendedero Retráctil de Pared
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Explora la versatilidad con los tendederos retractiles pared. Desde el clásico tendedero 
-          retractil de pared hasta el eficiente tendedero de ropa plegable pared, cada opción redefine 
-          la funcionalidad y agrega un toque de estilo a tu espacio.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryFourth}/>
-				<br>
-				<br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Colgador de Ropa Plegable de Pared: Organización y Estilo en uno
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Transforma tu pared en un espacio organizado y estilizado con el colgador de ropa plegable 
-          de pared. Descubre cómo esta solución inteligente no solo ahorra espacio sino que también 
-          añade un elemento de diseño a tu hogar.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryFive}/>
-				<br>
-				<br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendedero Extensible de Pared
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Despliega la practicidad con los tendederos extensibles de pared. Desde el clásico tendedero 
-          de pared extensible hasta el moderno tender retractil de pared, cada opción está diseñada 
-          para ofrecerte comodidad.
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummarySix}/>
+        <ProductsClusterComponent products={similarProductsSummaryList}/>
 				<br>
 				<br>
         <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">

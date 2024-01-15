@@ -3,9 +3,12 @@
 import HeaderComponent from "../app/html-header-component/HeaderComponent.astro";
 import FooterComponent from "../app/html-footer-component/FooterComponent.astro";
 import MetaTagsComponent from "../app/html-meta-tags-component/MetaTagsComponent.astro";
+import VideoObjectDataComponent from "../app/html-video-object-data/VideoObjectData.astro";
 
 // props
 const { page } = Astro.props;
+
+const data: boolean = true;
 
 ---
 
@@ -18,6 +21,7 @@ const { page } = Astro.props;
 		<link rel="sitemap" href="/sitemap-index.xml">
 		<MetaTagsComponent page={page}/>
 		<meta name="generator" content={Astro.generator} />
+		<VideoObjectDataComponent page={page}/>
 	</head>
 	<body>
 		<HeaderComponent />

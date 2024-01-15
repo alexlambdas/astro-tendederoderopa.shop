@@ -1,0 +1,32 @@
+---
+import type { boolean } from 'astro/zod';
+
+
+interface Props {
+  page: string,
+}
+
+const { page } = Astro.props;
+
+const indexVideoObjectData: boolean = page === "index";
+
+---
+{
+  indexVideoObjectData &&
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "Tendedero de ropa de 4 nivles con alas laterales y de acero inoxidable",
+        "description": "Funcionamiento para uno de los mejores tendedero de ropa, el tendedero de ropa de 4 niveles para todo tipo de prendas, tiene ruedas para su fácil movimiento y es muy útil para tender ropa en apartamentos.Tiene las siguientes características, es plegable, material de acero inoxidable, tiene dos alas laterales y es ideal para interiores, pero tambien se puede utilizar en exteriores",
+        "thumbnailUrl": [
+          "https://tendederoderopa.shop/cms/uploads/large_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg",
+          "https://tendederoderopa.shop/cms/uploads/small_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg",
+          "https://tendederoderopa.shop/cms/uploads/medium_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg",
+          "https://tendederoderopa.shop/cms/uploads/thumbnail_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg"
+        ],
+        "uploadDate": "2024-01-15",
+        "contentUrl": "https://tendederoderopa.shop/cms/uploads/funcionamiento_estante_de_secado_3_niveles_01bf6a439f.mp4"
+      }
+    </script>
+}

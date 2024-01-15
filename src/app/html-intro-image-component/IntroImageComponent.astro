@@ -18,34 +18,11 @@ const introImageSummaryObj = getIntroImageSummary(introImageFilteredObj)(configA
 
 ---
 
-<section class="grid grid-cols-1 bg-yellow-100 pb-7 lg:grid-cols-2 lg:items-center lg:pb-0">
-  <div class="lg:p-12 lg:order-last">
-    <img 
-      srcset=`${introImageSummaryObj.imageSmall} 300w,
-              ${introImageSummaryObj.imageMedium} 600w,
-              ${introImageSummaryObj.imageLarge} 1000w,
-              ${introImageSummaryObj.imageExtraLarge} 200w`
-      sizes="100vw"
-      src=`${introImageSummaryObj.src}` 
-      alt=`${introImageSummaryObj.alt}`/>
-  </div>
-  
-  <div class="w-10/12 m-auto">
-    <h1 class="font-sans font-bold text-zinc-900 text-center text-4xl mt-5 lg:mt-0 lg:text-5xl">
-      {introImageSummaryObj.alt}
-    </h1>
-    <h2 class="text-gray-800 text-center text-xl mt-5 font-mono lg:text-3xl lg:mt-7">
-      {introImageSummaryObj.description}
-    </h2>
-    <div class="mt-10 flex justify-center">
-      <a href={'/mejores-tendederos-de-ropa'} class="flex flex-row items-center bg-yellow-300 hover:bg-yellow-400">
-        <div class="p-5 border-r-2 border-gray-100">
-          <img src={domainName+'/header/cart_shopping.svg'} width="24px" height="auto" alt="comprar mejores tendederos de ropa" class="m-auto">
-        </div>
-        <div class="p-5 font-semibold text-zinc-900 tracking-wide text-sm">
-          MEJORES PRODUCTOS
-        </div>
-      </a>
-    </div>
-  </div>
+<section class="flex flex-col pb-7 pt-3 lg:grid-cols-2 items-center lg:pb-0">
+  <h1 class="w-11/12 m-auto font-sans font-bold text-center text-zinc-600 text-4xl lg:text-6xl">
+    {introImageSummaryObj.alt}
+  </h1>
+  <h2 class="w-11/12 m-auto font-mono text-lg text-center text-zinc-700 mt-7 mb-7">
+    {introImageSummaryObj.description}
+  </h2>
 </section>

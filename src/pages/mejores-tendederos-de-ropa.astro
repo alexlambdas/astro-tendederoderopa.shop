@@ -10,17 +10,19 @@ import BodyMenuComponent from '../app/html-body-menu-component/BodyMenuComponent
 // logic and common module
 import { fnGetConfigAppObj, fnInitApp } from '../app/InitApp';
 import CommonModule from '../app/server-common-module/Common.module';
+import type { ProductType } from '../app/server-common-module/domain/types/Product.types';
 
 
 // init app
 await fnInitApp();
-
-const fnGetManyProductsById = CommonModule().fnGetManyProductsById;
+const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
+const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
 const fnHttpCall = CommonModule().fnHttpCall;
-const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
 const configApp = fnGetConfigAppObj();
-const productList = await fnGetManyProductsById([33,35,15,41,4],configApp)(fnHttpCall);
-const productSummaryList = fnGetProductsSummary(productList)(configApp);
+
+const productList = await fnGetProductListForEachId<ProductType>([33,35,15,41,4],configApp)(fnHttpCall);
+const productSummaryList = fnGetProductSummaryList(productList)(configApp);
 
 ---
 

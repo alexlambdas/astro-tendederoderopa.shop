@@ -1,4 +1,5 @@
 export type ProductSummaryDto = {
+  id: number;
   imageSmall: string;
   imageMedium: string;
   imageLarge: string;
@@ -12,4 +13,8 @@ export type ProductSummaryDto = {
   originalUrl: string;
   affiliateUrl: string;
   text?: string;
+  video: string | null;
+  posterVideo: string | null;
+  discount: string | null;
+  description?: string;
 }

@@ -3,13 +3,14 @@ import type { ImageType } from "./Image.types";
 import type { MetaType } from "./Meta.types";
 import type { SubCategoryType } from "./SubCategory.types";
 import type { TagType } from "./Tag.types";
+import type { VideoType } from "./Video.types";
 
-export type ProductType = {
+export type ProductListType = {
   data: DataObjectProductType[];
   meta?: MetaType;
 }
 
-export type ProductByIdType = {
+export type ProductType = {
   data: DataObjectProductType;
 }
 
@@ -35,4 +36,7 @@ type AttributesProductType = {
   productImg: ImageType;
   tags: TagType;
   text?: string;
+  video?: VideoType;
+  posterVideo: ImageType;
+  discount: string | null;
 }

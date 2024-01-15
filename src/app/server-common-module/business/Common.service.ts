@@ -4,7 +4,7 @@ import type { ProductSummaryDto } from "../domain/dtos/ProductSummary.dto";
 import type { DataObjectCategoryType } from "../domain/types/Category.types";
 import type { IntroImageType } from "../domain/types/IntroImage.type";
 import type { MetaTagType } from "../domain/types/MetaTag.types";
-import type { DataObjectProductType, ProductByIdType, ProductType } from "../domain/types/Product.types";
+import type { DataObjectProductType, ProductType, ProductListType } from "../domain/types/Product.types";
 import type { DataObjectSubCategoryType } from "../domain/types/SubCategory.types";
 
 const compose = (...fns: any[]) => (x: any) => fns.reduceRight((y, f) => f(y), x); 
@@ -93,7 +93,7 @@ export function fnGetIntroImageSummary(introImageObj: IntroImageType){
 }
 
 export function fnFilterProductByTag(tagName: string){
-  return function(productObj: ProductType): ProductType{
+  return function(productObj: ProductListType): ProductListType{
 
     const data = productObj.data.filter(product => {
       const data = product.attributes.tags.data.filter(tagObj => tagObj.attributes.name === tagName);
@@ -109,14 +109,17 @@ export function fnFilterProductByTag(tagName: string){
   }
 }
 
-export function fnGetProductsSummary(productObj: ProductType){
+export function fnGetProductSummaryList(productList: ProductType[]){
   return function(configAppObj: ConfigAppDto): ProductSummaryDto[]{
 
     const domain = configAppObj.SITE_DOMAIN+'/cms';
-    const data = productObj.data.map(product => {
+    const data = productList.map(product => {
       return {
+
+        id: product.data.id,
   
         imageSmall: domain+product
+          .data
           .attributes
           .productImg
           .data[0]
@@ -126,6 +129,7 @@ export function fnGetProductsSummary(productObj: ProductType){
           .url,
   
         imageMedium: domain+product
+          .data
           .attributes
           .productImg
           .data[0]
@@ -135,6 +139,7 @@ export function fnGetProductsSummary(productObj: ProductType){
           .url,
   
         imageLarge: domain+product
+          .data
           .attributes
           .productImg
           .data[0]
@@ -144,6 +149,7 @@ export function fnGetProductsSummary(productObj: ProductType){
           .url,
   
         imageExtraLarge: domain+product
+          .data
           .attributes
           .productImg
           .data[0]
@@ -153,6 +159,7 @@ export function fnGetProductsSummary(productObj: ProductType){
           .url,
   
         src: domain+product
+          .data
           .attributes
           .productImg
           .data[0]
@@ -161,16 +168,18 @@ export function fnGetProductsSummary(productObj: ProductType){
           .large
           .url,
   
-        alt: product.attributes.title,
-        brand: product.attributes.brand,
-        title: product.attributes.title,
-        price: product.attributes.price,
-        rating: product.attributes.rating,
-        originalUrl: product.attributes.originalUrl,
-        affiliateUrl: product.attributes.affiliateUrl,
-        text: product.attributes.text,
-  
-        }
+        alt: product.data.attributes.title,
+        brand: product.data.attributes.brand,
+        title: product.data.attributes.title,
+        price: product.data.attributes.price,
+        rating: product.data.attributes.rating,
+        originalUrl: product.data.attributes.originalUrl,
+        affiliateUrl: product.data.attributes.affiliateUrl,
+        text: product.data.attributes.text,
+        video: product.data.attributes.video?.data === null ? null : domain+product.data.attributes.video?.data[0].attributes.url,
+        posterVideo: product.data.attributes.posterVideo?.data === null ? null : domain+product.data.attributes.posterVideo?.data[0].attributes.formats.medium.url,
+        discount: product.data.attributes.discount === null ? '0%' : product.data.attributes.discount,
+      }
     });
 
     return data;
@@ -191,7 +200,7 @@ export function fnFilterMetaTagByPage(page: string){
 
 export function fnFilterProductByCategoryAndSubcategory(category: string){
   return function(subCategory: string){
-    return function(productObj: ProductType): ProductType{
+    return function(productObj: ProductListType): ProductListType{
 
       const predicateCategory = (dataObj: DataObjectCategoryType) => dataObj.attributes.name === category;
       const prediteSubCategory = (dataObj: DataObjectSubCategoryType) => dataObj.attributes.name === subCategory;
@@ -240,7 +249,7 @@ export function fnFilterProductByCategoryAndSubcategory(category: string){
 }
 
 export function fnFilterProductByCategory(category: string){
-  return function(productObj: ProductType): ProductType{
+  return function(productObj: ProductListType): ProductListType{
 
     const predicateCategory = (dataObj: DataObjectCategoryType) => dataObj.attributes.name === category;
     const filteredByCategory = (dataObj: DataObjectProductType[]) => {
@@ -270,30 +279,32 @@ export function fnFilterProductByCategory(category: string){
   }
 }
 
-export function fnGetManyProductsById(idList: number[], configAppDto: ConfigAppDto){
-  return async function(f: (url: string) => Promise<ProductByIdType>): Promise<ProductType>{
-    
-    let listProducts: ProductType = { data: [] };
-
-    if(idList.length <= 0) return listProducts;
-    const length = idList.length;
-    const domain = configAppDto.SITE_DOMAIN;
-    const productById = configAppDto.PATH_API_PRODUCTS_BY_ID;
-    const finalPath = '?populate[productImg][populate][0]=productImg';
-
-    for(let index = 0; index < length; index++){
-      const resultProduct = await f(domain+productById+`${idList[index]}`+finalPath);
-      if(resultProduct.data !== null){
-        listProducts = {
-          data: [
-            ...listProducts.data,
-            resultProduct.data,
-          ]
-        }
-      }
+export function fnGetProductListForEachId<ProductType>(idList: number[], configAppDto: ConfigAppDto){
+  return function(f: (url: string) => Promise<ProductType>): Promise<Awaited<ProductType>[]>{
+    if(idList.length <= 0) return Promise.all([]);
+    else{
+      const domain = configAppDto.SITE_DOMAIN;
+      const productByIdPath = configAppDto.PATH_API_PRODUCTS_BY_ID;
+      const finalPath = '?populate[productImg][populate][0]=productImg&populate[video][populate][1]=video&populate[posterVideo][populate][2]=posterVideo';
+      const productList = Promise.all(idList.map(async id => await f(domain+productByIdPath+`${id}`+finalPath)));
+      return productList;
     }
+  }
+}
 
-    return listProducts;
+export function fnAddDescripcionToImages(productSummaryList: ProductSummaryDto[], keywords: Map<number,string>): ProductSummaryDto[]{
+  if(productSummaryList.length === keywords.size){
+    const result = productSummaryList.map(product => {
+      const alt = keywords.get(product.id);
+      return {
+        ...product,
+        alt: alt === undefined ? product.alt : alt,
+      }
+    });
+    return result;
+  }
+  else{
+    return productSummaryList;
   }
 }
 

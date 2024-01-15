@@ -2,16 +2,13 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwind from "@astrojs/tailwind";
 
-const currentDate = new Date();
-const currentStrDate = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`;
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tendederoderopa.shop',
   integrations: [
     tailwind(),
     sitemap({
-      lastmod: new Date(currentStrDate),
+      lastmod: new Date('2024-01-12'),
       filter: (page) =>
         page !== 'https://tendederoderopa.shop/ubicacion/' &&
         page !== 'https://tendederoderopa.shop/tipos/' &&

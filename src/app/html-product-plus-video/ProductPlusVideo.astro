@@ -1,0 +1,71 @@
+---
+import type { ProductSummaryDto } from '../server-common-module/domain/dtos/ProductSummary.dto';
+import StarComponent from '../html-svg-component/Star.astro';
+
+
+interface Props {
+  products: ProductSummaryDto[],
+}
+
+const { products } = Astro.props;
+
+---
+
+<div class="grid grid-cols-2 gap-3 m-auto">
+  {
+    products.map(product => (
+      <div class="grid grid-cols-1 content-stretch rounded-xl shadow-lg bg-yellow-50 hover:contrast-75 transition duration-300">
+        <div class="">
+          <a href={product.affiliateUrl} target="_blank" rel="sponsored" class="text-sm lg:text-lg">
+            <img class="m-auto rounded-tl-xl rounded-tr-xl"
+              srcset={`
+                ${product.imageSmall} 300w,
+                ${product.imageMedium} 600w,
+                ${product.imageLarge} 1000w,
+                ${product.imageExtraLarge} 200w`}
+              sizes="100vw" 
+              loading="lazy"
+              src={product.src}
+              alt={product.alt}/>
+          </a>
+        </div>
+        <div class="grid content-stretch w-11/12 h-full m-auto">
+          <a href={product.affiliateUrl} target="_blank" rel="sponsored" class="flex flex-col w-full justify-center">
+            <div class="mb-2 flex justify-between">
+              <div class="text-xs text-zinc-900 font-bold bg-yellow-400 w-16 lg:w-20 h-7 pt-1 rounded-md rounded-br-md text-center">
+                Amazon
+              </div>
+              <div class="text-xs text-white font-bold bg-rose-800 w-16 lg:w-20 h-7 pt-1 rounded-md text-center">
+                {product.discount+' OFF'}
+              </div>
+            </div>  
+            <div class="mb-2 text-xs text-white font-bold bg-zinc-900 w-16 lg:w-20 h-7 pt-1 rounded-md text-center">
+                {`US $${product.price}`}
+            </div>
+            <div class="flex bg-yellow-400 w-16 lg:w-20 h-7 rounded-md items-center justify-center">
+              <div class="text-xs text-zinc-900 font-bold">
+                {product.rating}
+              </div>
+              <span>&nbsp;</span>
+              <div>
+                <StarComponent height='16px' width='16px' fill='#000000'/>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <video  
+        controls
+        preload="none"
+        poster={product.posterVideo}
+        id="idVideoProduct"
+        class="cursor-pointer shadow-xl rounded-xl hover:contrast-75 transition duration-300">
+          <source src={product.video} type="video/mp4">
+          Lo sentimos. Este vídeo no se puede reproducir en tu navegador.<br>
+      </video>
+    ))
+  }
+</div> 
+
+
+

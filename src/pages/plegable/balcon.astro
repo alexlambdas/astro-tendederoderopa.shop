@@ -7,25 +7,72 @@ import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/Aside
 import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
 import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+import ProductPlusVideoComponent from '../../app/html-product-plus-video/ProductPlusVideo.astro';
 
 // logic and common module
-import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
 import CommonModule from '../../app/server-common-module/Common.module';
+import type { ProductType } from '../../app/server-common-module/domain/types/Product.types';
 
 // init app
 await fnInitApp();
-
-const fnFilterProductByCategoryAndSubcategory = CommonModule().fnFilterProductByCategoryAndSubcategory;
-const fnGetProductsSummary = CommonModule().fnGetProductsSummary;
+const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
+const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
-const stateAppObj = fnGetStateAppObj();
-const domainName = configApp.SITE_DOMAIN_LINKS;
-const resultFiltered = fnFilterProductByCategoryAndSubcategory('Plegable')('Para balcon')(stateAppObj.products);
-const productsSummaryObj = fnGetProductsSummary(resultFiltered)(configApp);
-const productsSummaryFirst = productsSummaryObj.slice(0,8);
-const productsSummarySecond = productsSummaryObj.slice(8,16);
-const productsSummaryThird = productsSummaryObj.slice(16);
 
+// keywords
+
+/**
+ * 
+ * max: 140 characters
+ * 
+ * PRODUCT_ID - KEYWORDS
+ * 51, 31, 37, 27   tendedero plegable balcon
+ * 23, 31, 24, 27   tendedero plegable para balcon
+ * 51, 28, 32       tendedero extensible balcon
+ * 23, 28, 32, 49   tendedero de balcon extensible
+ * 36, 37, 29       tendedero extensible para balcon
+ * 
+ */
+
+// video products
+
+const keywordsProductId51 = new Map([
+  [51,'Tendedero plegable balcón, tendedero extensible balcón, cogado de una barandilla y con rejillas para sostener ropa'],
+]);
+
+const keywordsProductId23 = new Map([
+  [23,'Tendedero plegable para balcón, tendedero de balcón extensible con montaje de pared, en forma de brazo con tres partes plegables'],
+]);
+
+const productId51 = await fnGetProductListForEachId<ProductType>([51],configApp)(fnHttpCall);
+let productId51Summary = fnGetProductSummaryList(productId51)(configApp);
+productId51Summary = fnAddDescripcionToImages(productId51Summary, keywordsProductId51);
+
+const productId23 = await fnGetProductListForEachId<ProductType>([23],configApp)(fnHttpCall);
+let productId23Summary = fnGetProductSummaryList(productId23)(configApp);
+productId23Summary = fnAddDescripcionToImages(productId23Summary, keywordsProductId23);
+
+const keywordsDescriptionForImages = new Map([
+  [36,'Tendedero extensible para balcón, montado en la pared, con 3 varillas sosteniendo una camisa gris, una blanca y una roja'],
+  [31,'Tendedero plegable para balcón, tendedero plegable balcón, montado en la pared, con 8 varillas sosteniendo una tres camisas de mujer'],
+  [28,'Tendedero de balcón extensible, tendedero extensible balcón, montado en la pared con 5 varillas, de color blanco sosteniendo varias prendas'],
+  [37,'Tendedero extensible para balcón, tendedero plegable balcón, montado en la pared, con varillas y longitud que se expande jalando de la pared'],
+  [24,'Tendedero plegable para balcón, de montaje en pared, en forma de U cuadrada, y los brazos laterales se cierran y abren en la imágen '],
+  [32,'Tendedero de balcón extensible, tendedero extensible balcón, con montaje de pared, en forma de brazo con tres partes plegables'],
+  [29,'Tendedero extensible para balcón, de color plateado, montado en la pared, con varillas y longitud que se expande jalando de la pared'],
+  [27,'Tendedero plegable para balcón, tendedero plegable balcón, montado en la pared, con 8 varillas sosteniendo 4 toallas de diferentes colores'],
+  [49,'Tendedero de balcón extensible, de forma circular que contiene dos líneas para colgado de ropa que se halan hasta 15 metros para colgar ropa'],
+]);
+
+// images, rest of products, 
+
+const idListProduct = [36,31,28,37,24,32,29,27,49];
+const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
+let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
+similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, keywordsDescriptionForImages);
 
 ---
 
@@ -35,52 +82,25 @@ const productsSummaryThird = productsSummaryObj.slice(16);
     <br>
     <br>
     <div class="flex flex-col lg:flex-row">
-      <AsideSubMenuComponent category="Plegable" subCategoryName="Para balcon" />
+      <AsideSubMenuComponent category="Plegable" subCategoryName="Para balcón" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Experiencia al Aire Libre: Tendederos Plegables para Balcones
-				</h3>
+        <div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideoComponent products={productId51Summary}/>
+					<ProductPlusVideoComponent products={productId23Summary}/>
+				</div>
+        <br>
+				<br>
         <br>
         <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Transforma tu balcón en un oasis de frescura y practicidad con nuestros exclusivos tendederos 
-          plegables para balcones. Desde el clásico tendedero plegable balcon hasta el versátil 
-          tendedero extensible balcon.
-        </p>
+        <h2 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
+					Encuentra más productos relacionados con tendedero plegable para balcón
+				</h2>
+        <br>
+				<br>
         <br>
         <br>
-        <ProductsClusterComponent products={productsSummaryFirst}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendederos Extensibles para Balcones
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Optimiza cada centímetro de tu balcón con los tendederos extensibles para balcones. Descubre 
-          la funcionalidad y el estilo con opciones como el tendedero de balcon extensible, diseñado 
-          para adaptarse a espacios reducidos
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummarySecond}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendederos Extensibles y Plegables en tu Balcón
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Tendedero plegable para balcon hasta la versatilidad del tendedero extensible para balcon
-        </p>
-        <br>
-        <br>
-        <ProductsClusterComponent products={productsSummaryThird}/>
-        <br>
-        <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+        <ProductsClusterComponent products={similarProductsSummaryList}/>
+        <h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
 					¿ No encuentras el modelo ideal ?
 				</h3>
         <br>
