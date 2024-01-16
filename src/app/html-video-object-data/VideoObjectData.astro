@@ -8,25 +8,136 @@ interface Props {
 
 const { page } = Astro.props;
 
+const templateVideoObjectData: boolean = false;
 const indexVideoObjectData: boolean = page === "index";
+const plegableVideoObjectData: boolean = page === "plegable";
+const plegableBalconVideoObjectData: boolean = page === "plegable-balcon";
+const ubicacionBlaconVideoObjectData: boolean = page === "ubicacion-balcon";
+const ubicacionApartamentoVideoObjectData: boolean = page === "ubicacion-apartamento";
 
 ---
+
 {
-  indexVideoObjectData &&
+
+  templateVideoObjectData &&
   <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "VideoObject",
-        "name": "Tendedero de ropa de 4 nivles con alas laterales y de acero inoxidable",
-        "description": "Funcionamiento para uno de los mejores tendedero de ropa, el tendedero de ropa de 4 niveles para todo tipo de prendas, tiene ruedas para su fácil movimiento y es muy útil para tender ropa en apartamentos.Tiene las siguientes características, es plegable, material de acero inoxidable, tiene dos alas laterales y es ideal para interiores, pero tambien se puede utilizar en exteriores",
+        "name": "",
+        "description": "",
         "thumbnailUrl": [
-          "https://tendederoderopa.shop/cms/uploads/large_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg",
-          "https://tendederoderopa.shop/cms/uploads/small_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg",
-          "https://tendederoderopa.shop/cms/uploads/medium_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg",
-          "https://tendederoderopa.shop/cms/uploads/thumbnail_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg"
+          "",
+          "",
+          "",
+          ""
         ],
         "uploadDate": "2024-01-15",
-        "contentUrl": "https://tendederoderopa.shop/cms/uploads/funcionamiento_estante_de_secado_3_niveles_01bf6a439f.mp4"
+        "contentUrl": ""
       }
     </script>
+}
+
+{
+  indexVideoObjectData &&
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Optimiza tus espacios con un tendedero de ropa accesible para todos: la solución ideal para el día a día",
+      "description": "El innovador tendedero de ropa. En este video, exploraremos a fondo las características y el funcionamiento de un tendido de ropa, diseñado para hacer que el proceso de secado sea más eficiente y sin complicaciones. Este tendedero de ropa no solo simplifica el acto de tender la ropa, sino que también redefine la experiencia con su diseño inteligente y sus estendederos de ropa, proporcionando una solución integral para tus necesidades diarias. Desde su fácil montaje hasta su capacidad de extenderse para acomodar varias prendas, descubrirás cómo nuestro tendedero de ropa se convierte en un aliado esencial para hacer que el secado de la ropa sea una tarea sencilla y rápida",
+      "thumbnailUrl": [
+        "https://tendederoderopa.shop/cms/uploads/large_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg",
+        "https://tendederoderopa.shop/cms/uploads/small_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg",
+        "https://tendederoderopa.shop/cms/uploads/medium_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg",
+        "https://tendederoderopa.shop/cms/uploads/thumbnail_poster_estante_de_secado_3_niveles_2d0aa108c7.jpg"
+      ],
+      "uploadDate": "2024-01-15",
+      "contentUrl": "https://tendederoderopa.shop/cms/uploads/funcionamiento_estante_de_secado_3_niveles_01bf6a439f.mp4"
+    }
+  </script>
+}
+
+{
+
+  plegableVideoObjectData &&
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Explora las ventajas del Tendedero de Ropa Plegable para un hogar organizado",
+      "description": "Innovadores productos para elegir un tendedero de ropa plegable. En este video, exploraremos a fondo las características y el funcionamiento del colgador de ropa plegable. Con su diseño inteligente, este tendedero retráctil se adapta perfectamente a tus necesidades diarias, ocupando un mínimo espacio cuando no está en uso y desplegándose con facilidad cuando lo necesitas. Descubre cómo este ingenioso colgador de ropa plegable combina la versatilidad de un tendedero retráctil con la practicidad de un diseño plegable, proporcionando una solución eficiente para el secado de tus prendas",
+      "thumbnailUrl": [
+        "https://tendederoderopa.shop/cms/uploads/large_poster_estante_de_secado_con_tripode_y_portatil_abf65a9868.jpg",
+        "https://tendederoderopa.shop/cms/uploads/medium_poster_estante_de_secado_con_tripode_y_portatil_abf65a9868.jpg",
+        "https://tendederoderopa.shop/cms/uploads/small_poster_estante_de_secado_con_tripode_y_portatil_abf65a9868.jpg",
+        "https://tendederoderopa.shop/cms/uploads/thumbnail_poster_estante_de_secado_con_tripode_y_portatil_abf65a9868.jpg"
+      ],
+      "uploadDate": "2024-01-15",
+      "contentUrl": "https://tendederoderopa.shop/cms/uploads/funcionamiento_estante_de_secado_con_tripode_y_portatil_382bc958d7.mp4"
+    }
+  </script>
+}
+
+{
+
+  plegableBalconVideoObjectData &&
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Explora las ventajas del Tendedero Plegable diseñado especialmente para balcones",
+      "description": "Excepcional tendedero plegable para balcón! Este video te sumergirá en las características innovadoras de nuestro tendedero, diseñado específicamente para optimizar espacios exteriores. Descubre la funcionalidad incomparable de nuestro tendedero plegable para balcón, que combina la practicidad de un diseño plegable con la versatilidad de ser extensible. Desde su fácil instalación hasta su capacidad para adaptarse a diferentes tamaños de balcones",
+      "thumbnailUrl": [
+        "https://tendederoderopa.shop/cms/uploads/large_poster_estante_de_secado_de_ropa_de_montaje_en_pared_40818dd2aa.jpg",
+        "https://tendederoderopa.shop/cms/uploads/medium_poster_estante_de_secado_de_ropa_de_montaje_en_pared_40818dd2aa.jpg",
+        "https://tendederoderopa.shop/cms/uploads/small_poster_estante_de_secado_de_ropa_de_montaje_en_pared_40818dd2aa.jpg",
+        "https://tendederoderopa.shop/cms/uploads/thumbnail_poster_estante_de_secado_de_ropa_de_montaje_en_pared_40818dd2aa.jpg"
+      ],
+      "uploadDate": "2024-01-15",
+      "contentUrl": "https://tendederoderopa.shop/cms/uploads/funcionamiento_estante_de_secado_de_ropa_de_montaje_en_pared_780e9eb903.mp4"
+    }
+  </script>
+}
+
+{
+
+  ubicacionBlaconVideoObjectData &&
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Optimiza tu espacio al aire libre: Descubre el Tendedero de Balcón",
+      "description": "Excepcional tendedero de ropa diseñado específicamente para balcones. En este video, exploraremos a fondo las características y el funcionamiento de nuestro innovador tendedero de balcón, ofreciendo una solución perfecta para espacios reducidos. Desde su fácil instalación hasta su capacidad para sostener múltiples prendas. Descubre cómo nuestro tendedero de balcón se convierte en un aliado esencial para aquellos que buscan eficiencia sin sacrificar el estilo. Ya sea que estés buscando tendederos de ropa para balcón o un colgador de ropa específicamente diseñado para tu espacio al aire libre, este video te guiará a través de todas las funciones y ventajas que hacen de nuestro producto la elección perfecta",
+      "thumbnailUrl": [
+        "https://tendederoderopa.shop/cms/uploads/large_poster_estante_de_secado_de_ropa_de_montaje_en_pared_40818dd2aa.jpg",
+        "https://tendederoderopa.shop/cms/uploads/medium_poster_estante_de_secado_de_ropa_de_montaje_en_pared_40818dd2aa.jpg",
+        "https://tendederoderopa.shop/cms/uploads/small_poster_estante_de_secado_de_ropa_de_montaje_en_pared_40818dd2aa.jpg",
+        "https://tendederoderopa.shop/cms/uploads/thumbnail_poster_estante_de_secado_de_ropa_de_montaje_en_pared_40818dd2aa.jpg"
+      ],
+      "uploadDate": "2024-01-15",
+      "contentUrl": "https://tendederoderopa.shop/cms/uploads/funcionamiento_estante_de_secado_de_ropa_de_montaje_en_pared_780e9eb903.mp4"
+    }
+  </script>
+}
+
+{
+
+  ubicacionApartamentoVideoObjectData &&
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Optimiza tu espacio doméstico: Descubre el Tendedero de Ropa para Apartamento, la solución perfecta para secar con eficiencia",
+      "description": "Hoy exploraremos las características excepcionales de nuestro un tendedero de ropa para apartamento. Desde su instalación sencilla hasta su capacidad para adaptarse a los confines de espacios más pequeños, este colgador de ropa para apartamento se erige como la solución perfecta para el secado eficiente en ambientes urbanos. Descubre cómo nuestros tendederos para apartamentos fusionan la practicidad de un diseño compacto con la versatilidad necesaria para sostener diversas prendas. Este video te llevará a través de cada detalle, desde los tendederos de ropa específicamente diseñados para apartamentos hasta el colgador de ropa que maximiza cada centímetro disponible. Únete a nosotros y descubre cómo transformar tu espacio residencial en un área de secado eficiente y con estilo",
+      "thumbnailUrl": [
+        "https://tendederoderopa.shop/cms/uploads/large_poster_estante_de_secado_con_tripode_y_portatil_abf65a9868.jpg",
+        "https://tendederoderopa.shop/cms/uploads/medium_poster_estante_de_secado_con_tripode_y_portatil_abf65a9868.jpg",
+        "https://tendederoderopa.shop/cms/uploads/small_poster_estante_de_secado_con_tripode_y_portatil_abf65a9868.jpg",
+        "https://tendederoderopa.shop/cms/uploads/thumbnail_poster_estante_de_secado_con_tripode_y_portatil_abf65a9868.jpg"
+      ],
+      "uploadDate": "2024-01-15",
+      "contentUrl": "https://tendederoderopa.shop/cms/uploads/funcionamiento_estante_de_secado_con_tripode_y_portatil_382bc958d7.mp4"
+    }
+  </script>
 }
