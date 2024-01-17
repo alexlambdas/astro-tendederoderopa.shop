@@ -18,11 +18,11 @@ const introImageSummaryObj = getIntroImageSummary(introImageFilteredObj)(configA
 
 ---
 
-<section class="flex flex-col pt-3 lg:grid-cols-2 items-center lg:pb-0">
+<section class="flex flex-col pt-6 lg:pt-3 lg:grid-cols-2 items-center lg:pb-0">
   <h1 class="w-11/12 m-auto font-sans font-bold text-center text-zinc-600 text-4xl lg:text-6xl">
     {introImageSummaryObj.alt}
   </h1>
-  <h2 class="w-11/12 m-auto font-mono text-lg text-center text-zinc-700 mt-7">
+  <h2 class="w-11/12 lg:w-9/12 m-auto font-mono font-medium text-lg text-center text-zinc-700 mt-7">
     {introImageSummaryObj.description}
   </h2>
 </section>

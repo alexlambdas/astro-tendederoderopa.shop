@@ -7,6 +7,7 @@ import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/Aside
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
 import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
 import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
+import ProductPlusVideoComponent from '../../app/html-product-plus-video/ProductPlusVideo.astro';
 
 // logic and common module
 import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
@@ -18,12 +19,156 @@ await fnInitApp();
 const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
 const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
 const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnAddTitleToImages = CommonModule().fnAddTitleToImages;
 const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
 
-const idListProduct = [7,40,8,10,16,6,18,39,5,1];
-const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
-let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
+// keywords
+
+/**
+ * 
+ * max: 140 characters
+ * 
+ * PRODUCT_ID - KEYWORDS
+ * 8, 39  tendedero de ropa plegable de piso
+ * 10, 40 tendedero plegable para interiores
+ * 9, 41  tendedero vertical plegable
+ * 21,    tender plegable de pie
+ * 1,     tendedero de piso plegable
+ * 2,     tendedero de ropa plegable piso
+ * 3,     tendedero de pie plegable
+ * 4,     tendedero plegable de piso
+ * 5,     tendal portátil
+ * 4, 20  tender de ropa con alas
+ * 7,     colgador de ropa plegable portátil
+ * 11,    tendedero piso plegable
+ * 12,    tendedero con alas plegable
+ * 15,    tendedero portátil vertical
+ * 17,    tendedero plegable con alas
+ * 5,     tendederos con alas
+ * 18,    tendedero de ropa plegable vertical
+ * 8,     tendederos de alas
+ * 19,    tendedero de ropa plegable portátil
+ * 20,    tendedero plegable piso
+ * 33,    tender vertical plegable
+ * 
+ */
+
+// video products
+
+const keywordsProductId8 = new Map([
+  [8,'Tendedero de ropa plegable de piso, de 4 niveles, en la sala que sostiene un oso y una toalla. También se conocen como tendederos de alas.'],
+]);
+const keywordTitleForProductId8 = new Map([[8,'Tendedero de ropa plegable de piso']]);
+
+const keywordsProductId10 = new Map([
+  [10,'Tendedero plegable para interiores, en forma de A mayúscula, con alas laterales en el medio y en la parte superior, que sostiene ropa.'],
+]);
+const keywordTitleForProductId10 = new Map([[10,'Tendedero plegable para interiores']]);
+
+const keywordsProductId9 = new Map([
+  [9,'Tendedero vertical plegable, trípode de piso para sostenerse, y varios brazos en la parte superior en forma de pulpo para sostener ropa.'],
+]);
+const keywordTitleForProductId9 = new Map([[9,'Tendedero vertical plegable']]);
+
+const keywordsProductId21 = new Map([
+  [21,'Tender plegable de pie, de 4 niveles, con rejillas en cada nivel, con ruedas y sostiene ropa de vestir en cada nivel.'],
+]);
+const keywordTitleForProductId21 = new Map([[21,'Tender plegable de pie']]);
+
+const productId8 = await fnGetProductListForEachId<ProductType>([8],configApp)(fnHttpCall);
+let productId8Summary = fnGetProductSummaryList(productId8)(configApp);
+productId8Summary = fnAddDescripcionToImages(productId8Summary, keywordsProductId8);
+productId8Summary = fnAddTitleToImages(productId8Summary,keywordTitleForProductId8);
+
+const productId10 = await fnGetProductListForEachId<ProductType>([10],configApp)(fnHttpCall);
+let productId10Summary = fnGetProductSummaryList(productId10)(configApp);
+productId10Summary = fnAddDescripcionToImages(productId10Summary, keywordsProductId10);
+productId10Summary = fnAddTitleToImages(productId10Summary,keywordTitleForProductId10);
+
+const productId9 = await fnGetProductListForEachId<ProductType>([9],configApp)(fnHttpCall);
+let productId9Summary = fnGetProductSummaryList(productId9)(configApp);
+productId9Summary = fnAddDescripcionToImages(productId9Summary, keywordsProductId9);
+productId9Summary = fnAddTitleToImages(productId9Summary,keywordTitleForProductId9);
+
+const productId21 = await fnGetProductListForEachId<ProductType>([21],configApp)(fnHttpCall);
+let productId21Summary = fnGetProductSummaryList(productId21)(configApp);
+productId21Summary = fnAddDescripcionToImages(productId21Summary, keywordsProductId21);
+productId21Summary = fnAddTitleToImages(productId21Summary,keywordTitleForProductId21);
+
+// rest of products
+
+const slice1keywordsForImages = new Map([
+  [1,'Tendedero de piso plegable de madera bambú y de piso, en forma de rejilla zigzag y de 1 metro de alto. Sosteniendo ropa.'],
+  [2,'Tendedero de ropa plegable piso, en acero, con forma de rejilla zigzag y de 1 metro de alto.'],
+  [3,'Tendedero de pie plegable, en acero, con forma de rejilla zigzag y de 1 metro de alto.'],
+  [4,'Tendedero plegable de piso, de 4 niveles, en acero, que sostiene ropa en cada nivel. También se conoce como tender de ropa con alas.'],
+  [5,'Tendal portátil de 4 niveles, en acero, que sostiene ropa en cada nivel. Hace parte de la categoría de tendederos con alas.'],
+  [7,'Colgador de ropa plegable portátil, en acero de color plateado, con forma de rejilla zigzag y de 1 metro de alto.'],
+]);
+
+const slice2keywordsForImages = new Map([
+  [11,'Tendedero piso plegable, de 3 niveles, en acero, con ruedas y sostiene ropa en cada nivel, tiene 4 ganchos laterales.'],
+  [12,'Tendedero con alas plegable, en forma de mesa y dos alas laterales, en acero y sostiene ropa en el centro y en los costados.'],
+  [15,'Tendedero portátil vertical, 4 apoyos al suelo y un apoyo central vertical, 3 niveles cada uno con varillas del centro hacia afuera.'],
+  [17,'Tendedero plegable con alas, en forma de A mayúscula, dos alas laterales en la parte superior, de 3 niveles, en acero.'],
+  [18,'Tendedero de ropa plegable vertical, con trípode de piso, y en forma de T hacia arriba, que sostiene camisas a cada lado.'],
+  [19,'Tendedero de ropa plegable portátil, con trípode de piso, y en forma de X en la parte superior, que sostiene ropa en cada brazo.'],
+]);
+
+const slice3keywordsForImages = new Map([
+  [20,'Tendedero plegable piso, de 4 niveles, en acero, que sostiene ropa en cada nivel. También se llama tender de ropa con alas.'],
+  [33,'Tender vertical plegable, trípode de piso para sostenerse, y varios brazos en la parte superior en forma de pulpo para sostener ropa.'],
+  [39,'Tendedero de ropa plegable de piso, de madera bambú, en forma de rejilla zigzag y de 1 metro de alto. Sosteniendo ropa.'],
+  [40,'Tendedero plegable para interiores, de madera bambú, en forma de rejilla zigzag y de 1 metro y medio de alto. Sosteniendo toallas.'],
+  [41,'Tendedero vertical plegable, hecho en Pennsylvania con madera de arce maciza , en forma de rejilla zigzag y de 1 metro de alto.'],
+  [42,'Tender plegable de pie, hecho en Pennsylvania con madera de arce maciza , en forma de rejilla zigzag y de 1 metro de alto.'],
+]);
+
+const slice1KeywordTitleForImages = new Map([
+  [1,'Tendedero de piso plegable de madera bambú'],
+  [2,'Tendedero de ropa plegable piso'],
+  [3,'Tendedero de pie plegable'],
+  [4,'Tendedero plegable de piso'],
+  [5,'Tendal portátil de 4 niveles'],
+  [7,'Colgador de ropa plegable portátil'],
+]);
+
+const slice2KeywordTitleForImages = new Map([
+  [11,'Tendedero piso plegable'],
+  [12,'Tendedero con alas plegable'],
+  [15,'Tendedero portátil vertical'],
+  [17,'Tendedero plegable con alas'],
+  [18,'Tendedero de ropa plegable vertical'],
+  [19,'Tendedero de ropa plegable portátil'],
+]);
+
+const slice3KeywordTitleForImages = new Map([
+  [20,'Tendedero plegable piso'],
+  [33,'Tender vertical plegable'],
+  [39,'Tendedero de ropa plegable de piso'],
+  [40,'Tendedero plegable para interiores'],
+  [41,'Tendedero vertical plegable'],
+  [42,'Tender plegable de pie'],
+]);
+
+const slilce1IdListProduct = [1,2,3,4,5,7];
+const slice1SimilarProducts = await fnGetProductListForEachId<ProductType>(slilce1IdListProduct,configApp)(fnHttpCall);
+let slice1SimilarProductsSummaryList = fnGetProductSummaryList(slice1SimilarProducts)(configApp);
+slice1SimilarProductsSummaryList = fnAddDescripcionToImages(slice1SimilarProductsSummaryList, slice1keywordsForImages);
+slice1SimilarProductsSummaryList = fnAddTitleToImages(slice1SimilarProductsSummaryList,slice1KeywordTitleForImages);
+
+const slilce2IdListProduct = [11,12,15,17,18,19];
+const slice2SimilarProducts = await fnGetProductListForEachId<ProductType>(slilce2IdListProduct,configApp)(fnHttpCall);
+let slice2SimilarProductsSummaryList = fnGetProductSummaryList(slice2SimilarProducts)(configApp);
+slice2SimilarProductsSummaryList = fnAddDescripcionToImages(slice2SimilarProductsSummaryList, slice2keywordsForImages);
+slice2SimilarProductsSummaryList = fnAddTitleToImages(slice2SimilarProductsSummaryList,slice2KeywordTitleForImages);
+
+const slilce3IdListProduct = [20,33,39,40,41,42];
+const slice3SimilarProducts = await fnGetProductListForEachId<ProductType>(slilce3IdListProduct,configApp)(fnHttpCall);
+let slice3SimilarProductsSummaryList = fnGetProductSummaryList(slice3SimilarProducts)(configApp);
+slice3SimilarProductsSummaryList = fnAddDescripcionToImages(slice3SimilarProductsSummaryList, slice3keywordsForImages);
+slice3SimilarProductsSummaryList = fnAddTitleToImages(slice3SimilarProductsSummaryList,slice3KeywordTitleForImages);
 
 ---
 
@@ -35,28 +180,63 @@ let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(config
     <div class="flex flex-col lg:flex-row">
       <AsideSubMenuComponent category="Plegable" subCategoryName="Para piso" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendederos de Ropa Plegables de Piso
-				</h3>
+        <div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideoComponent products={productId8Summary}/>
+					<ProductPlusVideoComponent products={productId10Summary}/>
+          <ProductPlusVideoComponent products={productId9Summary}/>
+					<ProductPlusVideoComponent products={productId21Summary}/>
+				</div>
         <br>
         <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Descubre la fusión perfecta de practicidad y elegancia con los tendederos de ropa plegables 
-          de piso. Cada detalle, desde el diseño portátil hasta la facilidad de uso, redefine tu 
-          experiencia de secado.
+        <h2 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Calidad con un tendedero de ropa portátil.
+				</h2>
+        <br>
+        <br>
+        <p class="text-zinc-900 text-lg font-mono font-medium lg:w-3/4 text-center m-auto bg-rose-100 p-5 lg:p-10 rounded-md">
+          Sabemos que elegir el producto perfecto puede marcar la diferencia. El diseño elegante y moderno en un tendedero móvil 
+          añade un toque estilizado a cualquier espacio. 🧐
         </p>
         <br>
         <br>
-        <ProductsClusterComponent products={similarProductsSummaryList}/>
+        <ProductsClusterComponent products={slice1SimilarProductsSummaryList}/>
+        <br>
+        <h2 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Un tendedero vertical plegable con un diseño que deslumbre!.
+				</h2>
         <br>
         <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+        <p class="text-zinc-900 text-lg font-mono font-medium lg:w-3/4 text-center m-auto bg-rose-100 p-5 lg:p-10 rounded-md">
+          En nuestra búsqueda de la excelencia, solo preferimos productos de la más alta calidad. 
+          Caulquier tendedero de ropa movible presentado, esta fabricado con materiales resistentes y duraderos para 
+          garantizar que cumplan con tus expectativas y más. 🙌
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={slice2SimilarProductsSummaryList}/>
+        <br>
+        <h2 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					La solución perfecta para tu hogar, tendedero de pie plegable.
+				</h2>
+        <br>
+        <br>
+        <p class="text-zinc-900 text-lg font-mono font-medium lg:w-3/4 text-center m-auto bg-rose-100 p-5 lg:p-10 rounded-md">
+          No solo optimizan el espacio, sino que también facilitan el secado eficiente de tu ropa. 
+          Experimenta la comodidad de un hogar organizado con un tendal portátil que no ocupe espacio
+          innecesario en tu hogar. 🏡
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={slice3SimilarProductsSummaryList}/>
+        <br>
+        <br>
+        <h3 class="text-3xl text-zinc-600 text-center font-sans font-bold">
 					¿ No encuentras el modelo ideal ?
 				</h3>
         <br>
         <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        <p class="text-zinc-800 text-lg font-mono font-medium lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          Nuestro menú principal te puede ofrecer una gran variedad de opciones, revísalo :) 👀
         </p>
         <br>
         <br>

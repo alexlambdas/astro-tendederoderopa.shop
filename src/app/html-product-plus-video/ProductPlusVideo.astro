@@ -15,7 +15,7 @@ const { products } = Astro.props;
   {
     products.map(product => (
       <div class="grid grid-cols-1 content-stretch rounded-xl shadow-lg bg-yellow-50 hover:contrast-75 transition duration-300">
-        <div class="">
+        <div>
           <a href={product.affiliateUrl} target="_blank" rel="sponsored" class="text-sm lg:text-lg">
             <img class="m-auto rounded-tl-xl rounded-tr-xl"
               srcset={`
@@ -29,26 +29,38 @@ const { products } = Astro.props;
               alt={product.alt}/>
           </a>
         </div>
+        <h3 class="text-cyan-800 text-sm font-bold w-11/12 text-center m-auto">
+          {product.title}
+        </h3>
         <div class="grid content-stretch w-11/12 h-full m-auto">
           <a href={product.affiliateUrl} target="_blank" rel="sponsored" class="flex flex-col w-full justify-center">
             <div class="mb-2 flex justify-between">
               <div class="text-xs text-zinc-900 font-bold bg-yellow-400 w-16 lg:w-20 h-7 pt-1 rounded-md rounded-br-md text-center">
                 Amazon
               </div>
-              <div class="text-xs text-white font-bold bg-rose-800 w-16 lg:w-20 h-7 pt-1 rounded-md text-center">
+              <div
+                class:list={[
+                  "text-xs text-white font-bold bg-violet-700 w-16 lg:w-20 h-7 pt-1 rounded-md text-center",
+                  {
+                    "bg-rose-700": product.discount === "0%",
+                  }
+                ]}
+              >
                 {product.discount+' OFF'}
               </div>
-            </div>  
-            <div class="mb-2 text-xs text-white font-bold bg-zinc-900 w-16 lg:w-20 h-7 pt-1 rounded-md text-center">
-                {`US $${product.price}`}
             </div>
-            <div class="flex bg-yellow-400 w-16 lg:w-20 h-7 rounded-md items-center justify-center">
-              <div class="text-xs text-zinc-900 font-bold">
-                {product.rating}
+            <div class="mb-2 flex justify-between">
+              <div class="text-xs text-white font-bold bg-zinc-900 w-16 lg:w-20 h-7 pt-1 rounded-md text-center">
+                {`US $${product.price}`}
               </div>
-              <span>&nbsp;</span>
-              <div>
-                <StarComponent height='16px' width='16px' fill='#000000'/>
+              <div class="flex bg-yellow-400 w-16 lg:w-20 h-7 rounded-md items-center justify-center">
+                <div class="text-xs text-zinc-900 font-bold">
+                  {product.rating}
+                </div>
+                <span>&nbsp;</span>
+                <div>
+                  <StarComponent height='16px' width='16px' fill='#000000'/>
+                </div>
               </div>
             </div>
           </a>

@@ -25,7 +25,7 @@ const categoryOrderedObj = {
         return (
           <div class="flex flex-row items-center mb-10 lg:mb-0">
             <a href={domainLinks+category.attributes.slug} class="w-1/2 lg:p-5">
-              <div class="flex flex-col justify-center items-center bg-yellow-300 h-44 hover:drop-shadow-lg hover:bg-yellow-400 transition duration-200">
+              <div class="flex flex-col justify-center items-center rounded-md bg-yellow-300 h-44 hover:drop-shadow-lg hover:bg-yellow-400 transition duration-200">
                 <h2 class="text-2xl text-center mb-2 font-bold text-gray-800">
                   {category.attributes.name}
                 </h2>
@@ -52,7 +52,7 @@ const categoryOrderedObj = {
               {category.attributes.description}
             </p>
             <a href={domainLinks+category.attributes.slug} class="w-1/2 lg:p-5">
-              <div class="flex flex-col justify-center items-center bg-yellow-300 h-44 hover:drop-shadow-lg hover:bg-yellow-400 transition duration-200">
+              <div class="flex flex-col justify-center items-center rounded-md bg-yellow-300 h-44 hover:drop-shadow-lg hover:bg-yellow-400 transition duration-200">
                 <h2 class="text-2xl text-center mb-2 font-bold text-zinc-800">
                   {category.attributes.name}
                 </h2>

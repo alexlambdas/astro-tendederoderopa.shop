@@ -308,4 +308,20 @@ export function fnAddDescripcionToImages(productSummaryList: ProductSummaryDto[]
   }
 }
 
+export function fnAddTitleToImages(productSummaryList: ProductSummaryDto[], titles: Map<number,string>): ProductSummaryDto[]{
+  if(productSummaryList.length === titles.size){
+    const result = productSummaryList.map(product => {
+      const title = titles.get(product.id);
+      return {
+        ...product,
+        title: title === undefined ? product.title : title,
+      }
+    });
+    return result;
+  }
+  else{
+    return productSummaryList;
+  }
+}
+
 

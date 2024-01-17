@@ -18,4 +18,5 @@ export type CommonModuleDto = {
   fnFilterProductByCategory: (category: string) => (productObj: ProductListType) => ProductListType,
   fnGetProductListForEachId: <T1>(idList: number[], configAppDto: ConfigAppDto) => (f: <T2>(url: string) => Promise<T2>) => Promise<Awaited<T1>[]>,
   fnAddDescripcionToImages: (productSummaryList: ProductSummaryDto[], keywords: Map<number,string>) => ProductSummaryDto[],
+  fnAddTitleToImages: (productSummaryList: ProductSummaryDto[], titles: Map<number,string>) => ProductSummaryDto[],
 }

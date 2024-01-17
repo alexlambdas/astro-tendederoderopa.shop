@@ -10,7 +10,8 @@ import {
   fnFilterProductByCategoryAndSubcategory, 
   fnFilterProductByCategory, 
   fnGetProductListForEachId, 
-  fnAddDescripcionToImages
+  fnAddDescripcionToImages,
+  fnAddTitleToImages
 } from './business/Common.service';
 
 export default function(): CommonModuleDto{
@@ -26,6 +27,7 @@ export default function(): CommonModuleDto{
     fnFilterProductByCategory: fnFilterProductByCategory,
     fnGetProductListForEachId: fnGetProductListForEachId,
     fnAddDescripcionToImages: fnAddDescripcionToImages,
+    fnAddTitleToImages: fnAddTitleToImages,
   }
 }
 
