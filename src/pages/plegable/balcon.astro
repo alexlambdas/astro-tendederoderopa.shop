@@ -18,9 +18,16 @@ import type { ProductType } from '../../app/server-common-module/domain/types/Pr
 await fnInitApp();
 const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
 const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnFetchProductListByOnePage = CommonModule().fnFetchProductListByOnePage;
+const fnFetchProductLisByAllPages = CommonModule().fnFetchProductLisByAllPages;
 const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnAddTitleToImages = CommonModule().fnAddTitleToImages;
 const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
+
+// get all products
+
+const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
 
 // keywords
 
@@ -39,21 +46,93 @@ const configApp = fnGetConfigAppObj();
 
 // video products
 
-const keywordsProductId51 = new Map([
-  [51,'Tendedero plegable balcón, tendedero extensible balcón, cogado de una barandilla y con rejillas para sostener ropa'],
+// #51
+const keywordAltProductId51 = new Map([
+  [51,'Tendedero plegable balcón, tendedero extensible balcón, colgado de una baranda en la ventana y con rejillas para sostener ropa.'],
 ]);
+const keywordTitleProductId51 = new Map([[51,'Tendedero plegable para balcón']]);
+const productId51 = fnGetProductListForEachId([51],productList);
+let productId51Summary = fnGetProductSummaryList(productId51)(configApp);
+productId51Summary = fnAddDescripcionToImages(productId51Summary, keywordAltProductId51);
+productId51Summary = fnAddTitleToImages(productId51Summary,keywordTitleProductId51);
 
-const keywordsProductId23 = new Map([
+// #23
+const kewordAltProductId23 = new Map([
   [23,'Tendedero plegable para balcón, tendedero de balcón extensible con montaje de pared, en forma de brazo con tres partes plegables'],
 ]);
-
-const productId51 = await fnGetProductListForEachId<ProductType>([51],configApp)(fnHttpCall);
-let productId51Summary = fnGetProductSummaryList(productId51)(configApp);
-productId51Summary = fnAddDescripcionToImages(productId51Summary, keywordsProductId51);
-
-const productId23 = await fnGetProductListForEachId<ProductType>([23],configApp)(fnHttpCall);
+const keywordTitleProductId23 = new Map([[23,'Tendedero en la pared con forma de brazo']]);
+const productId23 = fnGetProductListForEachId([23],productList);
 let productId23Summary = fnGetProductSummaryList(productId23)(configApp);
-productId23Summary = fnAddDescripcionToImages(productId23Summary, keywordsProductId23);
+productId23Summary = fnAddDescripcionToImages(productId23Summary, kewordAltProductId23);
+productId23Summary = fnAddTitleToImages(productId23Summary,keywordTitleProductId23);
+
+// #24
+const keywordAltProductId24 = new Map([
+  [24,'Tendedero plegable balcón, para montaje en la pared de forma horizontal, con dos brazos laterales que se pliegan sobre el soporte.']
+]);
+const keywordTitleProductId24 = new Map([[24,'Tendedero plegable balcón, montaje en pared']]);
+const productId24 = fnGetProductListForEachId([24],productList);
+let productId24Summary = fnGetProductSummaryList(productId24)(configApp);
+productId24Summary = fnAddDescripcionToImages(productId24Summary, keywordAltProductId24);
+productId24Summary = fnAddTitleToImages(productId24Summary,keywordTitleProductId24);
+
+// #29
+const keywordAltProductId29 = new Map([
+  [29,'Tendedero extensible para balcón montado en la pared de forma horizontal, con 8 varillas horizontales que se pliegan hacia la pared.']
+]);
+const keywordTitleProductId29 = new Map([[29,'Tendedero extensible para balcón montado en pared']]);
+const productId29 = fnGetProductListForEachId([29],productList);
+let productId29Summary = fnGetProductSummaryList(productId29)(configApp);
+productId29Summary = fnAddDescripcionToImages(productId29Summary, keywordAltProductId29);
+productId29Summary = fnAddTitleToImages(productId29Summary,keywordTitleProductId29);
+
+// #8
+const keywordAltProductId8 = new Map([
+  [8,'Tendedero de balcón extensible de 4 niveles y dos alas laterales en la parte superior, de acero y sosteniendo ropa en cada nivel.']
+]);
+const keywordTitleProductId8 = new Map([[8,'Tendedero de balcón extensible de 4 niveles']]);
+const productId8 = fnGetProductListForEachId([8],productList);
+let productId8Summary = fnGetProductSummaryList(productId8)(configApp);
+productId8Summary = fnAddDescripcionToImages(productId8Summary, keywordAltProductId8);
+productId8Summary = fnAddTitleToImages(productId8Summary,keywordTitleProductId8);
+
+// #9
+const keywordAltProductId9 = new Map([
+  [9,'Tendedero plegable para balcón vertical con tripode de piso, y con brazos en forma de estrella en la parte superior para sostener ropa.']
+]);
+const keywordTitleProductId9 = new Map([[9,'Tendedero plegable para balcón en forma de estrella']]);
+const productId9 = fnGetProductListForEachId([9],productList);
+let productId9Summary = fnGetProductSummaryList(productId9)(configApp);
+productId9Summary = fnAddDescripcionToImages(productId9Summary, keywordAltProductId9);
+productId9Summary = fnAddTitleToImages(productId9Summary,keywordTitleProductId9);
+
+// #10
+const keywordAltProductId10 = new Map([
+  [10,'Tendedero extensible para balcón de dos niveles, en forma de A mayúscula y con alas laterales en el medio y la parte superior.']
+]);
+const keywordTitleProductId10 = new Map([[10,'Tendedero extensible para balcón de dos niveles']]);
+const productId10 = fnGetProductListForEachId([10],productList);
+let productId10Summary = fnGetProductSummaryList(productId10)(configApp);
+productId10Summary = fnAddDescripcionToImages(productId10Summary, keywordAltProductId10);
+productId10Summary = fnAddTitleToImages(productId10Summary,keywordTitleProductId10);
+
+// #21
+const keywordAltProductId21 = new Map([
+  [21,'Tendederos de ropa para balcón de 4 niveles con dos alas laterales en la parte superior, sosteniendo ropa, de color blanco.']
+]);
+const keywordTitleProductId21 = new Map([[21,'Tendederos de ropa para balcón de 4 niveles']]);
+const productId21 = fnGetProductListForEachId([21],productList);
+let productId21Summary = fnGetProductSummaryList(productId21)(configApp);
+productId21Summary = fnAddDescripcionToImages(productId21Summary, keywordAltProductId21);
+productId21Summary = fnAddTitleToImages(productId21Summary,keywordTitleProductId21);
+
+
+
+
+
+
+
+
 
 const keywordsDescriptionForImages = new Map([
   [36,'Tendedero extensible para balcón, montado en la pared, con 3 varillas sosteniendo una camisa gris, una blanca y una roja'],
@@ -69,10 +148,22 @@ const keywordsDescriptionForImages = new Map([
 
 // images, rest of products, 
 
-const idListProduct = [36,31,28,37,24,32,29,27,49];
-const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
-let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
-similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, keywordsDescriptionForImages);
+//const idProductListSlice1 = [22,25,27,30,31,37];
+
+
+
+const idProductListSlice1 = [22,25,27,30,31,37];
+const productListSlice1 = fnGetProductListForEachId(idProductListSlice1,productList);
+let productListSlice1Summary = fnGetProductSummaryList(productListSlice1)(configApp);
+//similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, keywordsDescriptionForImages);
+
+const idProddctListSlice2 = [1,2,3,39,40,41];
+const productListSlice2 = fnGetProductListForEachId(idProddctListSlice2,productList);
+let productListSlice2Summary = fnGetProductSummaryList(productListSlice2)(configApp);
+
+const idProductListSlice3 = [4,5,11,15,18,19];
+const productListSlice3 = fnGetProductListForEachId(idProductListSlice3,productList);
+let productListSlice3Summary = fnGetProductSummaryList(productListSlice3)(configApp);
 
 ---
 
@@ -87,26 +178,71 @@ similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList
         <div class="grid lg:grid-cols-2 gap-8">
 					<ProductPlusVideoComponent products={productId51Summary}/>
 					<ProductPlusVideoComponent products={productId23Summary}/>
+          <ProductPlusVideoComponent products={productId24Summary}/>
+					<ProductPlusVideoComponent products={productId29Summary}/>
 				</div>
         <br>
 				<br>
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold lg:mt-6">
+					Optimiza tu espacio en el hogar.
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          De igual manera, los tendederos de ropa para balcón te permiten disfrutar de la comodidad de secar la ropa 
+          sin sacrificar espacio vital y se pueden convertir en la respuesta a tus necesidades de secado y almacenamiento compacto. 🧐
+        </p>
         <br>
         <br>
-        <h2 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
-					Encuentra más productos relacionados con tendedero plegable para balcón
-				</h2>
-        <br>
-				<br>
+        <ProductsClusterComponent products={productListSlice1Summary}/>
         <br>
         <br>
-        <ProductsClusterComponent products={similarProductsSummaryList}/>
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Versatilidad en cada ricón.
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          Un tendedero de balcón extensible se puede adaptar a las dimensiones cambiantes de tu vida cotidiana, por ejemplo, si cuentas con un 
+          espacio reducido, las siguientes opciones son muy flexibles ya que puedes desplazar fácilmente el tendedero entre el interior y exterior 
+          de tu hogar. Échale una ojeada, hemos resumido sus características para que tu desición sea mucho mas fácil. 👀
+        </p>
+        <br>
+        <br>
+        <div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideoComponent products={productId8Summary}/>
+					<ProductPlusVideoComponent products={productId9Summary}/>
+          <ProductPlusVideoComponent products={productId10Summary}/>
+					<ProductPlusVideoComponent products={productId21Summary}/>
+				</div>
+        <br>
+        <br>
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold lg:mt-6">
+					Diseño Inteligente, Espacio Ilimitado.
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          Hay diseños que nos ofrecen la combinación perfecta entre funcionalidad y estilo, un tendedero extensible para balcón de dimensiones
+          pequeñas no compromete tu espacio, además hay algunos en madera con un toque muy moderno. 😊
+        </p>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productListSlice2Summary}/>
+        <br>
+        <br>
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Más alternativas factibles para tendedero plegable balcón. 
+				</h3>
+        <br>
+        <br>
+        <ProductsClusterComponent products={productListSlice3Summary}/>
+        <br>
+        <br>
         <h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
 					¿ No encuentras el modelo ideal ?
 				</h3>
         <br>
         <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Nuestro menu principal te puede ofrecer una gran variedad de opciones, revisalo :)
+        <p class="text-zinc-800 text-base lg:text-lg font-mono font-medium lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          Nuestro menú principal te puede ofrecer una gran variedad de opciones, revísalo :) 👀
         </p>
         <br>
         <br>

@@ -16,13 +16,18 @@ import type { ProductType } from '../../app/server-common-module/domain/types/Pr
 
 // init app
 await fnInitApp();
-
-await fnInitApp();
 const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
 const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnFetchProductListByOnePage = CommonModule().fnFetchProductListByOnePage;
+const fnFetchProductLisByAllPages = CommonModule().fnFetchProductLisByAllPages;
 const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnAddTitleToImages = CommonModule().fnAddTitleToImages;
 const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
+
+// get all products
+
+const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
 
 // keywords
 
@@ -53,11 +58,11 @@ const keywordsProductId23 = new Map([
   [23,'tender colgante para balcón, tender balcón con montaje de pared, en forma de brazo con tres partes plegables'],
 ]);
 
-const productId51 = await fnGetProductListForEachId<ProductType>([51],configApp)(fnHttpCall);
+const productId51 = fnGetProductListForEachId([51],productList);
 let productId51Summary = fnGetProductSummaryList(productId51)(configApp);
 productId51Summary = fnAddDescripcionToImages(productId51Summary, keywordsProductId51);
 
-const productId23 = await fnGetProductListForEachId<ProductType>([23],configApp)(fnHttpCall);
+const productId23 = fnGetProductListForEachId([23],productList);
 let productId23Summary = fnGetProductSummaryList(productId23)(configApp);
 productId23Summary = fnAddDescripcionToImages(productId23Summary, keywordsProductId23);
 
@@ -76,7 +81,7 @@ const keywordsDescriptionForImages = new Map([
 // images, rest of products, 
 
 const idListProduct = [36,31,28,37,24,32,29,27,49];
-const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
+const similarProducts = fnGetProductListForEachId(idListProduct,productList);
 let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
 similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, keywordsDescriptionForImages);
 

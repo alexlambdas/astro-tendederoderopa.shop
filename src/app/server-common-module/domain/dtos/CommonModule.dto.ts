@@ -16,7 +16,16 @@ export type CommonModuleDto = {
   fnFilterMetaTagByPage: (page: string) => (metaTagObj: MetaTagType) => MetaTagType,
   fnFilterProductByCategoryAndSubcategory: (category: string) => (subCategory: string) => (productObj: ProductListType) => ProductListType,
   fnFilterProductByCategory: (category: string) => (productObj: ProductListType) => ProductListType,
-  fnGetProductListForEachId: <T1>(idList: number[], configAppDto: ConfigAppDto) => (f: <T2>(url: string) => Promise<T2>) => Promise<Awaited<T1>[]>,
+  fnGetProductListForEachId: (idList: number[], productList: ProductType[]) => ProductType[],
+  fnFetchProductListByOnePage: <T>(configApp: ConfigAppDto, page: number) => (f: (url: string) => Promise<T>) => Promise<T>, 
   fnAddDescripcionToImages: (productSummaryList: ProductSummaryDto[], keywords: Map<number,string>) => ProductSummaryDto[],
   fnAddTitleToImages: (productSummaryList: ProductSummaryDto[], titles: Map<number,string>) => ProductSummaryDto[],
+  fnFetchProductLisByAllPages: (
+    page: number, 
+    pageCount: number,
+    configApp: ConfigAppDto,
+    fnHttpCall: <T>(arg: string) => Promise<T>,
+    fnFetchProductListByOnePage: <T>(configApp: ConfigAppDto, page: number) => (f: (url: string) => Promise<T>) => Promise<T>, 
+    acct: ProductType[],
+  ) => Promise<any>;
 }

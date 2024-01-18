@@ -12,16 +12,22 @@ import ProductPlusVideoComponent from '../../app/html-product-plus-video/Product
 // logic and common module
 import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
 import CommonModule from '../../app/server-common-module/Common.module';
-import type { ProductType } from '../../app/server-common-module/domain/types/Product.types';
+import { type ProductType } from '../../app/server-common-module/domain/types/Product.types';
 
 // init app
 await fnInitApp();
 const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
 const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnFetchProductListByOnePage = CommonModule().fnFetchProductListByOnePage;
+const fnFetchProductLisByAllPages = CommonModule().fnFetchProductLisByAllPages;
 const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
 const fnAddTitleToImages = CommonModule().fnAddTitleToImages;
 const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
+
+// get all products
+
+const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
 
 // keywords
 
@@ -59,39 +65,39 @@ const configApp = fnGetConfigAppObj();
 const keywordsProductId8 = new Map([
   [8,'Tendedero de ropa plegable de piso, de 4 niveles, en la sala que sostiene un oso y una toalla. También se conocen como tendederos de alas.'],
 ]);
-const keywordTitleForProductId8 = new Map([[8,'Tendedero de ropa plegable de piso']]);
+const keywordTitleForProductId8 = new Map([[8,'Tendedero de ropa plegable de piso de 4 niveles']]);
 
 const keywordsProductId10 = new Map([
   [10,'Tendedero plegable para interiores, en forma de A mayúscula, con alas laterales en el medio y en la parte superior, que sostiene ropa.'],
 ]);
-const keywordTitleForProductId10 = new Map([[10,'Tendedero plegable para interiores']]);
+const keywordTitleForProductId10 = new Map([[10,'Tendedero plegable para interiores en acero']]);
 
 const keywordsProductId9 = new Map([
   [9,'Tendedero vertical plegable, trípode de piso para sostenerse, y varios brazos en la parte superior en forma de pulpo para sostener ropa.'],
 ]);
-const keywordTitleForProductId9 = new Map([[9,'Tendedero vertical plegable']]);
+const keywordTitleForProductId9 = new Map([[9,'Tendedero vertical plegable de madera y aluminio']]);
 
 const keywordsProductId21 = new Map([
   [21,'Tender plegable de pie, de 4 niveles, con rejillas en cada nivel, con ruedas y sostiene ropa de vestir en cada nivel.'],
 ]);
-const keywordTitleForProductId21 = new Map([[21,'Tender plegable de pie']]);
+const keywordTitleForProductId21 = new Map([[21,'Tender plegable de pie de 4 niveles']]);
 
-const productId8 = await fnGetProductListForEachId<ProductType>([8],configApp)(fnHttpCall);
+const productId8 = fnGetProductListForEachId([8],productList);
 let productId8Summary = fnGetProductSummaryList(productId8)(configApp);
 productId8Summary = fnAddDescripcionToImages(productId8Summary, keywordsProductId8);
 productId8Summary = fnAddTitleToImages(productId8Summary,keywordTitleForProductId8);
 
-const productId10 = await fnGetProductListForEachId<ProductType>([10],configApp)(fnHttpCall);
+const productId10 = fnGetProductListForEachId([10],productList);
 let productId10Summary = fnGetProductSummaryList(productId10)(configApp);
 productId10Summary = fnAddDescripcionToImages(productId10Summary, keywordsProductId10);
 productId10Summary = fnAddTitleToImages(productId10Summary,keywordTitleForProductId10);
 
-const productId9 = await fnGetProductListForEachId<ProductType>([9],configApp)(fnHttpCall);
+const productId9 = fnGetProductListForEachId([9],productList);
 let productId9Summary = fnGetProductSummaryList(productId9)(configApp);
 productId9Summary = fnAddDescripcionToImages(productId9Summary, keywordsProductId9);
 productId9Summary = fnAddTitleToImages(productId9Summary,keywordTitleForProductId9);
 
-const productId21 = await fnGetProductListForEachId<ProductType>([21],configApp)(fnHttpCall);
+const productId21 = fnGetProductListForEachId([21],productList);
 let productId21Summary = fnGetProductSummaryList(productId21)(configApp);
 productId21Summary = fnAddDescripcionToImages(productId21Summary, keywordsProductId21);
 productId21Summary = fnAddTitleToImages(productId21Summary,keywordTitleForProductId21);
@@ -127,45 +133,45 @@ const slice3keywordsForImages = new Map([
 
 const slice1KeywordTitleForImages = new Map([
   [1,'Tendedero de piso plegable de madera bambú'],
-  [2,'Tendedero de ropa plegable piso'],
-  [3,'Tendedero de pie plegable'],
-  [4,'Tendedero plegable de piso'],
+  [2,'Tendedero de ropa plegable piso en acero'],
+  [3,'Tendedero de pie plegable en acero'],
+  [4,'Tendedero plegable de piso de 4 niveles'],
   [5,'Tendal portátil de 4 niveles'],
-  [7,'Colgador de ropa plegable portátil'],
+  [7,'Colgador de ropa plegable portátil en acero'],
 ]);
 
 const slice2KeywordTitleForImages = new Map([
-  [11,'Tendedero piso plegable'],
-  [12,'Tendedero con alas plegable'],
-  [15,'Tendedero portátil vertical'],
-  [17,'Tendedero plegable con alas'],
-  [18,'Tendedero de ropa plegable vertical'],
-  [19,'Tendedero de ropa plegable portátil'],
+  [11,'Tendedero piso plegable de 3 niveles'],
+  [12,'Tendedero con alas plegable en acero'],
+  [15,'Tendedero portátil vertical en acero'],
+  [17,'Tendedero plegable con alas en acero'],
+  [18,'Tendedero de ropa plegable vertical en acero'],
+  [19,'Tendedero de ropa plegable portátil en acero'],
 ]);
 
 const slice3KeywordTitleForImages = new Map([
-  [20,'Tendedero plegable piso'],
-  [33,'Tender vertical plegable'],
-  [39,'Tendedero de ropa plegable de piso'],
-  [40,'Tendedero plegable para interiores'],
-  [41,'Tendedero vertical plegable'],
-  [42,'Tender plegable de pie'],
+  [20,'Tendedero plegable piso de 4 niveles'],
+  [33,'Tender vertical plegable en aluminio'],
+  [39,'Tendedero de ropa plegable de piso de madera bamú'],
+  [40,'Tendedero plegable para interiores de madera bambú'],
+  [41,'Tendedero vertical plegable de madera de arce maciza'],
+  [42,'Tender plegable de pie de madera de arce maciza'],
 ]);
 
 const slilce1IdListProduct = [1,2,3,4,5,7];
-const slice1SimilarProducts = await fnGetProductListForEachId<ProductType>(slilce1IdListProduct,configApp)(fnHttpCall);
+const slice1SimilarProducts = fnGetProductListForEachId(slilce1IdListProduct,productList);
 let slice1SimilarProductsSummaryList = fnGetProductSummaryList(slice1SimilarProducts)(configApp);
 slice1SimilarProductsSummaryList = fnAddDescripcionToImages(slice1SimilarProductsSummaryList, slice1keywordsForImages);
 slice1SimilarProductsSummaryList = fnAddTitleToImages(slice1SimilarProductsSummaryList,slice1KeywordTitleForImages);
 
 const slilce2IdListProduct = [11,12,15,17,18,19];
-const slice2SimilarProducts = await fnGetProductListForEachId<ProductType>(slilce2IdListProduct,configApp)(fnHttpCall);
+const slice2SimilarProducts = fnGetProductListForEachId(slilce2IdListProduct,productList);
 let slice2SimilarProductsSummaryList = fnGetProductSummaryList(slice2SimilarProducts)(configApp);
 slice2SimilarProductsSummaryList = fnAddDescripcionToImages(slice2SimilarProductsSummaryList, slice2keywordsForImages);
 slice2SimilarProductsSummaryList = fnAddTitleToImages(slice2SimilarProductsSummaryList,slice2KeywordTitleForImages);
 
 const slilce3IdListProduct = [20,33,39,40,41,42];
-const slice3SimilarProducts = await fnGetProductListForEachId<ProductType>(slilce3IdListProduct,configApp)(fnHttpCall);
+const slice3SimilarProducts = fnGetProductListForEachId(slilce3IdListProduct,productList);
 let slice3SimilarProductsSummaryList = fnGetProductSummaryList(slice3SimilarProducts)(configApp);
 slice3SimilarProductsSummaryList = fnAddDescripcionToImages(slice3SimilarProductsSummaryList, slice3keywordsForImages);
 slice3SimilarProductsSummaryList = fnAddTitleToImages(slice3SimilarProductsSummaryList,slice3KeywordTitleForImages);
@@ -188,12 +194,11 @@ slice3SimilarProductsSummaryList = fnAddTitleToImages(slice3SimilarProductsSumma
 				</div>
         <br>
         <br>
-        <h2 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
 					Calidad con un tendedero de ropa portátil.
-				</h2>
+				</h3>
         <br>
-        <br>
-        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-rose-100 p-5 lg:p-10 rounded-md">
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
           Sabemos que elegir el producto perfecto puede marcar la diferencia. El diseño elegante y moderno en un tendedero móvil 
           añade un toque estilizado a cualquier espacio. 🧐
         </p>
@@ -201,12 +206,12 @@ slice3SimilarProductsSummaryList = fnAddTitleToImages(slice3SimilarProductsSumma
         <br>
         <ProductsClusterComponent products={slice1SimilarProductsSummaryList}/>
         <br>
-        <h2 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
 					Un tendedero vertical plegable con un diseño que deslumbre!.
-				</h2>
+				</h3>
         <br>
         <br>
-        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-rose-100 p-5 lg:p-10 rounded-md">
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
           En nuestra búsqueda de la excelencia, solo preferimos productos de la más alta calidad. 
           Caulquier tendedero de ropa movible presentado, esta fabricado con materiales resistentes y duraderos para 
           garantizar que cumplan con tus expectativas y más. 🙌
@@ -215,12 +220,12 @@ slice3SimilarProductsSummaryList = fnAddTitleToImages(slice3SimilarProductsSumma
         <br>
         <ProductsClusterComponent products={slice2SimilarProductsSummaryList}/>
         <br>
-        <h2 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
 					La solución perfecta para tu hogar, tendedero de pie plegable.
-				</h2>
+				</h3>
         <br>
         <br>
-        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-rose-100 p-5 lg:p-10 rounded-md">
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
           No solo optimizan el espacio, sino que también facilitan el secado eficiente de tu ropa. 
           Experimenta la comodidad de un hogar organizado con un tendal portátil que no ocupe espacio
           innecesario en tu hogar. 🏡

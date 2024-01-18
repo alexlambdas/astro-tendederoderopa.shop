@@ -17,12 +17,20 @@ import type { ProductType } from '../app/server-common-module/domain/types/Produ
 await fnInitApp();
 const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
 const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnFetchProductListByOnePage = CommonModule().fnFetchProductListByOnePage;
+const fnFetchProductLisByAllPages = CommonModule().fnFetchProductLisByAllPages;
 const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnAddTitleToImages = CommonModule().fnAddTitleToImages;
 const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
 
-const productList = await fnGetProductListForEachId<ProductType>([33,35,15,41,4],configApp)(fnHttpCall);
-const productSummaryList = fnGetProductSummaryList(productList)(configApp);
+// get all products
+
+const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
+
+
+const productListSlice = fnGetProductListForEachId([33,35,15,41,4],productList);
+const productSummaryList = fnGetProductSummaryList(productListSlice)(configApp);
 
 ---
 

@@ -19,9 +19,17 @@ import type { ProductType } from '../app/server-common-module/domain/types/Produ
 await fnInitApp();
 const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
 const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnFetchProductListByOnePage = CommonModule().fnFetchProductListByOnePage;
+const fnFetchProductLisByAllPages = CommonModule().fnFetchProductLisByAllPages;
 const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnAddTitleToImages = CommonModule().fnAddTitleToImages;
 const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
+
+// get all products
+
+const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
+
 
 // keywords
 
@@ -77,26 +85,26 @@ const keywordsDescriptionForImages = new Map([
 
 // video products
 
-const productId8 = await fnGetProductListForEachId<ProductType>([8],configApp)(fnHttpCall);
+const productId8 = fnGetProductListForEachId([8],productList);
 let productId8Summary = fnGetProductSummaryList(productId8)(configApp);
 productId8Summary = fnAddDescripcionToImages(productId8Summary, keywordsProductId8);
 
-const productId9 = await fnGetProductListForEachId<ProductType>([9],configApp)(fnHttpCall);
+const productId9 = fnGetProductListForEachId([9],productList);
 let productId9Summary = fnGetProductSummaryList(productId9)(configApp);
 productId9Summary = fnAddDescripcionToImages(productId9Summary, keywordsProductId9);
 
-const productId10 = await fnGetProductListForEachId<ProductType>([10],configApp)(fnHttpCall);
+const productId10 = fnGetProductListForEachId([10],productList);
 let productId10Summary = fnGetProductSummaryList(productId10)(configApp);
 productId10Summary = fnAddDescripcionToImages(productId10Summary, keywordsProductId10);
 
-const productId50 = await fnGetProductListForEachId<ProductType>([50],configApp)(fnHttpCall);
+const productId50 = fnGetProductListForEachId([50],productList);
 let productId50Summary = fnGetProductSummaryList(productId50)(configApp);
 productId50Summary = fnAddDescripcionToImages(productId50Summary, keywordsProductId50);
 
 // images, rest of products, 
 
 const idListProduct = [7,40,16,23,31,28,18,29,37,12,39,1];
-const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
+const similarProducts = fnGetProductListForEachId(idListProduct,productList);
 let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
 similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, keywordsDescriptionForImages);
 

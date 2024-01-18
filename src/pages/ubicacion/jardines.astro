@@ -17,12 +17,19 @@ import type { ProductType } from '../../app/server-common-module/domain/types/Pr
 await fnInitApp();
 const fnGetProductSummaryList = CommonModule().fnGetProductSummaryList;
 const fnGetProductListForEachId = CommonModule().fnGetProductListForEachId;
+const fnFetchProductListByOnePage = CommonModule().fnFetchProductListByOnePage;
+const fnFetchProductLisByAllPages = CommonModule().fnFetchProductLisByAllPages;
 const fnAddDescripcionToImages = CommonModule().fnAddDescripcionToImages;
+const fnAddTitleToImages = CommonModule().fnAddTitleToImages;
 const fnHttpCall = CommonModule().fnHttpCall;
 const configApp = fnGetConfigAppObj();
 
+// get all products
+
+const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
+
 const idListProduct = [16,18,19,13,20,15,21,49];
-const similarProducts = await fnGetProductListForEachId<ProductType>(idListProduct,configApp)(fnHttpCall);
+const similarProducts = fnGetProductListForEachId(idListProduct,productList);
 let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
 
 ---

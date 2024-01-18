@@ -11,7 +11,9 @@ import {
   fnFilterProductByCategory, 
   fnGetProductListForEachId, 
   fnAddDescripcionToImages,
-  fnAddTitleToImages
+  fnAddTitleToImages,
+  fnFetchProductListByOnePage,
+  fnFetchProductLisByAllPages
 } from './business/Common.service';
 
 export default function(): CommonModuleDto{
@@ -26,8 +28,10 @@ export default function(): CommonModuleDto{
     fnFilterProductByCategoryAndSubcategory: fnFilterProductByCategoryAndSubcategory,
     fnFilterProductByCategory: fnFilterProductByCategory,
     fnGetProductListForEachId: fnGetProductListForEachId,
+    fnFetchProductListByOnePage: fnFetchProductListByOnePage,
     fnAddDescripcionToImages: fnAddDescripcionToImages,
     fnAddTitleToImages: fnAddTitleToImages,
+    fnFetchProductLisByAllPages: fnFetchProductLisByAllPages,
   }
 }
 

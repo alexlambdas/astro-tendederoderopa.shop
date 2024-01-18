@@ -279,18 +279,27 @@ export function fnFilterProductByCategory(category: string){
   }
 }
 
-export function fnGetProductListForEachId<ProductType>(idList: number[], configAppDto: ConfigAppDto){
-  return function(f: (url: string) => Promise<ProductType>): Promise<Awaited<ProductType>[]>{
-    if(idList.length <= 0) return Promise.all([]);
-    else{
-      const domain = configAppDto.SITE_DOMAIN;
-      const productByIdPath = configAppDto.PATH_API_PRODUCTS_BY_ID;
-      const finalPath = '?populate[productImg][populate][0]=productImg&populate[video][populate][1]=video&populate[posterVideo][populate][2]=posterVideo';
-      const productList = Promise.all(idList.map(async id => await f(domain+productByIdPath+`${id}`+finalPath)));
-      return productList;
+
+export function fnGetProductListForEachId(idList: number[], productList: ProductType[]): ProductType[]{
+  let map = new Map<number,boolean>();
+  let result: ProductType[] = [];
+  idList.map(id => map.set(id, true));
+  productList.map((product: ProductType) => {
+    if(map.has(product.data.id)){
+      result.push(product);
     }
+  });
+  return result;
+}
+
+
+export function fnFetchProductListByOnePage<ProductListType>(configApp: ConfigAppDto, page: number){
+  return async function(f: (url: string) => Promise<ProductListType>): Promise<ProductListType>{
+    const url = configApp.SITE_DOMAIN+configApp.PATH_API_PRODUCTS+`&pagination[page]=${page}`;
+    return f(url);
   }
 }
+
 
 export function fnAddDescripcionToImages(productSummaryList: ProductSummaryDto[], keywords: Map<number,string>): ProductSummaryDto[]{
   if(productSummaryList.length === keywords.size){
@@ -321,6 +330,40 @@ export function fnAddTitleToImages(productSummaryList: ProductSummaryDto[], titl
   }
   else{
     return productSummaryList;
+  }
+}
+
+
+export async function fnFetchProductLisByAllPages(
+  page: number, 
+  pageCount: number,
+  configApp: ConfigAppDto,
+  fnHttpCall: <T>(arg: string) => Promise<T>,
+  fnFetchProductListByOnePage: <T>(configApp: ConfigAppDto, page: number) => (f: (url: string) => Promise<T>) => Promise<T>, 
+  acct: ProductType[],
+): Promise<any> {
+
+  if(page < 1 || pageCount < 1){
+    return acct;
+  }
+  else if(page > pageCount){
+    return acct;
+  }
+  else{
+    const result = await fnFetchProductListByOnePage<ProductListType>(configApp, page)(fnHttpCall);
+    if(result.data.length > 0){
+      const page = result.meta?.pagination.page as number + 1;
+      const pageCount = result.meta?.pagination.pageCount as number;
+      const length = result.data.length;
+      for(let index = 0; index < length; index++){
+        const product: ProductType = { data: result.data[index] };
+        acct.push(product);
+      }
+      return fnFetchProductLisByAllPages(page, pageCount, configApp, fnHttpCall, fnFetchProductListByOnePage, acct);
+    }
+    else{
+      return acct;
+    }
   }
 }
 
