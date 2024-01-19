@@ -7,6 +7,7 @@ import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/Aside
 import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
 import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+import ProductPlusVideoComponent from '../../app/html-product-plus-video/ProductPlusVideo.astro';
 
 // logic and common module
 import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
@@ -28,9 +29,53 @@ const configApp = fnGetConfigAppObj();
 
 const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
 
-const idListProduct = [40,39,1,9,41,42];
+/**
+
+max: 140 characters
+ 
+PRODUCT_ID - KEYWORDS
+tendedero plegable madera
+tendedero de madera plegable
+tendedero plegable de madera
+tendedero de ropa plegable de madera
+tendal plegable de madera
+
+*/
+
+// video products
+
+// #9
+const keywordAltProductId9 = new Map([
+  [9,'Tendedero de madera plegable y plástico, con tripode de piso, y con brazos en forma de estrella en la parte superior.']
+]);
+const keywordTitleProductId9 = new Map([[9,'Tendedero de madera plegable en forma de estrella']]);
+const productId9 = fnGetProductListForEachId([9],productList);
+let productId9Summary = fnGetProductSummaryList(productId9)(configApp);
+productId9Summary = fnAddDescripcionToImages(productId9Summary, keywordAltProductId9);
+productId9Summary = fnAddTitleToImages(productId9Summary,keywordTitleProductId9);
+
+const keywordAltProductId1 = new Map([
+  [1,'Tendedero de ropa plegable de madera en material bambú, plegable de manera vertical con varias varillas para sostener ropa.']
+]);
+const keywordTitleProductId1 = new Map([[1,'Tendal plegable de madera en material bambú']]);
+const productId1 = fnGetProductListForEachId([1],productList);
+let productId1Summary = fnGetProductSummaryList(productId1)(configApp);
+productId1Summary = fnAddDescripcionToImages(productId1Summary, keywordAltProductId1);
+productId1Summary = fnAddTitleToImages(productId1Summary,keywordTitleProductId1);
+
+// rest of products
+const similarProductsTitleForImages = new Map([
+  [40,''],
+  [39,''],
+  [1,''],
+  [41,'Tendedero de ropa plegable de madera hecho a mano'],
+  [42,''],
+  [9,''],
+]);
+const idListProduct = [40,39,1,41,42,9];
 const similarProducts = fnGetProductListForEachId(idListProduct,productList);
 let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
+similarProductsSummaryList = fnAddTitleToImages(similarProductsSummaryList,similarProductsTitleForImages);
 
 ---
 
@@ -42,24 +87,46 @@ let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(config
     <div class="flex flex-col lg:flex-row">
       <AsideSubMenuComponent category="Plegable" subCategoryName="En madera" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Estilo Sostenible: Descubre la Belleza de los Tendederos Plegables de Madera
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Estilo que Resalta tu Hogar!
 				</h3>
         <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Sumérgete en la calidez y la sostenibilidad con los exclusivos tendederos plegables de madera. 
-          Desde el clásico tendedero de ropa plegable de madera hasta el elegante tendal plegable de 
-          madera, cada pieza está diseñada para añadir un toque natural y funcional a tu espacio de secado.
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          Un tendedero de madera plegable no solo es una herramienta práctica, sino 
+          también es una pieza de diseño que aporta calidez y encanto. Se integran perfectamente 
+          en diversos estilos de decoración. 🙇 
         </p>
         <br>
         <br>
         <ProductsClusterComponent products={similarProductsSummaryList}/>
         <br>
         <br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Tendederos de Madera Plegables para un Estilo Único
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Diseño Inteligente para Espacios Pequeños.
 				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          La versatilidad de este tendedero plegable de madera es una bendición para aquellos que 
+          buscan optimizar el espacio en sus hogares. Puedes plegarlo fácilmente cuando no este 
+          en uso, lo que lo convierte en la opción perfecta para viviendas con dimensiones 
+          más reducidas. 🏠
+        </p>
+        <br>
+        <br>
+        <div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideoComponent products={productId9Summary}/>
+          <ProductPlusVideoComponent products={productId1Summary}/>
+				</div>
+        <br>
+        <br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold lg:mt-6">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-base lg:text-lg font-mono font-medium lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          Nuestro menú principal te puede ofrecer una gran variedad de opciones, revísalo :) 👀
+        </p>
         <br>
         <br>
         <BodyMenuComponent />

@@ -7,14 +7,6 @@ import AsideSubMenuComponent from '../app/html-aside-sub-menu-component/AsideSub
 import AsideInterestComponent from '../app/html-aside-interest-component/AsideInterestComponent.astro';
 import BodySubMenuComponent from '../app/html-body-sub-menu-component/BodySubMenuComponent.astro';
 
-// logic and common module
-import { fnGetConfigAppObj, fnInitApp } from '../app/InitApp';
-
-// init app
-await fnInitApp();
-
-const configApp = fnGetConfigAppObj();
-
 ---
 
 <MainLayout page="ubicacion">
@@ -25,18 +17,6 @@ const configApp = fnGetConfigAppObj();
     <div class="flex flex-col lg:flex-row">
       <AsideSubMenuComponent category="Ubicación" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					El lugar de tu tendedero de ropa es importante!
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Puedes ubicar tu tendedero de ropa en un apartamento, en patios, en el techo, en un balcon,
-          en las terrazas, ventanas, puertas, etc. De acuerdo a tus necesidades, encuentra el producto
-          adecuado.
-				</p>
-        <br>
-        <br>
         <BodySubMenuComponent category="Ubicación"/>
       </section>
       <AsideInterestComponent />

@@ -323,7 +323,7 @@ export function fnAddTitleToImages(productSummaryList: ProductSummaryDto[], titl
       const title = titles.get(product.id);
       return {
         ...product,
-        title: title === undefined ? product.title : title,
+        title: title === undefined || title?.length === 0 ? product.title : title,
       }
     });
     return result;

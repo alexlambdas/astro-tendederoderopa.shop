@@ -6,6 +6,7 @@ import IntroImageComponent from '../../app/html-intro-image-component/IntroImage
 import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/AsideSubMenuComponent.astro';
 import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
+import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
 
 // logic and common module
 import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
@@ -46,6 +47,19 @@ let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(config
         <ProductsClusterComponent products={similarProductsSummaryList}/>
 				<br>
 				<br>
+        <h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold lg:mt-6">
+					¿ No encuentras el modelo ideal ?
+				</h3>
+        <br>
+        <br>
+        <p class="text-zinc-800 text-base lg:text-lg font-mono font-medium lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          Nuestro menú principal te puede ofrecer una gran variedad de opciones, revísalo :) 👀
+        </p>
+        <br>
+        <br>
+        <BodyMenuComponent />
+        <br>
+        <br>
       </section>
       <AsideInterestComponent />
     </div>

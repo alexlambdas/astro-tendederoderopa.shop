@@ -7,15 +7,6 @@ import AsideSubMenuComponent from '../app/html-aside-sub-menu-component/AsideSub
 import AsideInterestComponent from '../app/html-aside-interest-component/AsideInterestComponent.astro';
 import BodySubMenuComponent from '../app/html-body-sub-menu-component/BodySubMenuComponent.astro';
 
-// logic and common module
-import { fnGetConfigAppObj, fnInitApp } from '../app/InitApp';
-
-// init app
-await fnInitApp();
-
-const configApp = fnGetConfigAppObj();
-const domainName = configApp.SITE_DOMAIN_LINKS;
-
 ---
 
 <MainLayout page="material">
@@ -26,24 +17,6 @@ const domainName = configApp.SITE_DOMAIN_LINKS;
     <div class="flex flex-col lg:flex-row">
       <AsideSubMenuComponent category="Material" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Materiales mas solicitados en un tendedero de ropa
-				</h3>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-					Desde la ligereza del aluminio hasta la calidez de la madera, encuentra opciones que se 
-          adaptan a cada estilo y necesidad. Explora la robustez del acero, la versatilidad de 
-          los metálicos y la practicidad de los plásticos en nuestra selección exclusiva. 
-				</p>
-        <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Con diseños innovadores y materiales de calidad, los tendederos, ya sean de hierro, 
-          aluminio, madera, acero, metálicos o plásticos, son la opción perfecta para el hogar.
-        </p>
-        <br>
-        <br>
         <BodySubMenuComponent category="Material"/>
         <br>
         <br>
