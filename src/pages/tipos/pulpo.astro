@@ -7,6 +7,7 @@ import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/Aside
 import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
 import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+import ProductPlusVideoComponent from '../../app/html-product-plus-video/ProductPlusVideo.astro';
 
 // logic and common module
 import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
@@ -28,7 +29,56 @@ const configApp = fnGetConfigAppObj();
 
 const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
 
-const idListProduct = [16,18,9,33,13];
+/**
+
+max: 140 characters
+
+PRODUCT_ID - KEYWORDS
+tendedero pulpo
+pulpo para tender ropa
+pulpo tendedero
+ 
+*/
+
+// video products
+
+// #9
+const keywordAltProductId9 = new Map([
+  [9,'Pulpo para tender ropa vertical con tripode de piso, y con brazos en forma de estrella en la parte superior para sostener ropa.']
+]);
+const keywordTitleProductId9 = new Map([[9,'Pulpo para tender ropa vertical y plegable']]);
+const productId9 = fnGetProductListForEachId([9],productList);
+let productId9Summary = fnGetProductSummaryList(productId9)(configApp);
+productId9Summary = fnAddDescripcionToImages(productId9Summary, keywordAltProductId9);
+productId9Summary = fnAddTitleToImages(productId9Summary,keywordTitleProductId9);
+
+// #52
+const keywordAltProductId52 = new Map([
+  [52,'Tendedero pulpo con clips para calcetines, de color rosado, colgado de un tubo horizontal con gancho.']
+]);
+const keywordTitleProductId52 = new Map([[52,'Tendedero pulpo con clips para calcetines']]);
+const productId52 = fnGetProductListForEachId([52],productList);
+let productId52Summary = fnGetProductSummaryList(productId52)(configApp);
+productId52Summary = fnAddDescripcionToImages(productId52Summary, keywordAltProductId9);
+productId52Summary = fnAddTitleToImages(productId52Summary,keywordTitleProductId52);
+
+// #19
+const keywordAltProductId19 = new Map([
+  [19,'Un pulpo tendedero vertical y plegable, con 4 brazos en forma de X en la parte superior. Sostiendo ropa en cada brazo.']
+]);
+const keywordTitleProductId19 = new Map([[19,'Un pulpo tendedero vertical con 4 brazos.']]);
+const productId19 = fnGetProductListForEachId([19],productList);
+let productId19Summary = fnGetProductSummaryList(productId19)(configApp);
+productId19Summary = fnAddDescripcionToImages(productId19Summary, keywordAltProductId19);
+productId19Summary = fnAddTitleToImages(productId19Summary,keywordTitleProductId19);
+
+// #53
+const productId153 = fnGetProductListForEachId([53],productList);
+let productId53Summary = fnGetProductSummaryList(productId153)(configApp);
+
+// rest of products
+
+const idListProduct = [45,33,52];
 const similarProducts = fnGetProductListForEachId(idListProduct,productList);
 let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
 
@@ -42,12 +92,29 @@ let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(config
     <div class="flex flex-col lg:flex-row">
       <AsideSubMenuComponent category="Tipos" subCategoryName="Pulpo" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
+        <div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideoComponent products={productId9Summary}/>
+					<ProductPlusVideoComponent products={productId52Summary}/>
+          <ProductPlusVideoComponent products={productId19Summary}/>
+					<ProductPlusVideoComponent products={productId53Summary}/>
+				</div>
         <br>
-				<br>
+        <br>
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold lg:mt-6">
+					Más Allá de lo Convencional.
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          La portabilidad y durabilidad se combinan en un solo dispositivo, un pulpo para tender ropa te permite desplegar
+          todos sus brazos para colgar ropa y prendas, y al terminar, plegarlo para ahorrar espacio. En definitiva, sus brazos
+          son la mayor ventaja, aca hay unos modelos similares. 🧐
+        </p>
+        <br>
+        <br>
         <ProductsClusterComponent products={similarProductsSummaryList}/>
 				<br>
 				<br>
-        <h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold lg:mt-6">
+        <h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
 					¿ No encuentras el modelo ideal ?
 				</h3>
         <br>
