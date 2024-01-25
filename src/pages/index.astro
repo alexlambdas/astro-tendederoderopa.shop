@@ -32,92 +32,215 @@ const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configA
 // keywords
 
 /**
- * 
- * max: 140 characters
- * PRODUCT_ID - KEYWORDS
- * 9, 44, 41, 29 tendedero de ropa
- * 9, 44, 12 tender de ropa
- * 42, 10 estendederos de ropa
- * 8, 42, 31, 12 tendedero
- * 8, 41, 31 tendedero ropa
- * 10, tender ropa
- * 50, tendederos para ropa
- * 24, extender ropa
- * 22, extendedor de ropa
- * 22, colgador de ropa para secar
- * 27, extender la ropa
- * 24, extendedores de ropa
- * 29, 17, extendedor ropa
 
+max: 140 characters
+
+PRODUCT_ID - KEYWORDS
 tendedero de ropa
 tender de ropa
 estendederos de ropa
 tendedero
-tendedero ropa
+tendedero ropa *
 tender ropa
 tendederos para ropa
 extender ropa
 extendedor de ropa
 colgador de ropa para secar
 extender la ropa
- * 
- */
+tender para ropa
+tendal de ropa
+tendal ropa
+tendedero secador de ropa
+colgador para secar ropa
+tendedero para colgar ropa
+para tender ropa
+-
+tender la ropa
+tendedero para secar ropa
+tendedero colgador de ropa
+para tender la ropa
+tender para la ropa
+tender para colgar ropa
 
-const keywordsProductId9 = new Map([
-  [9,'Tendedero de ropa, tender de ropa, color blanco y brazos de madera estilo pulpo que sostiene 3 camisas y una toalla'],
-]);
+*/
 
-const keywordsProductId8 = new Map([
-  [8,'Tendedero, tendedero ropa, de 4 niveles, de color gris y de acero inoxidable con dos alas laterales, que sostiene varias prendas'],
-]);
 
-const keywordsProductId50 = new Map([
-  [50,'Tendederos para ropa, para montaje en dos paredes, y entre pared y pared se estiran 4 cuerdas de acero, color blanco que sostiene camisas'],
-]);
-
-const keywordsProductId10 = new Map([
-  [10,'Estendederos de ropa, de dos niveles y de piso, en forma de A mayúscula, en la parte superior y en el medio se extienden alas laterales'],
-]);
-
-const keywordsDescriptionForImages = new Map([
-	[44,'Tendedero de ropa, tender de ropa, con sistema de montado en el techo, de color blanco y plateado, y se puede regular la altura'],
-	[42,'Tendedero, estendederos de ropa, de piso, fabricado en madera bambu que sostiene dos camisas de hombre y ropa interior'],
-	[41,'Tendedero de ropa, tendedero ropa, de piso, fabricado en madera de arce, que sostiene un jean, un buso y una blusa de mujer'],
-	[22,'Colgador de ropa para secar, extendedor de ropa, plegable, de montaje de pared en forma de L, con dos brazos movibles'],
-	[31,'Tendedero, tendedero ropa, de acero, montado en la pared que sostiene una chaqueta de hombre y dos camisas de mujer'],
-	[10,'Tender ropa con un secador de dos niveles, de piso, en forma de A mayúscula, en la parte superior y en el medio tiene alas laterales'],
-	[24,'Extendedores de ropa, extender ropa con un secador plegable de pared, en forma U, y con varillas que sostienen ropa'],
-	[29,'Extendedor ropa, tendedero de ropa, de color plateado, en acero, montado en la pared con 8 varillas, que sostiene 4 toallas'],
-	[17,'Extendedor ropa de dos niveles y de piso, en forma de A mayúscula, de acero y tiene ruedas, se extienden alas laterales'],
-	[27,'Se puede extender la ropa con este producto instalado en la pared, con 8 varillas y de angulo variable con respecto a la pared'],
-	[12,'Tender de ropa, tendedero, de piso con varillas, en forma de mesa con dos alas laterales adicionales que sostiene mucha ropa'],
-	[43,'Extendedores de ropa, con montaje de techo y altura graduable con una palanca, rejilla con 8 varillas paralelas al techo'],
-])
 
 // video products
 
-const productId8 = fnGetProductListForEachId([8],productList);
-let productId8Summary = fnGetProductSummaryList(productId8)(configApp);
-productId8Summary = fnAddDescripcionToImages(productId8Summary, keywordsProductId8);
+/**
+ * SECTION 1
+ */
 
+// #9
+
+const keywordsProductId9 = new Map([
+  [9,'Trípode para extender ropa vertical y brazos en estrella en la parte superior, de color blanco que sostiene 3 camisas y una toalla'],
+]);
+const keywordTitleProductId9 = new Map([[9,'Trípode para extender ropa vertical']]);
 const productId9 = fnGetProductListForEachId([9],productList);
 let productId9Summary = fnGetProductSummaryList(productId9)(configApp);
 productId9Summary = fnAddDescripcionToImages(productId9Summary, keywordsProductId9);
+productId9Summary = fnAddTitleToImages(productId9Summary,keywordTitleProductId9);
 
-const productId10 = fnGetProductListForEachId([10],productList);
-let productId10Summary = fnGetProductSummaryList(productId10)(configApp);
-productId10Summary = fnAddDescripcionToImages(productId10Summary, keywordsProductId10);
+// #8
 
+const keywordAltProductId8 = new Map([
+  [8,'Tender de ropa de 4 niveles en acero, de color gris y con dos alas laterales, que sostiene varias prendas'],
+]);
+const keywordTitleProductId8 = new Map([[8,'Tender de ropa de 4 niveles en acero']]);
+const productId8 = fnGetProductListForEachId([8],productList);
+let productId8Summary = fnGetProductSummaryList(productId8)(configApp);
+productId8Summary = fnAddDescripcionToImages(productId8Summary, keywordAltProductId8);
+productId8Summary = fnAddTitleToImages(productId8Summary,keywordTitleProductId8);
+
+// # 19
+
+const keywordAltProductId19 = new Map([
+	[19,'Trípode extendedor de ropa vertical con 4 brazos en la parte superior en forma de X, sosteniendo camisas en cada brazo.']
+]);
+const keywordTitleProductId19 = new Map([[19,'Trípode extendedor de ropa vertical']]);
+const productId19 = fnGetProductListForEachId([19],productList);
+let productId19Summary = fnGetProductSummaryList(productId19)(configApp);
+productId19Summary = fnAddDescripcionToImages(productId19Summary, keywordAltProductId19);
+productId19Summary = fnAddTitleToImages(productId19Summary,keywordTitleProductId19);
+
+// #23
+
+const keywordAltProductId23 = new Map([
+	[23,'Colgador de ropa para secar de pared']
+]);
+const keywordTitleProductId23 = new Map([[23,'Colgador de ropa para secar de pared']]);
+const productId23 = fnGetProductListForEachId([23],productList);
+let productId23Summary = fnGetProductSummaryList(productId23)(configApp);
+productId23Summary = fnAddDescripcionToImages(productId23Summary, keywordAltProductId23);
+productId23Summary = fnAddTitleToImages(productId23Summary,keywordTitleProductId23);
+
+/**
+ * SECTION 2
+ */
+
+// #51
+
+const keywordAltProductId51 = new Map([
+	[51,'Tendedero de balcón para extender ropa, colgado en barandilla de ventana sosteniendo calcetines y camisas']
+]);
+const keywordTitleProductId51 = new Map([[51,'Tendedero de balcon para extender ropa']]);
+const productId51 = fnGetProductListForEachId([51],productList);
+let productId51Summary = fnGetProductSummaryList(productId51)(configApp);
+productId51Summary = fnAddDescripcionToImages(productId51Summary, keywordAltProductId51);
+productId51Summary = fnAddTitleToImages(productId51Summary,keywordTitleProductId51);
+
+// #29
+const keywordAltProductId29 = new Map([
+	[29,'Tendedero de pared retráctil para extender la ropa, en acero, montaje horizontal y 8 varillas sosteniendo 4 toallas']
+]);
+const keywordTitleProductId29 = new Map([[29,'Tendedero de pared retráctil para extender la ropa']]);
+const productId29 = fnGetProductListForEachId([29],productList);
+let productId29Summary = fnGetProductSummaryList(productId29)(configApp);
+productId29Summary = fnAddDescripcionToImages(productId29Summary, keywordAltProductId29);
+productId29Summary = fnAddTitleToImages(productId29Summary,keywordTitleProductId29);
+
+// #24
+const keywordAtlProductId24 = new Map([
+	[24,'Tendal de ropa retráctil de pared horizontal, con dos brazos que se expanden desde la pared hacia afuera, y contiene 5 varillas para secado']
+]);
+const keywordTitleProductId24 = new Map([[24,'Tendal de ropa retráctil de pared']]);
+const productId24 = fnGetProductListForEachId([24],productList);
+let productId24Summary = fnGetProductSummaryList(productId24)(configApp);
+productId24Summary = fnAddDescripcionToImages(productId24Summary, keywordAtlProductId24);
+productId24Summary = fnAddTitleToImages(productId24Summary,keywordTitleProductId24);
+
+// #50
+
+const keywordAltProductId50 = new Map([
+  [50,'Colgador de doble línea para montaje en dos paredes, para tender ropa, de color blanco y que sostiene camisas de hombre'],
+]);
+const keywordTitleProductId50 = new Map([[50,'Colgador de doble línea de pared para tender ropa']]);
 const productId50 = fnGetProductListForEachId([50],productList);
 let productId50Summary = fnGetProductSummaryList(productId50)(configApp);
-productId50Summary = fnAddDescripcionToImages(productId50Summary, keywordsProductId50);
+productId50Summary = fnAddDescripcionToImages(productId50Summary, keywordAltProductId50);
+productId50Summary = fnAddTitleToImages(productId50Summary,keywordTitleProductId50);
+
+/**
+ * SECTION 3
+ */
+
+
+// #10
+
+const keywordAltProductId10 = new Map([
+  [10,'Tendedero para secar ropa de dos niveles en acero y plegable, en forma de A mayúscula, con alas laterales en el medio y en la parte superior'],
+]);
+const keywordTitleProductId10 = new Map([[10,'Tendedero para secar ropa de dos niveles']]);
+const productId10 = fnGetProductListForEachId([10],productList);
+let productId10Summary = fnGetProductSummaryList(productId10)(configApp);
+productId10Summary = fnAddDescripcionToImages(productId10Summary, keywordAltProductId10);
+productId10Summary = fnAddTitleToImages(productId10Summary,keywordTitleProductId10);
+
+// #21
+
+const keywordAltProductId21 = new Map([
+	[21,'Tendedero secador de ropa de 4 niveles y plegable, con dos alas laterales, con ruedas, sosteniendo ropa en cada nivel']
+]);
+const keywordTitleProductId21 = new Map([[21,'Tendedero secador de ropa de 4 niveles']]);
+const productId21 = fnGetProductListForEachId([21],productList);
+let productId21Summary = fnGetProductSummaryList(productId21)(configApp);
+productId21Summary = fnAddDescripcionToImages(productId21Summary, keywordAltProductId21);
+productId21Summary = fnAddTitleToImages(productId21Summary,keywordTitleProductId21);
+
+// #52
+
+const keywordAltProductId52 = new Map([
+	[52,'Colgador para secar ropa, calcetines y ropa interior, con 32 clips, de color rosado y colgado de una varilla']
+]);
+const keywordTitleProductId52 = new Map([[52,'Colgador para secar ropa y calcetines']]);
+const productId52 = fnGetProductListForEachId([52],productList);
+let productId52Summary = fnGetProductSummaryList(productId52)(configApp);
+productId52Summary = fnAddDescripcionToImages(productId52Summary, keywordAltProductId52);
+productId52Summary = fnAddTitleToImages(productId52Summary,keywordTitleProductId52);
+
+// #53
+
+const keywordAltProductId53 = new Map([
+	[53,'Tendedero para colgar ropa de 3 niveles con 48 clips y 16 barras para toallas y ropa, en acero, sosteniendo ropa en cada nivel']
+]);
+const keywordTitleProductId53 = new Map([[53,'Tendedero para colgar ropa de 3 niveles']]);
+const productId53 = fnGetProductListForEachId([53],productList);
+let productId53Summary = fnGetProductSummaryList(productId53)(configApp);
+productId53Summary = fnAddDescripcionToImages(productId53Summary, keywordAltProductId53);
+productId53Summary = fnAddTitleToImages(productId53Summary,keywordTitleProductId53);
 
 // rest of products
 
-const idListProduct = [44,42,41,22,31,10,24,29,17,27,12,43];
-const similarProducts = fnGetProductListForEachId(idListProduct,productList);
-let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
-similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, keywordsDescriptionForImages);
+const idProductListSlice1 = [1,2,3,4,5,7];
+const productListSlice1 = fnGetProductListForEachId(idProductListSlice1,productList);
+let productListSlice1Summary = fnGetProductSummaryList(productListSlice1)(configApp);
+
+const idProductListTitleSlice2 = new Map([
+  [11,'Estante para tender la ropa de 3 niveles'],
+  [12,'Tendedero para secar ropa plegable con alas laterales'],
+  [14,'Tendedero colgador de ropa plegable de pared'],
+  [15,'Estante de secado para tender la ropa de 3 niveles'],
+  [17,'Tender para la ropa de dos nivels'],
+  [18,'Tender para colgar ropa, vertical en acero'],
+]);
+const idProductListSlice2 = [11,12,14,15,17,18];
+const productListSlice2 = fnGetProductListForEachId(idProductListSlice2,productList);
+let productListSlice2Summary = fnGetProductSummaryList(productListSlice2)(configApp);
+productListSlice2Summary = fnAddTitleToImages(productListSlice2Summary,idProductListTitleSlice2);
+
+const idProductListSlice3 = [20,22,25,27,30,31];
+const productListSlice3 = fnGetProductListForEachId(idProductListSlice3,productList);
+let productListSlice3Summary = fnGetProductSummaryList(productListSlice3)(configApp);
+
+const idProductListSlice4 = [32,33,34,35,36,37];
+const productListSlice4 = fnGetProductListForEachId(idProductListSlice4,productList);
+let productListSlice4Summary = fnGetProductSummaryList(productListSlice4)(configApp);
+
+const idProductListSlice5 = [38,39,40,41,42,43];
+const productListSlice5 = fnGetProductListForEachId(idProductListSlice5,productList);
+let productListSlice5Summary = fnGetProductSummaryList(productListSlice5)(configApp);
 
 ---
 
@@ -132,21 +255,114 @@ similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList
 				<div class="grid lg:grid-cols-2 gap-8">
 					<ProductPlusVideo products={productId9Summary}/>
 					<ProductPlusVideo products={productId8Summary}/>
-					<ProductPlusVideo products={productId50Summary}/>
-					<ProductPlusVideo products={productId10Summary}/>
+					<ProductPlusVideo products={productId19Summary}/>
+					<ProductPlusVideo products={productId23Summary}/>
 				</div>
 				<br>
 				<br>
+				<h3 class="text-center text-3xl text-zinc-600 font-sans font-bold lg:mt-6">
+					La Efectividad del Tendedero de Ropa en Acción
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+        	Encuentra soluciones prácticas y eficientes. Olvídate de las preocupaciones relacionadas con el espacio
+					al elegir un tender de ropa, estan diseñados para adaptarse a tus necesidades con un toque de elegancia y funcionalidad.
+        </p>
+        <br>
+				<br>
+				<div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideo products={productId51Summary}/>
+					<ProductPlusVideo products={productId29Summary}/>
+					<ProductPlusVideo products={productId24Summary}/>
+					<ProductPlusVideo products={productId50Summary}/>
+				</div>
 				<br>
 				<br>
-				<h2 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold">
-					Más productos relacionados con extendedores de ropa
-				</h2>
+				<h3 class="text-center text-3xl text-zinc-600 font-sans font-bold lg:mt-6">
+					Diseño Innovador para Espacios Versátiles
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+        	Los próximos estendederos de ropa no solo cumplen con su función principal de secado, sino que también destacan 
+					por su diseño. ¿Buscas un extendedor de ropa sin sacrificar estilo?. Estos tendederos para ropa ofrecen 
+					una combinación perfecta de practicidad y estética.
+        </p>
+        <br>
+				<br>
+				<div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideo products={productId10Summary}/>
+					<ProductPlusVideo products={productId21Summary}/>
+					<ProductPlusVideo products={productId52Summary}/>
+					<ProductPlusVideo products={productId53Summary}/>
+				</div>
 				<br>
 				<br>
+				<h3 class="text-center text-3xl text-zinc-600 font-sans font-bold lg:mt-6">
+					Más Allá del Secado: Tender para ropa
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+        	Ya sea que busques extender la ropa en un pequeño balcón o en un espacioso jardín, 
+					cualquier colgador para secar ropa esta diseñado para adaptarse a todo tipo de entorno. Con variedad de tamaños y estilos, 
+					aqui encontrarás el tendal de ropa perfecto.
+        </p>
+        <br>
+				<br>
+				<ProductsClusterComponent products={productListSlice1Summary}/>
 				<br>
 				<br>
-				<ProductsClusterComponent products={similarProductsSummaryList}/>
+				<h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Desde modelos compactos hasta modelos amplios
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+					Para espacios compactos, un tendedero secador de ropa diseñado con inteligencia y eficiencia ocupa un espacio 
+					mínimo. ¿Buscas algo más amplio para tu hogar espacioso? Un colgador de ropa para secar grande brinda una capacidad superior, 
+					descubre cómo nuestros tendederos se adaptan al lugar, ya sea en un acogedor apartamento o en una amplia residencia.
+        </p>
+        <br>
+				<br>
+				<ProductsClusterComponent products={productListSlice2Summary}/>
+				<br>
+				<br>
+				<h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Durabilidad que Impresiona: Inversión en Calidad
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          Cuando eliges un tendedero para colgar ropa de esta selección, no solo estás adquiriendo un accesorio, sino una 
+					inversión en durabilidad y calidad. Materiales resistentes y construcción sólida aseguran que tu tendedero perdure en el 
+					tiempo, proporcionando un servicio confiable durante mucho tiempo.
+        </p>
+        <br>
+				<br>
+				<ProductsClusterComponent products={productListSlice3Summary}/>
+				<br>
+				<br>
+				<h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Facilidad de Uso: Secado sin Complicaciones
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+        	La simplicidad es la clave, y nuestros tendederos están diseñados para hacer que el proceso de secado sea lo más sencillo posible. Con características como ajustes de altura, facilidad de plegado y materiales duraderos, secar la ropa nunca ha sido tan fácil y cómodo. 🧐
+        </p>
+        <br>
+				<br>
+				<ProductsClusterComponent products={productListSlice4Summary}/>
+				<br>
+				<br>
+				<h3 class="text-center text-3xl text-zinc-600 font-sans font-bold">
+					Explora las últimas novedades en tendederos para el cuidado de tu ropa
+				</h3>
+        <br>
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+        	En resumen, un tendedero de ropa no solo es un producto más; es una inversión en cuidado de prendas,
+					comodidad y estilo. Descubre la diferencia que un buen tendedero puede hacer en tu vida cotidiana 
+					y transforma la tarea de secar ropa en un momento práctico.
+        </p>
+        <br>
+				<br>
+				<ProductsClusterComponent products={productListSlice5Summary}/>
 				<br>
 				<br>
 				<h3 class="text-3xl lg:text-4xl text-zinc-600 text-center font-sans font-bold lg:mt-6">
