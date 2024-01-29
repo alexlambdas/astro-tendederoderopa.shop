@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      lastmod: new Date('2024-01-12'),
+      lastmod: new Date('2024-01-29'),
       filter: (page) =>
         page !== 'https://tendederoderopa.shop/ubicacion/' &&
         page !== 'https://tendederoderopa.shop/tipos/' &&

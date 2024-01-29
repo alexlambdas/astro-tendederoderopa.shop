@@ -7,6 +7,7 @@ import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/Aside
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
 import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
 import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+import ProductPlusVideoComponent from '../../app/html-product-plus-video/ProductPlusVideo.astro';
 
 // logic and common module
 import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
@@ -28,9 +29,88 @@ const configApp = fnGetConfigAppObj();
 
 const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
 
-const idListProduct = [8,10,5,20,15,4,11,21,17,22];
+/**
+
+max: 140 characters
+PRODUCT_ID - KEYWORDS
+
+tendedero 3 niveles
+tendedero plegable 3 niveles
+tendedero 4 niveles
+colgador de ropa 3 niveles
+tendedero tres niveles
+tendedero de 3 niveles
+tendedero vertical 3 niveles
+
+*/
+
+// video products
+
+// #8
+const keywordAltProductId8 = new Map([
+  [8,'Tendedero 4 niveles plegable en acero con dos alas laterales que cuelga ropa en cada nivel, también tiene ruedas']
+]);
+const keywordTitleProductId8 = new Map([[8,'Tendedero 4 niveles plegable en acero']]);
+const productId8 = fnGetProductListForEachId([8],productList);
+let productId8Summary = fnGetProductSummaryList(productId8)(configApp);
+productId8Summary = fnAddDescripcionToImages(productId8Summary, keywordAltProductId8);
+productId8Summary = fnAddTitleToImages(productId8Summary,keywordTitleProductId8);
+
+// #10
+const keywordAltProductId10 = new Map([
+  [10,'Tendedero plegable de 2 niveles en acero, en forma de A mayúscula y con alas laterales en el medio y la parte superior']
+]);
+const keywordTitleProductId10 = new Map([[10,'Tendedero plegable 2 niveles en acero']]);
+const productId10 = fnGetProductListForEachId([10],productList);
+let productId10Summary = fnGetProductSummaryList(productId10)(configApp);
+productId10Summary = fnAddDescripcionToImages(productId10Summary, keywordAltProductId10);
+productId10Summary = fnAddTitleToImages(productId10Summary,keywordTitleProductId10);
+
+// #21
+const keywordAltProductId21 = new Map([
+  [21,'Tendedero de 4 niveles con alas laterales plegables, sosteniendo ropa, de color blanco.']
+]);
+const keywordTitleProductId21 = new Map([[21,'Tendedero 4 niveles con alas laterales plegables']]);
+const productId21 = fnGetProductListForEachId([21],productList);
+let productId21Summary = fnGetProductSummaryList(productId21)(configApp);
+productId21Summary = fnAddDescripcionToImages(productId21Summary, keywordAltProductId21);
+productId21Summary = fnAddTitleToImages(productId21Summary,keywordTitleProductId21);
+
+// #53
+const keywordAltProductId53 = new Map([
+  [21,'Tendedero de 3 niveles con trípode y vertical, con 48 clips que sostiene ropa en cada nivel']
+]);
+const keywordTitleProductId53 = new Map([[53,'Tendedero 3 niveles con trípode y vertical']]);
+const productId153 = fnGetProductListForEachId([53],productList);
+let productId53Summary = fnGetProductSummaryList(productId153)(configApp);
+productId53Summary = fnAddDescripcionToImages(productId53Summary, keywordAltProductId53);
+productId53Summary = fnAddTitleToImages(productId53Summary,keywordTitleProductId53);
+
+// rest of products
+
+const idListProductTitle = new Map([
+  [4,''],
+  [5,''],
+  [11,'Tendedero plegable 3 niveles con ruedas y de hierro'],
+  [15,'Colgador de ropa 3 niveles con pinzas para la ropa'],
+  [17,'Tendedero plegable 3 niveles con alas laterales'],
+  [20,''],
+]);
+
+const idListProductAlt = new Map([
+  [4,''],
+  [5,''],
+  [11,'Tendedero plegable de 3 niveles con ruedas y de hierro para ropa de cama, calcetines, ropa, bufandas, etc.'],
+  [15,'Colgador de ropa de 3 niveles con pinzas para la ropa, vertical, y barras de colgar en forma de estrella en cada nivel'],
+  [17,'Tendedero plegable de 3 niveles con alas laterales en la parte superior, tendedero en forma de A mayúscula'],
+  [20,''],
+]);
+
+const idListProduct = [4,5,11,15,17,20];
 const similarProducts = fnGetProductListForEachId(idListProduct,productList);
 let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
+similarProductsSummaryList = fnAddTitleToImages(similarProductsSummaryList,idListProductTitle);
+similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, idListProductAlt);
 
 ---
 
@@ -42,21 +122,27 @@ let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(config
     <div class="flex flex-col lg:flex-row">
       <AsideSubMenuComponent category="Plegable" subCategoryName="Por niveles" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
+        <div class="grid lg:grid-cols-2 gap-8">
+					<ProductPlusVideoComponent products={productId8Summary}/>
+					<ProductPlusVideoComponent products={productId10Summary}/>
+          <ProductPlusVideoComponent products={productId21Summary}/>
+					<ProductPlusVideoComponent products={productId53Summary}/>
+				</div>
+        <br>
+        <br>
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold lg:mt-6">
 					¿ Que son los niveles en un tendedero de ropa plegable ?
 				</h3>
         <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
           Un organizador de ropa plegable tiene diferentes niveles que permiten organizar prendas
-          verticalmente, su principal ventaja es que se puede tender ropa en espacios en verticales,
+          verticalmente, su principal ventaja es que se puede tender ropa en espacios verticales,
           aprovechando al máximo el lugar.
         </p>
-        <br>
 				<br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Tendedero 3 niveles y tendedero 4 niveles son los mas funcionales, pero tambien puedes Encontrar
-          incluso de 2 niveles, la siguiente es la versatilidad en este tipo de productos.
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+          Tendedero 3 niveles y tendedero 4 niveles son los mas funcionales, pero tambien puedes encontrar
+          incluso de 2 niveles, encuentra la versatilidad en este tipo de productos.
         </p>
         <br>
 				<br>

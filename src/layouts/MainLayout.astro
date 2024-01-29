@@ -4,6 +4,7 @@ import HeaderComponent from "../app/html-header-component/HeaderComponent.astro"
 import FooterComponent from "../app/html-footer-component/FooterComponent.astro";
 import MetaTagsComponent from "../app/html-meta-tags-component/MetaTagsComponent.astro";
 import ImageObjectDataComponent from "../app/html-image-object-data/ImageObjectData.astro";
+import VideoObjectDataComponent from "../app/html-video-object-data/VideoObjectData.astro";
 
 // props
 const { page } = Astro.props;
@@ -22,6 +23,7 @@ const data: boolean = true;
 		<MetaTagsComponent page={page}/>
 		<meta name="generator" content={Astro.generator} />
 		<ImageObjectDataComponent page={page}/>
+		<VideoObjectDataComponent page={page}/>
 	</head>
 	<body>
 		<HeaderComponent />
