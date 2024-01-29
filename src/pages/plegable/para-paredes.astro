@@ -7,9 +7,10 @@ import AsideSubMenuComponent from '../../app/html-aside-sub-menu-component/Aside
 import ProductsClusterComponent from '../../app/html-products-cluster-component/ProductsClusterComponent.astro';
 import AsideInterestComponent from '../../app/html-aside-interest-component/AsideInterestComponent.astro';
 import BodyMenuComponent from '../../app/html-body-menu-component/BodyMenuComponent.astro';
+import ProductPlusVideo from '../../app/html-product-plus-video/ProductPlusVideo.astro';
 
 // logic and common module
-import { fnGetConfigAppObj, fnGetStateAppObj, fnInitApp } from '../../app/InitApp';
+import { fnGetConfigAppObj, fnInitApp } from '../../app/InitApp';
 import CommonModule from '../../app/server-common-module/Common.module';
 import type { ProductType } from '../../app/server-common-module/domain/types/Product.types';
 
@@ -29,9 +30,110 @@ const configApp = fnGetConfigAppObj();
 
 const productList: ProductType[] = await fnFetchProductLisByAllPages(1,1,configApp,fnHttpCall,fnFetchProductListByOnePage,[]);
 
-const idListProduct = [50,23,36,31,28,35,37,30,14,24];
+/**
+
+max: 140 characters
+PRODUCT_ID - KEYWORDS
+acordeon para colgar ropa
+tendedero de ropa plegable pared *
+tendedero plegable pared
+tendederos plegables de pared
+tendedero de pared extensible
+tendedero de ropa plegable de pared
+tender extensible retráctil de pared
+colgador de ropa de pared plegable
+tender retráctil de pared
+tendedero extensible de pared
+tendedero de ropa plegable para pared
+tendedero retráctil de pared
+tendedero de ropa de pared plegable
+tendedero para pared plegable
+tender de ropa plegable para pared
+*/
+
+// video products
+
+// #23
+const kewordAltProductId23 = new Map([
+  [23,'Tendedero de ropa plegable de pared en forma de brazo con tres partes movibles que sostiene camisas de hombre'],
+]);
+const keywordTitleProductId23 = new Map([[23,'Tendedero de ropa plegable pared']]);
+const productId23 = fnGetProductListForEachId([23],productList);
+let productId23Summary = fnGetProductSummaryList(productId23)(configApp);
+productId23Summary = fnAddDescripcionToImages(productId23Summary, kewordAltProductId23);
+productId23Summary = fnAddTitleToImages(productId23Summary,keywordTitleProductId23);
+
+// #24
+const keywordAltProductId24 = new Map([
+  [24,'Tendedero extensible de pared de forma horizontal, con dos brazos laterales que se pliegan sobre el soporte.']
+]);
+const keywordTitleProductId24 = new Map([[24,'Tendedero extensible de pared']]);
+const productId24 = fnGetProductListForEachId([24],productList);
+let productId24Summary = fnGetProductSummaryList(productId24)(configApp);
+productId24Summary = fnAddDescripcionToImages(productId24Summary, keywordAltProductId24);
+productId24Summary = fnAddTitleToImages(productId24Summary,keywordTitleProductId24);
+
+// #29
+const keywordAltProductId29 = new Map([
+  [29,'Acordeón para colgar ropa montado en pared de forma horizontal, con 8 varillas horizontales que se pliegan hacia la pared.']
+]);
+const keywordTitleProductId29 = new Map([[29,'Acordeón para colgar ropa montado en pared']]);
+const productId29 = fnGetProductListForEachId([29],productList);
+let productId29Summary = fnGetProductSummaryList(productId29)(configApp);
+productId29Summary = fnAddDescripcionToImages(productId29Summary, keywordAltProductId29);
+productId29Summary = fnAddTitleToImages(productId29Summary,keywordTitleProductId29);
+
+// #50
+
+const keywordAltProductId50 = new Map([
+  [50,'Tendedero de ropa plegable de pared de doble línea, de color blanco y que sostiene camisas de hombre'],
+]);
+const keywordTitleProductId50 = new Map([[50,'Tendedero de ropa plegable de pared']]);
+const productId50 = fnGetProductListForEachId([50],productList);
+let productId50Summary = fnGetProductSummaryList(productId50)(configApp);
+productId50Summary = fnAddDescripcionToImages(productId50Summary, keywordAltProductId50);
+productId50Summary = fnAddTitleToImages(productId50Summary,keywordTitleProductId50);
+
+
+const idListProductTitle = new Map([
+  [14,'Tendederos plegables de pared de 3 pliegues'],
+  [22,'Tendedero de pared extensible de 2 pliegues'],
+  [25,'Tendedero plegable de pared, de forma horizontal'],
+  [27,'Tender extensible retráctil de pared de 8 varillas'],
+  [30,'Colgador de ropa de pared plegable en forma de brazo'],
+  [31,'Tender retráctil de pared con 7 varillas'],
+  [32,'Tendal plegable de pared en forma de brazo'],
+  [34,'Tendedero de ropa plegable para pared en forma de brazo'],
+  [35,'Tendedero retráctil de pared de metal'],
+  [36,'Tendedero de ropa de pared plegable en acero'],
+  [37,'Acordeón para colgar ropa de metal'],
+  [47,'Tendedero de ropa plegable de pared de 2 líenas'],
+  [48,'Tender de ropa plegable para pared de 1 línea'],
+  [49,'Tendedero para pared plegable de 2 líenas'],
+]);
+
+const idListProductAlt = new Map([
+  [14,'Tendederos plegables de pared de 3 pliegues, de color blanco y en forma de brazo que sostiene ropa'],
+  [22,'Tendedero de pared extensible de 2 pliegues en aluminio, de color negro que sostiene camisas'],
+  [25,'Tendedero plegable de pared de forma horizontal, con dos brazos que tienen 5 varillas en acero que sostiene una camisa rosada'],
+  [27,'Tender extensible retráctil de pared de 8 varillas, sosteniendo 4 toallas de diferentes tamaños'],
+  [30,'Colgador de ropa de pared plegable en forma de brazo de color negro, con tres pliegues sosteniendo diferentes prendas'],
+  [31,'Tender retráctil de pared con 7 varillas en acero, sosteniendo tres prendas de vestir'],
+  [32,'Tendal plegable de pared en forma de brazo con 4 pliegues, de aluminio y sosteniendo 5 prendas de vestir'],
+  [34,'Tendedero de ropa plegable para pared en forma de brazo con 4 pliegues, de color blanco y en aluminio sosteniendo camisetas'],
+  [35,'Tendedero retráctil de pared de metal, de 4 varillas y de color negro, sosteniendo varias prendas de ropa'],
+  [36,'Tendedero de ropa de pared plegable en acero que sostiene 4 camisetas'],
+  [37,'Acordeón para colgar ropa de metal y color negro, con 11 varillas y montaje horizontal'],
+  [47,'Tendedero de ropa plegable de pared de 2 líenas o cuerdas que se tiran hasta una distancia de 15 metros'],
+  [48,'Tender de ropa plegable para pared de 1 línea o cuerda que se tira hasta una distancia de 12 metros'],
+  [49,'Tendedero para pared plegable de 2 líenas o cuerdas que se tiran hasta una distancia de 15 metros'],
+]);
+
+const idListProduct = [14,22,25,27,30,31,32,34,35,36,37,47,48,49];
 const similarProducts = fnGetProductListForEachId(idListProduct,productList);
 let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(configApp);
+similarProductsSummaryList = fnAddTitleToImages(similarProductsSummaryList,idListProductTitle);
+similarProductsSummaryList = fnAddDescripcionToImages(similarProductsSummaryList, idListProductAlt);
 
 ---
 
@@ -43,14 +145,21 @@ let similarProductsSummaryList = fnGetProductSummaryList(similarProducts)(config
     <div class="flex flex-col lg:flex-row">
       <AsideSubMenuComponent category="Plegable" subCategoryName="Para paredes" />
       <section class="text-gray-800 font-mono w-11/12 m-auto lg:w-2/3">
-        <h3 class="text-3xl lg:text-4xl text-zinc-900 text-center font-sans font-bold">
-					Acordeón para Colgar Ropa: Eficiencia en tu Pared
+        <div class="grid lg:grid-cols-2 gap-8">
+          <ProductPlusVideo products={productId29Summary}/>
+					<ProductPlusVideo products={productId23Summary}/>
+					<ProductPlusVideo products={productId24Summary}/>
+					<ProductPlusVideo products={productId50Summary}/>
+				</div>
+        <br>
+        <br>
+        <h3 class="text-center text-3xl text-zinc-600 font-sans font-bold lg:mt-6">
+				  Acordeón para Colgar Ropa: Optimiza tu espacio en la pared
 				</h3>
         <br>
-        <br>
-        <p class="text-zinc-800 text-lg font-mono font-thin">
-          Descubre la sofisticación y practicidad de los acordeones para colgar ropa. Este ingenioso 
-          diseño transforma tu pared en un espacio funcional.
+        <p class="text-zinc-900 text-base lg:text-lg font-mono font-normal lg:w-3/4 text-center m-auto bg-yellow-100 p-5 lg:p-10 rounded-md">
+        	Descubre la sofisticación y practicidad de los acordeones para colgar ropa. Estos ingeniosos 
+          diseños transforman tu pared en un espacio funcional.
         </p>
         <br>
         <br>
