@@ -177,7 +177,7 @@ export function fnGetProductSummaryList(productList: ProductType[]){
         affiliateUrl: product.data.attributes.affiliateUrl,
         text: product.data.attributes.text,
         video: product.data.attributes.video?.data === null ? null : domain+product.data.attributes.video?.data[0].attributes.url,
-        posterVideo: product.data.attributes.posterVideo?.data === null ? null : domain+product.data.attributes.posterVideo?.data[0].attributes.formats.medium.url,
+        posterVideo: product.data.attributes.posterVideo?.data === null ? null : domain+product.data.attributes.posterVideo?.data[0].attributes.formats.small.url,
         discount: product.data.attributes.discount === null ? '0%' : product.data.attributes.discount,
       }
     });

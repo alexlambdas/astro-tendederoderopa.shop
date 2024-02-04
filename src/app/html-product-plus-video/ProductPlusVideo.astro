@@ -18,14 +18,8 @@ const { products } = Astro.props;
         <div>
           <a href={product.affiliateUrl} target="_blank" rel="sponsored" class="text-sm lg:text-lg">
             <img class="m-auto rounded-tl-xl rounded-tr-xl"
-              srcset={`
-                ${product.imageSmall} 300w,
-                ${product.imageMedium} 600w,
-                ${product.imageLarge} 1000w,
-                ${product.imageExtraLarge} 200w`}
-              sizes="100vw" 
               loading="lazy"
-              src={product.src}
+              src={product.imageSmall}
               alt={product.alt}/>
           </a>
         </div>
